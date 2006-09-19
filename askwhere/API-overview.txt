@@ -1,0 +1,53 @@
+
+
+CitySearch
+----------
+
+consumption:
+- get list of categories (Nightlife, Restaurants) by location
+- get list of subcategories (DJs) by category by location
+  - name, "new", ...
+- get list of places
+  - centered on a location
+  - inside a geographic bounding box
+  - by category or subcategory
+  - sorted by ranking(s), distance
+  - name, address, phone, cost, ...
+  - atmospheres
+- get additional details on a place
+  - payment, parking, ...
+- get list of ranking categories, possible differs by location
+- get rankings of place (for each ranking category)
+- get reviews (xhtml formatted?) by place
+  - author: editorial, user
+  - title, body, ...
+  - rankings of reviews
+- get awards by location
+- get city grouping information (e.g., "bay area" versus "oakland", if avail.)
+- get neighborhood information (if avail.)
+- get information about a user
+  - reviews, ratings
+
+creation:
+- citysearch login
+- rate place
+- add review to a place
+- add rating to a review
+
+
+Evite
+-----
+
+consumption:
+- evite login
+- get event data for given event ID
+  - title, description, image, time/date, yes/no/maybe text, ...
+  - invite list
+  - responses
+- get profile information for evite customers
+  - email, screen name
+
+create:
+- create event
+  - title, description, time/date
+  - attendees
