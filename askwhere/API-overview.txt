@@ -51,3 +51,37 @@ create:
 - create event
   - title, description, time/date
   - attendees
+
+
+
+Ask Local (updates to existing feed only)
+---------
+- get list of categories, by location
+- get list of places
+  - centered on a long/lat location
+  - inside a geographic bounding box
+  - for a particular category
+
+
+
+Ticketmaster
+------------
+
+- get category and subcategory lists
+- browse for events
+  - by category
+  - by date / weekend / next weekend
+  - by location
+  - return name, description, location, date/time, ticket prices/sections/limits, ...
+  - companion CD option
+- get venue information
+  - directions, parking, transit, box office, ...
+  - seating chart(s)
+- browse tickets
+  - by number of tickets, ticket price/section
+- purchase browsed tickets
+- sign into tickmaster account
+- change default location
+- get local venues
+
+
