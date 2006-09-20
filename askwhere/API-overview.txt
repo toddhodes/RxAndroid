@@ -3,8 +3,8 @@
 CitySearch
 ----------
 consumption:
-- get list of categories (Nightlife, Restaurants) by location
-- get list of subcategories (DJs) by category by location
+- get list of categories (e.g., Nightlife) by location
+- get list of subcategories (e.g., DJs) by category by location
   - name, "new", ...
 - get list of places
   - centered on a location
