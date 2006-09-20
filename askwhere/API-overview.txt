@@ -79,6 +79,8 @@ Ticketmaster
   - seating chart(s)
 - browse tickets
   - by number of tickets, ticket price/section
+  - returns sections, rows, price, convenience charge, description, delivery options
+- choose delivery option for browsed tickets
 - purchase browsed tickets
 - sign into tickmaster account
 - change default location
