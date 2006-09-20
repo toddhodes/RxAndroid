@@ -2,7 +2,6 @@
 
 CitySearch
 ----------
-
 consumption:
 - get list of categories (Nightlife, Restaurants) by location
 - get list of subcategories (DJs) by category by location
@@ -37,7 +36,6 @@ creation:
 
 Evite
 -----
-
 consumption:
 - evite login
 - get event data for given event ID
@@ -53,15 +51,14 @@ creation:
   - attendees
 
 
-
 Ticketmaster
 ------------
-
 - get category and subcategory lists
 - browse for events
   - by category
   - by date / weekend / next weekend
   - by location
+  - by venue
   - return name, description, location, date/time, ticket prices/sections/limits, ...
   - companion CD option
 - get venue information
@@ -78,12 +75,12 @@ Ticketmaster
 
 
 
-Ask Local (updates to existing feed only)
+Ask Local (needed updates to existing feed only)
 ---------
-
 - get list of categories, by location
 - get list of places
   - centered on a long/lat location
   - inside a geographic bounding box
   - for a particular category
+  - sorted by distance or ranking
 
