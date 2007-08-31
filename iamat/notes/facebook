@@ -1,0 +1,13 @@
+- the java API is funky
+- methods auth_createToken and auth_getSession really should not be used.
+  they are only useful for "desktop" apps, where you need to create a
+  "login" link, etc.
+- here, in an internal frame webapp, your URL is called with the necessary
+  info (session and userId, among other things.)
+- you should create FacebookRestClient, passing the session id.  that works.
+- you also need to set the userId.  auth_getSession should probably do this,
+  but it is unnecessary, and it does not work.  I added a "setUserId" 
+  method.
+
+- for cron jobs, you can use a sessionId that never expires.  I created
+  one simply by logging in and looking at the sessionId.
