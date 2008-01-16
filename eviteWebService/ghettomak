@@ -1,0 +1,9 @@
+#!/bin/sh
+
+
+libs=`find lib axis/ -name "*.jar" | tr \\\n :`
+
+echo using libs $libs
+
+javac -classpath $libs Quickvite.java
+

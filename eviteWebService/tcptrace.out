@@ -1,0 +1,28 @@
+POST /app/webservices/qv HTTP/1.0
+Content-Type: text/xml; charset=utf-8
+Accept: application/soap+xml, application/dime, multipart/related, text/*
+User-Agent: Axis/1.2RC2
+Host: test1.evite.com
+Cache-Control: no-cache
+Pragma: no-cache
+SOAPAction: ""
+Content-Length: 516
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><login xmlns="http://webservice.qv.evite.com"><in0><ns1:clientId xmlns:ns1="http://model.qv.evite.com">wavemarket</ns1:clientId><ns2:clientKey xmlns:ns2="http://model.qv.evite.com">t64Hadre</ns2:clientKey></in0><in1>tester.1.wave@hotmail.com</in1><in2>madam0</in2><in3>5105551212</in3></login></soapenv:Body></soapenv:Envelope>
+
+HTTP/1.1 500 Internal Server Error
+
+Date: Wed, 16 Jan 2008 03:07:08 GMT
+Server: Apache
+Set-Cookie: evuserid=64.164.31.160.1200452828526015; domain=.evite.com; path=/; expires=Sat, 13-Jan-2018 03:07:08 GMT
+Set-Cookie: JSESSIONID=O5B3Xzsdu7No0ymj; Path=/
+Set-Cookie: JSESSIONID=O5B3Xzsdu7No0ymj; Domain=.evite.com; Path=/
+Cache-Control: private
+Pragma: no-cache
+Set-Cookie: sequence=1; Path=/
+Set-Cookie: ab_test=prod; Expires=Sun, 03-Apr-2016 03:07:08 GMT; Path=/
+Vary: Accept-Encoding,User-Agent
+Connection: close
+Content-Type: text/xml;charset=UTF-8
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soap:Body><soap:Fault><faultcode>soap:Server</faultcode><faultstring>Credentials for client wavemarket are invalid, not authorized</faultstring><detail><QVWebServiceException xmlns="http://webservice.qv.evite.com"><errorCode xmlns="http://model.qv.evite.com">AUTH_ERROR</errorCode></QVWebServiceException></detail></soap:Fault></soap:Body></soap:Envelope>

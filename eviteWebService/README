@@ -1,0 +1,16 @@
+
+Tue Jan 15 2008
+
+Attached is the API documentation ZIP file. 
+
+The WSDL url is 
+  http://test1.evite.com/app/webservices/qv?wsdl 
+and the username/password is 
+  wavemarket/t64Hadre.
+
+
+This is a test server, of course. We'll get a new URL with new u/p 
+when we're ready to move to production.
+
+ - joelg 
+
