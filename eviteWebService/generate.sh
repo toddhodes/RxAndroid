@@ -21,7 +21,7 @@ CLASSPATH=$CLASSPATH:j2ee/mail.jar
 #CLASSPATH=$CLASSPATH:axis/commons-discovery-0.2.jar
 #CLASSPATH=$CLASSPATH:axis/wsdl4j-1.5.1.jar
 
-#rm -f com/evite/...
+rm -f com/
 
 java -cp $CLASSPATH org.apache.axis.wsdl.WSDL2Java -v http://test1.evite.com/app/webservices/qv?wsdl 
 

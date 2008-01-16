@@ -1,0 +1,1 @@
+POST "http://test1.evite.com/app/webservices/qv" < soap_msg.xml
