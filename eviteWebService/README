@@ -15,20 +15,23 @@ when we're ready to move to production.
  - joelg 
 
 
---
+--- Usage
 
--check out libs:
+- check out libs:
 
 svn co svn://svn/wm/third_party/trunk/axis/1.2RC2/lib axis-1.2
 svn co svn://svn/wm/third_party/trunk/axis/1.4/lib axis-1.4
 svn co svn://svn/wm/third_party/trunk/j2ee/5.02/lib j2ee
+
+- generate classes and jar:
+
 ./generate.sh
 
--make:
+- make:
 
 ./ghettomak
 
--run:
+- run:
 
 ./ghettorun
 
