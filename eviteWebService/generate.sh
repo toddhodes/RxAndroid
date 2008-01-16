@@ -27,6 +27,7 @@ java -cp $CLASSPATH org.apache.axis.wsdl.WSDL2Java -v http://test1.evite.com/app
 
 javac -cp $CLASSPATH com/evite/qv/model/*java com/evite/qv/webservice/*java 
 
+mkdir -p lib
 jar -cvf lib/quickvite.jar com/evite/qv/model/*class com/evite/qv/webservice/*class 
 
 #find com/ -name *.java | xargs javadoc -d doc com.microsoft.schemas.MSNSearch._2005._09.fex 
