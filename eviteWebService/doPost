@@ -1,1 +1,8 @@
-POST "http://test1.evite.com/app/webservices/qv" < soap_msg.xml
+
+fl=$1
+
+case $1 in
+"") fl=soap_msgs/retrieve.xml
+esac
+
+POST "http://test1.evite.com/app/webservices/qv" < $fl

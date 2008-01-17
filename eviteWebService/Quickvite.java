@@ -24,15 +24,22 @@ public class Quickvite {
 
             QVCredentials creds = new QVCredentials("wavemarket", "t64Hadre");
             String userId = port.login(creds, login, pass, "5105551212");
-
             System.out.println("userId is: " + userId);
 
+            GregorianCalendar cal = new GregorianCalendar();
+            Date trialTime = new Date();
+            cal.setTime(trialTime);
+            // let's look at some old ones
+            cal.set(Calendar.YEAR, 2007);
+
             ArrayOfQVInviteDecorator qvArr = 
-              port.retrieveUpcomingInvites(creds, userId, new GregorianCalendar());
+              port.retrieveUpcomingInvites(creds, userId, cal);
 
             QVInviteDecorator[] invites = qvArr.getQVInviteDecorator();
             if (invites != null && invites.length > 0) {
-                System.out.println(invites.length + " invites returned.");
+                System.out.println("");
+                System.out.println("   " + invites.length + " invites returned.");
+                System.out.println("");
                 for (int i=0; i < invites.length; i++) {
                     QVInviteDecorator inv = invites[i];
 
@@ -41,7 +48,7 @@ public class Quickvite {
                     System.out.println("title is: " + inv.getEventTitle());
                     System.out.println("hostId is: " + inv.getEventHostUserId());
                     System.out.println("starts: " + formatQVDate(start));
-                    System.out.println("ends: " + formatQVDate(end));
+                    //System.out.println("ends: " + formatQVDate(end));
                     
                     QVInvite qv = inv.getInvite();
                     System.out.println("eventId: " + qv.getEventId());
@@ -50,7 +57,8 @@ public class Quickvite {
                     System.out.println("email: " + qv.getEmail());
                     System.out.println("comments: " + qv.getComments());
                     System.out.println("response: " + qv.getResponse().getValue());
-                    
+                 
+                    System.out.println("");   
                 }
 
             } else {
@@ -68,6 +76,8 @@ public class Quickvite {
 
         ret += d.getMonth() + "/"  + d.getDay() + "/"  + d.getYear();
         ret += " " + d.getHours() + ":" + d.getMinutes();
+        if (d.getMinutes() < 10)
+            ret += "0";
 
         return ret;
     }
