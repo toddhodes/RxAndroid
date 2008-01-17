@@ -42,23 +42,15 @@ public class Quickvite {
                 System.out.println("");
                 for (int i=0; i < invites.length; i++) {
                     QVInviteDecorator inv = invites[i];
+                    System.out.println(formatQVInviteDecorator(inv));
 
-                    QVDate end = inv.getEventEndTime();
-                    QVDate start = inv.getEventStartTime();
-                    System.out.println("title is: " + inv.getEventTitle());
-                    System.out.println("hostId is: " + inv.getEventHostUserId());
-                    System.out.println("starts: " + formatQVDate(start));
-                    //System.out.println("ends: " + formatQVDate(end));
-                    
                     QVInvite qv = inv.getInvite();
-                    System.out.println("eventId: " + qv.getEventId());
-                    System.out.println("inviteId: " + qv.getInviteId());
-                    System.out.println("name: " + qv.getName());
-                    System.out.println("email: " + qv.getEmail());
-                    System.out.println("comments: " + qv.getComments());
-                    System.out.println("response: " + qv.getResponse().getValue());
-                 
-                    System.out.println("");   
+                    QVEventDecorator guests =
+                        port.retrieveEventWithGuestlist(creds, qv.getEventId());
+
+                    System.out.println(formatQVEventDecorator(guests));
+
+                    System.out.println("---------------------------------------");
                 }
 
             } else {
@@ -69,6 +61,71 @@ public class Quickvite {
 	    t.printStackTrace();
 	}
 	
+    }
+
+    public static String formatQVEventDecorator(QVEventDecorator e) {
+        String ret = "";
+
+        QVEvent qv = e.getEvent();
+
+        QVDate start = qv.getStartTime();
+        QVDate end = qv.getEndTime();
+
+        ret += "\ntitle: " + qv.getTitle();
+        ret += "\nHostName: " +qv.getHostName();
+        ret += "\nstarts: " + formatQVDate(start);
+        ret += "\nends: " + formatQVDate(end);
+        ret += "\nLocationName: " +qv.getLocationName();
+        ret += "\naddress: " + qv.getStreet() + ", " + qv.getCity() + ", " + qv.getState() 
+                          + ", " + qv.getPostalCode();
+        ret += "\nHostMessage: " +qv.getHostMessage();
+        ret += "\nHostUserId: " +qv.getHostUserId();
+        ret += "\neventId: " + qv.getEventId();
+
+        QVInvite[] guests = e.getGuestList().getQVInvite();
+        if (guests != null) {
+            ret += "\n"+ guests.length +" guests:\n";
+            for (int i=0; i < guests.length; i++) {
+                ret += formatQVInvite(guests[i]) + "\n";
+            }
+        } else {
+            ret += "guestList is null\n";
+        }
+                     
+
+        QVUserProfile host = e.getHostProfile();
+        ret += "\n";
+
+        ret += "\n";
+        return ret;
+    }
+
+
+    public static String formatQVInviteDecorator(QVInviteDecorator inv) {
+        String ret = "";
+
+        QVDate end = inv.getEventEndTime();
+        QVDate start = inv.getEventStartTime();
+        ret += "\ntitle is: " + inv.getEventTitle();
+        ret += "\nstarts: " + formatQVDate(start);
+        //ret += "\nends: " + formatQVDate(end);
+        ret += "\nhostId is: " + inv.getEventHostUserId();
+                    
+        QVInvite qv = inv.getInvite();
+        ret += formatQVInvite(qv);
+                 
+        return ret;
+    }
+
+    public static String formatQVInvite(QVInvite qv) {
+        String ret = "";
+        ret += "\nname: " + qv.getName();
+        ret += "\nemail: " + qv.getEmail();
+        ret += "\ncomments: " + qv.getComments();
+        ret += "\nresponse: " + qv.getResponse().getValue();
+        ret += "\neventId: " + qv.getEventId();
+        ret += "\ninviteId: " + qv.getInviteId();        
+        return ret;
     }
 
     public static String formatQVDate(QVDate d) {
