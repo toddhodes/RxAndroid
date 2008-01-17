@@ -1,0 +1,26 @@
+POST /app/webservices/qv HTTP/1.0
+Content-Type: text/xml; charset=utf-8
+Accept: application/soap+xml, application/dime, multipart/related, text/*
+User-Agent: Axis/1.2RC2
+Host: test1.evite.com
+Cache-Control: no-cache
+Pragma: no-cache
+SOAPAction: ""
+Content-Length: 568
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><retrieveUpcomingInvites xmlns="http://webservice.qv.evite.com"><in0><ns1:clientId xmlns:ns1="http://model.qv.evite.com">wavemarket</ns1:clientId><ns2:clientKey xmlns:ns2="http://model.qv.evite.com">t64Hadre</ns2:clientKey></in0><in1>ECTPMGUYBBIZMAMQFREC</in1><in2 xsi:type="xsd:dateTime">2008-01-17T02:54:13.217Z</in2></retrieveUpcomingInvites></soapenv:Body></soapenv:Envelope>
+HTTP/1.1 200 OK
+Date: Thu, 17 Jan 2008 02:54:13 GMT
+Server: Apache
+Set-Cookie: evuserid=64.164.31.160.1200538453233954; domain=.evite.com; path=/; expires=Sun, 14-Jan-2018 02:54:13 GMT
+Set-Cookie: JSESSIONID=gZ5i1bWCxq1kL9pl; Path=/
+Set-Cookie: JSESSIONID=gZ5i1bWCxq1kL9pl; Domain=.evite.com; Path=/
+Cache-Control: private
+Pragma: no-cache
+Set-Cookie: sequence=1; Path=/
+Set-Cookie: ab_test=prod; Expires=Mon, 04-Apr-2016 02:54:13 GMT; Path=/
+Vary: Accept-Encoding,User-Agent
+Connection: close
+Content-Type: text/xml;charset=UTF-8
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soap:Body><ns1:retrieveUpcomingInvitesResponse xmlns:ns1="http://webservice.qv.evite.com"><ns1:out /></ns1:retrieveUpcomingInvitesResponse></soap:Body></soap:Envelope>
