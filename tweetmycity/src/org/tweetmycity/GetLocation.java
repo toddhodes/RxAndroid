@@ -190,6 +190,9 @@ public class GetLocation
           String twitterId = request.getParameter("twitterId");
           String twitterPass = request.getParameter("twitterPass");
           String deviceDesc = request.getParameter("deviceDesc");
+          if (deviceDesc == null || "".equals(deviceDesc)) {
+             deviceDesc = "phone";
+          }
           long vpUserId = user.getId();
           saveUser(vpUserId, twitterId, twitterPass, deviceDesc);
 
