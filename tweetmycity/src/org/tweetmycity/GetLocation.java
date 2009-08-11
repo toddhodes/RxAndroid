@@ -133,15 +133,32 @@ public class GetLocation
          // show user
          StringBuilder buf = new StringBuilder();
          buf.append("<html>");
+
+         buf.append(" <head>");
+         buf.append("       <title>tweetmycity</title>");
+         buf.append("       <meta http-equiv='content-type' content='text/html'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+         buf.append(" </head>");
+
          buf.append(" <body>");
-         buf.append("   <img src=\"images/tweet_my_city_success_bg.png\"/>");
+         buf.append("   <div class='background_image'>");
+         buf.append("     <div class='text_properties'>");
+
          buf.append("  <h2>Success!</h2>");
-         buf.append("  <p>You've successfully linked your Veriplace account to your twitter account.</p>");
+         //buf.append("  <p>You've successfully linked Veriplace to twitter.</p>");
+         buf.append("  <p>Tweet My City will post on your behalf");
+         buf.append("  when you arrive in a new city.  To turn this off");
+         buf.append("  at any time, simply go to veriplace.com and disallow");
+         buf.append("  location sharing.</p>");
          //buf.append("  <p>User: " + user.getId() + "</p>");
          if (location != null) {
-            buf.append("  <p>Additionally, we have a location for you and you've tweeted your current city as:</p>");
-            buf.append("<p>'" + stat + "'</p>");
-         } 
+            buf.append("  <p>Additionally, we have a location for you");
+            buf.append("  and you've tweeted your current city as:</p>");
+            buf.append("  <p><b>'" + stat + "'</b></p>");
+         }
+
+         buf.append("     </div>");
+         buf.append("   </div>  ");
          buf.append(" </body>");
          buf.append("</html>");
 

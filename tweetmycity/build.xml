@@ -142,7 +142,8 @@
     </war>
   </target>
 
-  <target name="dist" depends="jar, javadoc, tlddoc, example"/>
+  <!--target name="dist" depends="jar, javadoc, tlddoc, example"/-->
+  <target name="dist" depends="jar, example"/>
 
   <target name="clean">
     <delete dir="${build}" quiet="true"/>

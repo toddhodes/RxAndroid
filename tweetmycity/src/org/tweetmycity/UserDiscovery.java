@@ -50,14 +50,28 @@ public class UserDiscovery
       throws ServletException,
              IOException {
 
+
       StringBuilder buf = new StringBuilder();
       buf.append("<html>");
+      buf.append(" <head>");
+      buf.append("       <title>tweetmycity</title>");
+      buf.append("       <meta http-equiv='content-type' content='text/html'/>");
+      buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+      buf.append(" </head>");
+
       buf.append(" <body>");
-      buf.append(" <img src=\"images/tweet_my_city_signup_bg.png\"/>");
-      buf.append("  <h2>Get started:</h2>");
-      buf.append("  <form method='post'>");
-      buf.append("   <input type='submit' value='Click to link your accounts'/>");
-      buf.append("  </form>");
+      buf.append("   <div class='background_image'>");
+      buf.append("     <div class='text_properties'>");
+      buf.append("      <h2>Tweet My City</h2>");
+      buf.append("      <p>Tweet My City is a simple utility");
+      buf.append("         that follows your phone's");
+      buf.append("         location and posts to Twitter");
+      buf.append("         when you arrive at a new city.</p>");
+      buf.append("         <form method='post'>");
+      buf.append("           <input type='submit' value='Get Started'/>");
+      buf.append("         </form>");
+      buf.append("     </div>");
+      buf.append("   </div>  ");
       buf.append(" </body>");
       buf.append("</html>");
 
@@ -83,15 +97,23 @@ public class UserDiscovery
          // show user
          StringBuilder buf = new StringBuilder();
          buf.append("<html>");
+         buf.append(" <head>");
+         buf.append("       <title>tweetmycity</title>");
+         buf.append("       <meta http-equiv='content-type' content='text/html'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+         buf.append(" </head>");
+
          buf.append(" <body>");
-         buf.append("  <img src=\"images/tweet_my_city_signup_bg.png\"/>");
-         buf.append("  <h2>Veriplace User Discovered</h2>");
+         buf.append("   <div class='background_image'>");
+         buf.append("     <div class='text_properties'>");
+
          if (user != null) {
+            buf.append("  <h2>Link your accounts</h2>");
             buf.append("  <p>You are about to link your veriplace user account ("
                        + user.getId() + ") "
-                       + "to your twitter account.</p>");
-            buf.append("  <p>To do so, you need to give permission for location requests on Veriplace.</p>");
-            buf.append("  <p>Be sure to choose 'on an ongoing basis' when asked.</p>");
+                       + "to your twitter account.");
+            buf.append("  To do so, you need to give permission for location requests on Veriplace.");
+            buf.append("  Be sure to choose 'on an ongoing basis' when asked.</p>");
             /*
             buf.append("  <p><a href='location?user=" + user.getId() + "'>Get Location</a></p>");
              */
@@ -106,10 +128,16 @@ public class UserDiscovery
              buf.append("   <input type='text' name='deviceDesc'/>");
              buf.append("   <br/>");
              buf.append("   <input type='hidden' name='user' value='" + user.getId() + "'/>");
-             buf.append("   <input type='submit' value='Give location permission'/>");
+             buf.append("   <input type='submit' value='Give Permission'/>");
              buf.append("  </form>");
 
+         } else {
+            buf.append("  <h2>Cannot link your accounts</h2>");
+            buf.append("  <p>We could not discover your Veripalce user ID.  please try again.</p>");
          }
+
+         buf.append("     </div>");
+         buf.append("   </div>  ");
          buf.append(" </body>");
          buf.append("</html>");
 
