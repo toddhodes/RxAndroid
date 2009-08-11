@@ -22,6 +22,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+
 
 /** store user data to the filesystem
  */
@@ -188,6 +191,37 @@ public class UserStore {
          file.delete();
       }
    }
+
+
+   /**
+    * Get all users.
+    */
+   public synchronized List<TmcUser> getUsers() {
+      List<TmcUser> ret = new ArrayList<TmcUser>();
+
+      // dir listing
+      File userdir = new File(directory);
+      //System.out.println("usersdir '" + userdir + "'");
+
+      for (String file : userdir.list()) {
+         String[] split = file.split("\\.");
+         //System.out.println("file '" + file + "'");
+
+         //tmcuser.8219567698096403872.tid
+         if (split.length == 3 && split[2].equals("tid")) {
+            try {
+               long vpId = Long.parseLong(split[1]);
+               TmcUser u = get(vpId);
+               ret.add(u);               
+            } catch (NumberFormatException nfe) {
+               System.out.println("error parsing file '" + file + "'");
+            }
+         }
+      }
+
+      return ret;
+   }
+
 
    /**
     * Get the File for this tmc.

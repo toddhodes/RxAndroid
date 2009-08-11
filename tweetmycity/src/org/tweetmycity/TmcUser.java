@@ -38,6 +38,12 @@ public class TmcUser {
    public String getTwitterPass() { return twitterPass; }
    public String getDeviceDescription() { return deviceDescription; }
 
+   public String toString() {
+      return "[TmcUser: vpId=" + userId 
+         + ", twitterId=" + twitterId 
+         + ", twitterPass=" + twitterPass 
+         + ", device=" + deviceDescription;
+   }
 }
 
 /*
