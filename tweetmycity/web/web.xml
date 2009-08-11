@@ -8,7 +8,7 @@
 
   <context-param>
     <param-name>veriplace.properties-file</param-name>
-    <param-value>/tmp/tweetmycity.properties</param-value>
+    <param-value>/opt/wm/etc/tweetmycity.properties</param-value>
   </context-param>
 
   <servlet>

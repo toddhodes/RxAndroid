@@ -33,12 +33,12 @@ public class UserStore {
    private static final Log logger = LogFactory.getLog(UserStore.class);
 
    /**
-    * Default directory (/tmp)
+    * Default directory
     */
-   public static final String DEFAULT_DIRECTORY = "/tmp/tmcusers";
+   public static final String DEFAULT_DIRECTORY = "/opt/wm/data/tweetmycity";
 
    /**
-    * Default file base (users)
+    * Default file base
     */
    public static final String DEFAULT_FILE_BASE = "tmcuser";
 
@@ -200,6 +200,8 @@ public class UserStore {
       List<TmcUser> ret = new ArrayList<TmcUser>();
 
       // dir listing
+      File dir = new File(directory);
+      dir.mkdirs();
       File userdir = new File(directory);
       //System.out.println("usersdir '" + userdir + "'");
 
