@@ -128,6 +128,7 @@ public class UserDiscovery
              buf.append("   <input type='text' name='deviceDesc'/>");
              buf.append("   <br/>");
              buf.append("   <input type='hidden' name='user' value='" + user.getId() + "'/>");
+             buf.append("   <br/>");
              buf.append("   <input type='submit' value='Give Permission'/>");
              buf.append("  </form>");
 
