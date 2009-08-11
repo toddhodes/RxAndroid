@@ -24,6 +24,10 @@ import javax.servlet.ServletException;
 
 import java.io.IOException;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.Status;
+
 
 /**
   servlet that makes a GetLocation request using the Veriplace Client library.
@@ -110,6 +114,22 @@ public class GetLocation
          // get user
          Location location = client.getGetLocationAPI().getLocation(accessToken, user);
 
+         // tweet the city
+         TmcUser tmc = (new UserStore()).get(user.getId());
+         Twitter twitter = new Twitter(tmc.getTwitterId(),
+                                        tmc.getTwitterPass());
+         String stat = "my " + tmc.getDeviceDescription()
+                        + " is now in "
+                        + location.getCity() + ", " + location.getState();
+         try {
+            Status status = twitter.updateStatus(stat);
+            System.out.println("Successfully updated the status to [" 
+                               + status.getText() + "].");
+         } catch (twitter4j.TwitterException te) {
+            System.out.println("Got exception:" + te.getMessage() );
+         }
+         
+
          // show user
          StringBuilder buf = new StringBuilder();
          buf.append("<html>");
@@ -120,23 +140,11 @@ public class GetLocation
          //buf.append("  <p>User: " + user.getId() + "</p>");
          if (location != null) {
             buf.append("  <p>Additionally, we have a location for you and you've tweeted your current city as:</p>");
-            buf.append("<p>" + location.getCity() + ", " + location.getState() + "</p>");
+            buf.append("<p>'" + stat + "'</p>");
          } 
          buf.append(" </body>");
          buf.append("</html>");
 
-          /*
-          TmcUser tmc = (new UserStore()).get(user.getId());
-          Twitter twitter = new Twitter(tmc.getTwitterId(),
-                                        tmc.getTwitterPass());
-          String stat = "my " + tmc.getDeviceDescription()
-                        + " is now in "
-                        + location.getCity() + ", " + location.getState();
-          Status status = twitter.updateStatus(stat);
-          System.out.println("Successfully updated the status to [" 
-                             + status.getText() + "].");
-          */
-         
          response.setContentType("text/html");
          response.getOutputStream().write(buf.toString().getBytes());
       } else {
