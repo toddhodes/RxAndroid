@@ -114,19 +114,26 @@ public class GetLocation
          // get user
          Location location = client.getGetLocationAPI().getLocation(accessToken, user);
 
-         // tweet the city
-         TmcUser tmc = (new UserStore()).get(user.getId());
-         Twitter twitter = new Twitter(tmc.getTwitterId(),
-                                        tmc.getTwitterPass());
-         String stat = "my " + tmc.getDeviceDescription()
-                        + " is now in "
-                        + location.getCity() + ", " + location.getState();
-         try {
-            Status status = twitter.updateStatus(stat);
-            System.out.println("Successfully updated the status to [" 
-                               + status.getText() + "].");
-         } catch (twitter4j.TwitterException te) {
-            System.out.println("Got exception:" + te.getMessage() );
+         String stat = null;
+         if (location.getCity() != null
+             && location.getState() != null) {
+            // tweet the city
+            TmcUser tmc = (new UserStore()).get(user.getId());
+            Twitter twitter = new Twitter(tmc.getTwitterId(),
+                                          tmc.getTwitterPass());
+            stat = "@tweet_my_city: "
+               + "my " + tmc.getDeviceDescription()
+               + " is now in "
+               + location.getCity() + ", " + location.getState();
+            try {
+               Status status = twitter.updateStatus(stat);
+               System.out.println("Successfully updated the status to [" 
+                                  + status.getText() + "].");
+            } catch (twitter4j.TwitterException te) {
+               System.out.println("Got exception:" + te.getMessage() );
+            }
+         } else {
+            System.out.println("No location available.  Did not update the status");
          }
          
 
@@ -151,10 +158,15 @@ public class GetLocation
          buf.append("  at any time, simply go to veriplace.com and disallow");
          buf.append("  location sharing.</p>");
          //buf.append("  <p>User: " + user.getId() + "</p>");
-         if (location != null) {
+         if (location != null 
+             && location.getCity() != null
+             && location.getState() != null) {
             buf.append("  <p>Additionally, we have a location for you");
             buf.append("  and you've tweeted your current city as:</p>");
             buf.append("  <p><b>'" + stat + "'</b></p>");
+         } else {
+            buf.append("  <p>We were not able to located you right now, ");
+            buf.append("  but we'll keep trying!</p>");
          }
 
          buf.append("     </div>");
