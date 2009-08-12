@@ -45,39 +45,54 @@ public class UpdateSubscribers
       throws ServletException,
              IOException {
 
-      //String redirectUrl = client.getUserDiscoveryAPI().getRedirectURL(callback,null);
+      boolean doText = "true".equalsIgnoreCase(request.getParameter("text"));
 
       StringBuilder buf = new StringBuilder();
-      buf.append("<html>");
-      buf.append(" <head>");
-      buf.append("       <title>tweetmycity</title>");
-      buf.append("       <meta http-equiv='content-type' content='text/html'/>");
-      buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
-      buf.append(" </head>");
 
-      buf.append(" <body>");
-      buf.append("   <div class='background_image'>");
-      buf.append("     <div class='text_properties'>");
-      buf.append("      <h2>Update Subscribers</h2>");
-      buf.append("      <p>Updating the following:</p>");
+      if (doText) {
+         buf.append("Updating subscribers:\n");
+      } else {
+         buf.append("<html>");
+         buf.append(" <head>");
+         buf.append("       <title>tweetmycity</title>");
+         buf.append("       <meta http-equiv='content-type' content='text/html'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+         buf.append(" </head>");
+
+         buf.append(" <body>");
+         buf.append("   <div class='background_image'>");
+         buf.append("     <div class='text_properties'>");
+         buf.append("      <h2>Update Subscribers</h2>");
+         buf.append("      <p>Updating the following:</p>");
+      }
 
       for (TmcUser tmcUser : (new UserStore()).getUsers()) {
          Location location = getLocation(tmcUser);
          if (location != null) {
             tweet(tmcUser, location);
-            buf.append("<p>tweet: " + tmcUser + "</p>");
+            if (doText) 
+               buf.append("tweet: " + tmcUser + "\n");
+            else
+               buf.append("<p>tweet: " + tmcUser + "</p>");
          } else {
-            buf.append("<p>no location for: " + tmcUser + "</p>");
+            if (doText) 
+               buf.append("no location for: " + tmcUser + "\n");
+            else
+               buf.append("<p>no location for: " + tmcUser + "</p>");
          }
       }
 
-      buf.append("     </div>");
-      buf.append("   </div>  ");
-      buf.append(" </body>");
-      buf.append("</html>");
+      if (doText) {
+         buf.append("\n");
+         response.setContentType("text/plain");
+      } else {
+         buf.append("     </div>");
+         buf.append("   </div>  ");
+         buf.append(" </body>");
+         buf.append("</html>");
+         response.setContentType("text/html");
+      }
 
-
-      response.setContentType("text/html");
       response.getOutputStream().write(buf.toString().getBytes());
    }
 

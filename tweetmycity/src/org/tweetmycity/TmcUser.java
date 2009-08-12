@@ -41,8 +41,9 @@ public class TmcUser {
    public String toString() {
       return "[TmcUser: vpId=" + userId 
          + ", twitterId=" + twitterId 
-         + ", twitterPass=" + twitterPass 
-         + ", device=" + deviceDescription;
+         //+ ", twitterPass=" + twitterPass 
+         + ", device=" + deviceDescription
+         + "]";
    }
 }
 
