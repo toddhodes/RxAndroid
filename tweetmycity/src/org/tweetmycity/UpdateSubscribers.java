@@ -57,7 +57,7 @@ public class UpdateSubscribers
          buf.append("       <title>tweetmycity</title>");
          buf.append("       <meta http-equiv='content-type' content='text/html'/>");
          buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
-			buf.append("       <link rel='stylesheet' href='/tweetmycity/css/layout.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/layout.css'/>");
          buf.append(" </head>");
 
          buf.append(" <body>");
@@ -69,8 +69,8 @@ public class UpdateSubscribers
 
       for (TmcUser tmcUser : (new UserStore()).getUsers()) {
          Location location = getLocation(tmcUser);
-         if (location != null) {
-            tweet(tmcUser, location);
+         if (!GetLocation.empty(location)) {
+            Tweet.tweet(tmcUser, location);
             if (doText) 
                buf.append("tweet: " + tmcUser 
                           + " is in " + location.getCity() + ", " + location.getState()
@@ -220,21 +220,6 @@ public class UpdateSubscribers
       }
    }
 
-   protected void tweet(TmcUser tmc, Location location) {
-      Twitter twitter = new Twitter(tmc.getTwitterId(),
-                                    tmc.getTwitterPass());
-      String stat = "tweetmycity.org: "//"@tweet_my_city: "
-         + "my " + tmc.getDeviceDescription()
-         + " is now in "
-         + location.getCity() + ", " + location.getState();
-      try {
-         Status status = twitter.updateStatus(stat);
-         System.out.println("Successfully updated the status to [" 
-                            + status.getText() + "].");
-      } catch (twitter4j.TwitterException te) {
-         System.out.println("Got exception:" + te.getMessage() );
-      }
-   }
 
 
 }

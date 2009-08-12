@@ -116,23 +116,10 @@ public class GetLocation
          Location location = client.getGetLocationAPI().getLocation(accessToken, user);
 
          String stat = null;
-         if (location.getCity() != null
-             && location.getState() != null) {
+         if (!empty(location)) {
             // tweet the city
             TmcUser tmc = (new UserStore()).get(user.getId());
-            Twitter twitter = new Twitter(tmc.getTwitterId(),
-                                          tmc.getTwitterPass());
-            stat = "tweetmycity.org: "//"@tweet_my_city: "
-               + "my " + tmc.getDeviceDescription()
-               + " is now in "
-               + location.getCity() + ", " + location.getState();
-            try {
-               Status status = twitter.updateStatus(stat);
-               System.out.println("Successfully updated the status to [" 
-                                  + status.getText() + "].");
-            } catch (twitter4j.TwitterException te) {
-               System.out.println("Got exception:" + te.getMessage() );
-            }
+            stat = Tweet.tweet(tmc, location);
          } else {
             System.out.println("No location available.  Did not update the status");
          }
@@ -176,7 +163,7 @@ public class GetLocation
              && location.getCity() != null
              && location.getState() != null) {
             buf.append("     <p>Additionally, we have a location for you and you've tweeted your current city as:</p>");
-            buf.append("     <p><strong>'" + stat + "'</strong></p>");
+            buf.append("     <p><strong>" + stat + "</strong></p>");
          } else {
             buf.append("     <p>We were not able to located you right now, but we'll keep trying!</p>");
          }
@@ -247,6 +234,19 @@ public class GetLocation
        UserStore us = new UserStore(); 
       
        us.add(u);
+   }
+
+   public static boolean empty(Location location) {
+       return location != null 
+              && !empty(location.getCity()) 
+              && !empty(location.getState());
+
+   }
+
+   public static boolean empty(String s) {
+       if (s == null) return true;
+       if ("".equals(s.trim())) return true;
+       return false;
    }
 }
 
