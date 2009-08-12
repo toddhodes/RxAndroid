@@ -71,9 +71,13 @@ public class UpdateSubscribers
          if (location != null) {
             tweet(tmcUser, location);
             if (doText) 
-               buf.append("tweet: " + tmcUser + "\n");
+               buf.append("tweet: " + tmcUser 
+                          + " is in " + location.getCity() + ", " + location.getState()
+                          + "\n");
             else
-               buf.append("<p>tweet: " + tmcUser + "</p>");
+               buf.append("<p>tweet: " + tmcUser 
+                          + " is in " + location.getCity() + ", " + location.getState()
+                          + "</p>");
          } else {
             if (doText) 
                buf.append("no location for: " + tmcUser + "\n");
