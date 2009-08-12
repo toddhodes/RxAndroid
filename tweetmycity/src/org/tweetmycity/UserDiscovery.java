@@ -183,9 +183,8 @@ public class UserDiscovery
 
          buf.append("     </div>");
          buf.append("     <!-- /content -->  ");
-         // XXX: needs link to privacy policy
          buf.append("     <div id='footer'>  ");
-         buf.append("        <a href='#'>privacy policy</a>  ");
+         buf.append("        <a href='privacy.html'>privacy policy</a>  ");
          buf.append("     </div>  ");
          buf.append("     <!-- /footer -->  ");
          
