@@ -17,7 +17,7 @@ public class Tweet {
    public static String tweet(TmcUser tmc, Location location) {
       Twitter twitter = new Twitter(tmc.getTwitterId(),
                                     tmc.getTwitterPass());
-      String stat = "tweetmycity.org: "//"@tweet_my_city: "
+      String stat = "TweetMyCity.org: "//"@tweet_my_city: "
          + tmc.getDeviceDescription()
          + " is now in "
          + location.getCity() + ", " + location.getState();

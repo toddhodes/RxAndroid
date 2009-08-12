@@ -130,7 +130,7 @@ public class GetLocation
          buf.append("<html>");
 
          buf.append(" <head>");
-         buf.append("       <title>tweetmycity</title>");
+         buf.append("       <title>TweetMyCity</title>");
          buf.append("       <meta http-equiv='content-type' content='text/html'/>");
          buf.append("       <link rel='stylesheet' href='/tweetmycity/css/normalize.css'/>");
          buf.append("       <link rel='stylesheet' href='/tweetmycity/css/typography.css'/>");
