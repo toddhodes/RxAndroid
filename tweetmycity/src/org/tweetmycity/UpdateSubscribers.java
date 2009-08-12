@@ -188,7 +188,7 @@ public class UpdateSubscribers
                 location.getLatitude() != null) {
                // Yes!
                System.out.println(location.getLatitude() + " " + location.getLongitude());
-               System.out.println("@tweet_my_city: My Verizon Samsung Omnia is now in " 
+               System.out.println("user is in " 
                                   + location.getCity() + ", " + location.getState());
                return location;
             } else {
