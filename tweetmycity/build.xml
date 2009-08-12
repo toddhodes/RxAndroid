@@ -123,7 +123,7 @@
     <war destfile="${dist}/tweetmycity.war" 
          webxml="web/web.xml">
 
-      <zipfileset dir="web" includes="index.html"/>
+      <zipfileset dir="web" includes="*.html"/>
       <zipfileset dir="css" includes="**/*.css" prefix="css"/>
       <zipfileset dir="images" includes="**/*.gif,**/*.ico,**/*.png" prefix="images"/>
       <lib file="${dist}/${name}-${version}.jar"/>

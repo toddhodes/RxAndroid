@@ -165,14 +165,12 @@ public class GetLocation
          } else {
             buf.append("     <p>We were not able to located you right now, but we'll keep trying!</p>");
          }
-         // XXX: not sure if this goes back to index or not
          buf.append("        <a class='button ok' href='user' tabindex='100'>OK</a>");
          buf.append("     </div>");
          buf.append("     <!-- /content -->");
          
          buf.append("     <div id='footer'>");
-         // XXX: needs link to privacy policy
-         buf.append("        <a href='#'>privacy policy</a>");
+         buf.append("        <a href='privacy.html'>privacy policy</a>");
          buf.append("     </div>");
          buf.append("     <!-- /footer -->");
          buf.append("   </div>  ");
