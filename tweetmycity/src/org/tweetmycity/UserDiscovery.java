@@ -80,7 +80,7 @@ public class UserDiscovery
       buf.append("     <!-- /branding -->");
          
       buf.append("     <div id='content'>");
-      buf.append("        <p>Tweet My City is a simple utility that follows your phone&#39;s location and posts to Twitter when you arrive at a new city.</p>");
+      buf.append("        <p>Tweet My City is a simple utility that follows your phone&#39;s location and posts to Twitter when you arrive in a new city.</p>");
       buf.append("         <form method='post'>");
       buf.append("            <button class='button getStarted' type='submit' value='Get Started' tabindex='100' />");
       buf.append("         </form>");
@@ -147,9 +147,10 @@ public class UserDiscovery
 
          if (user != null) {
             buf.append("  <h2 id='header-getStarted'>Get Started</h2>");
-            buf.append("  <p>You are about to link your veriplace user account ("
-                       + user.getId() + ") "
-                       + "to your twitter account.");
+            buf.append("  <p>You are about to link your Veriplace account "
+                       + "(for locating your phone) "
+                       //"(" + user.getId() + ") "
+                       + "with your Twitter account.");
             buf.append("  To do so, you need to give permission for location requests on Veriplace.");
             buf.append("  Be sure to choose 'on an ongoing basis' when asked.</p>");
             /*
@@ -163,7 +164,7 @@ public class UserDiscovery
              
              buf.append("  <fieldset>");
              buf.append("     <label for='twitterPass'>Twitter Password:</label>");
-             buf.append("     <input id='twitterPass' class='twitterPass' name='twitterPass' type='text' tabindex='100' />");
+             buf.append("     <input id='twitterPass' class='twitterPass' name='twitterPass' type='password' tabindex='100' />");
              buf.append("  </fieldset>");
              
              buf.append("  <fieldset class='optional'>");
@@ -172,7 +173,7 @@ public class UserDiscovery
              buf.append("     <input type='hidden' name='user' value='" + user.getId() + "'/>");
              buf.append("  </fieldset>");
              
-             buf.append("  <button class='button submit' type='submit' value='Submit' tabindex='120' />");
+             buf.append("  <button class='button submit' type='submit' value='Continue' tabindex='120' />");
              buf.append("  </form>");
 
          } else {
