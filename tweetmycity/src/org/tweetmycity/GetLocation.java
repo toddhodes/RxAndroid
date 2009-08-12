@@ -88,6 +88,7 @@ public class GetLocation
              IOException {
 
       StringBuilder buf = new StringBuilder();
+       // ignore this -- never called!
       buf.append("<html>");
       buf.append(" <body>");
       buf.append("  <h2>Veriplace Client Example</h2>");
