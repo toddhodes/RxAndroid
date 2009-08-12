@@ -17,14 +17,18 @@ height:189px;
 background:#e3f2f8 url(/tweetmycity/images/tweetMyCity.png) 0 0 no-repeat;
 }
 
-/* link on logo if need be */
 #branding h1{
-	width:310px;
+	width:306px;
 	height:60px;
 	text-indent:-9999px;
 	position:relative;
-	top:20px;
-	/*
-	background-color:green;
-	*/
+	top:120px;
+	left:62px;
 }
+	
+#branding h1 a{
+	width:306px;
+	height:60px;
+	display:block;
+	cursor:pointer;
+	}

@@ -75,7 +75,7 @@ public class UserDiscovery
       buf.append(" <body>");
       buf.append("   <div id='container'>");
       buf.append("     <div id='branding'>");
-      buf.append("        <h1>Tweet My City</h1>");
+      buf.append("        <h1><a href='user'>TweetMyCity</a></h1>");
       buf.append("     </div>");
       buf.append("     <!-- /branding -->");
          
@@ -139,7 +139,7 @@ public class UserDiscovery
          buf.append(" <body>");
          buf.append("   <div id='container'>");
          buf.append("     <div id='branding'>");
-         buf.append("        <h1>Tweet My City</h1>");
+         buf.append("        <h1><a href='user'>TweetMyCity</a></h1>");
          buf.append("     </div>");
          buf.append("     <!-- /branding -->");
          
