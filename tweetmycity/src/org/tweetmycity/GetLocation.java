@@ -159,16 +159,14 @@ public class GetLocation
          buf.append("        <p>Success! Tweet My City will post on your behalf when you arrive in a new city. To turn this off later, simply go to veriplace.com and turn off location sharing.</p>");
          //buf.append("      <p>You've successfully linked Veriplace to twitter.</p>");
          //buf.append("      <p>User: " + user.getId() + "</p>");
-         if (location != null 
-             && location.getCity() != null
-             && location.getState() != null) {
+         if (!empty(location)) {
             buf.append("     <p>Additionally, we have a location for you and you've tweeted your current city as:</p>");
             buf.append("     <p><strong>" + stat + "</strong></p>");
          } else {
             buf.append("     <p>We were not able to located you right now, but we'll keep trying!</p>");
          }
          // XXX: not sure if this goes back to index or not
-         buf.append("        <a class='button ok' href='#' tabindex='100'>OK</a>");
+         buf.append("        <a class='button ok' href='user' tabindex='100'>OK</a>");
          buf.append("     </div>");
          buf.append("     <!-- /content -->");
          
@@ -237,9 +235,9 @@ public class GetLocation
    }
 
    public static boolean empty(Location location) {
-       return location != null 
-              && !empty(location.getCity()) 
-              && !empty(location.getState());
+       return location == null 
+              || empty(location.getCity()) 
+              || empty(location.getState());
 
    }
 
