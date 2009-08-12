@@ -51,7 +51,7 @@ form#signIn input{top:-.25em;}
 form#signIn input.deviceDesc{top:-.5em;}
 
 /* BUTTONS */	
-#buttons{margin:1em 0; display:block; position:relative; height:27px; }
-
+#buttons{margin:1em 0; display:block; position:relative; height:25px; }
+#content.privacy #buttons{margin-top:2em;}
 /* TEXT */
 form#signIn span.deviceDesc-example{margin-left:.5em; position:relative; top:-.5em;}

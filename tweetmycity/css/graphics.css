@@ -6,6 +6,13 @@
 	width:149px; 
 	height:21px;
 	}
+	
+#header-privacyPolicy{
+	text-indent:-9999px; 
+	background: url(/tweetmycity/images/header_privacyPolicy.png) 0 no-repeat; 
+	width:183px; 
+	height:26px;
+	}
 
 /* BUTTONS */
 .button {
