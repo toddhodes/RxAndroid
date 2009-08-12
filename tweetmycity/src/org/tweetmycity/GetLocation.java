@@ -121,7 +121,7 @@ public class GetLocation
             TmcUser tmc = (new UserStore()).get(user.getId());
             Twitter twitter = new Twitter(tmc.getTwitterId(),
                                           tmc.getTwitterPass());
-            stat = "@tweet_my_city: "
+            stat = "tweetmycity.org: "//"@tweet_my_city: "
                + "my " + tmc.getDeviceDescription()
                + " is now in "
                + location.getCity() + ", " + location.getState();

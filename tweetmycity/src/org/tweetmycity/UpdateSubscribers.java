@@ -222,7 +222,7 @@ public class UpdateSubscribers
    protected void tweet(TmcUser tmc, Location location) {
       Twitter twitter = new Twitter(tmc.getTwitterId(),
                                     tmc.getTwitterPass());
-      String stat = "@tweet_my_city: "
+      String stat = "tweetmycity.org: "//"@tweet_my_city: "
          + "my " + tmc.getDeviceDescription()
          + " is now in "
          + location.getCity() + ", " + location.getState();
