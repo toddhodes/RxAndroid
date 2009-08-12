@@ -40,6 +40,9 @@ button::-moz-focus-inner {
 	outline:none;
 }
 
+.continue{background:url(/tweetmycity/images/btn_continue.png) 0 0 no-repeat; width:107px;}
+/*NO ROLLOVER YET... .continue:hover{background-position:-80px;}*/
+
 .getStarted{background:url(/tweetmycity/images/btn_getStarted.png) 0 0 no-repeat; width:107px;}
 /*NO ROLLOVER YET... .continue:hover{background-position:-80px;}*/
 

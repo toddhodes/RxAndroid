@@ -173,7 +173,7 @@ public class UserDiscovery
              buf.append("     <input type='hidden' name='user' value='" + user.getId() + "'/>");
              buf.append("  </fieldset>");
              
-             buf.append("  <button class='button submit' type='submit' value='Continue' tabindex='120' />");
+             buf.append("  <button class='button continue' type='submit' value='Continue' tabindex='120' />");
              buf.append("  </form>");
 
          } else {
