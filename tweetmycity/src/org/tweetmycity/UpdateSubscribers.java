@@ -57,6 +57,7 @@ public class UpdateSubscribers
          buf.append("       <title>tweetmycity</title>");
          buf.append("       <meta http-equiv='content-type' content='text/html'/>");
          buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+			buf.append("       <link rel='stylesheet' href='/tweetmycity/css/layout.css'/>");
          buf.append(" </head>");
 
          buf.append(" <body>");

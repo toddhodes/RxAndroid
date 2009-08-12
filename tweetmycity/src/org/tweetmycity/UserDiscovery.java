@@ -54,24 +54,45 @@ public class UserDiscovery
       StringBuilder buf = new StringBuilder();
       buf.append("<html>");
       buf.append(" <head>");
-      buf.append("       <title>tweetmycity</title>");
-      buf.append("       <meta http-equiv='content-type' content='text/html'/>");
-      buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+      buf.append("    <title>tweetmycity</title>");
+      buf.append("    <meta http-equiv='content-type' content='text/html'/>");
+      buf.append("    <link rel='stylesheet' href='/tweetmycity/css/normalize.css'/>");
+      buf.append("    <link rel='stylesheet' href='/tweetmycity/css/typography.css'/>");
+      buf.append("    <link rel='stylesheet' href='/tweetmycity/css/graphics.css'/>");
+      buf.append("    <link rel='stylesheet' href='/tweetmycity/css/footer.css'/>");
+      buf.append("    <link rel='stylesheet' href='/tweetmycity/css/branding.css'/>");
+      buf.append("    <link rel='stylesheet' href='/tweetmycity/css/layout.css'/>");
+      buf.append("    <link rel='stylesheet' href='/tweetmycity/css/forms.css'/>");
+      
+      buf.append("    <!--[if IE]>");
+      buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE.css' />");
+      buf.append("    <![endif]-->");
+      buf.append("    <!--[if IE 6]>");
+      buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE6.css' />");
+      buf.append("    <![endif]-->");
       buf.append(" </head>");
 
       buf.append(" <body>");
-      buf.append("   <div class='background_image'>");
-      buf.append("     <div class='text_properties'>");
-      buf.append("      <h2>Tweet My City</h2>");
-      buf.append("      <p>Tweet My City is a simple utility");
-      buf.append("         that follows your phone's");
-      buf.append("         location and posts to Twitter");
-      buf.append("         when you arrive at a new city.</p>");
+      buf.append("   <div id='container'>");
+      buf.append("     <div id='branding'>");
+      buf.append("        <h1>Tweet My City</h1>");
+      buf.append("     </div>");
+      buf.append("     <!-- /branding -->");
+         
+      buf.append("     <div id='content'>");
+      buf.append("        <p>Tweet My City is a simple utility that follows your phone&#39;s location and posts to Twitter when you arrive at a new city.</p>");
       buf.append("         <form method='post'>");
-      buf.append("           <input type='submit' value='Get Started'/>");
+      buf.append("            <button class='button getStarted' type='submit' value='Get Started' tabindex='100' />");
       buf.append("         </form>");
       buf.append("     </div>");
+      buf.append("     <!-- /content -->");
+      // XXX: needs link to privacy policy
+      buf.append("     <div id='footer'>");
+      buf.append("        <a href='#'>privacy policy</a>");
+      buf.append("     </div>");
+      buf.append("     <!-- /footer -->");
       buf.append("   </div>  ");
+      buf.append("   <!-- /container -->");
       buf.append(" </body>");
       buf.append("</html>");
 
@@ -100,15 +121,33 @@ public class UserDiscovery
          buf.append(" <head>");
          buf.append("       <title>tweetmycity</title>");
          buf.append("       <meta http-equiv='content-type' content='text/html'/>");
-         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/normalize.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/typography.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/graphics.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/footer.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/branding.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/layout.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/forms.css'/>");
+         
+         buf.append("    <!--[if IE]>");
+         buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE.css' />");
+         buf.append("    <![endif]-->");
+         buf.append("    <!--[if IE 6]>");
+         buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE6.css' />");
+         buf.append("    <![endif]-->");
          buf.append(" </head>");
 
          buf.append(" <body>");
-         buf.append("   <div class='background_image'>");
-         buf.append("     <div class='text_properties'>");
+         buf.append("   <div id='container'>");
+         buf.append("     <div id='branding'>");
+         buf.append("        <h1>Tweet My City</h1>");
+         buf.append("     </div>");
+         buf.append("     <!-- /branding -->");
+         
+         buf.append("     <div id='content'>");
 
          if (user != null) {
-            buf.append("  <h2>Link your accounts</h2>");
+            buf.append("  <h2 id='header-getStarted'>Get Started</h2>");
             buf.append("  <p>You are about to link your veriplace user account ("
                        + user.getId() + ") "
                        + "to your twitter account.");
@@ -117,29 +156,43 @@ public class UserDiscovery
             /*
             buf.append("  <p><a href='location?user=" + user.getId() + "'>Get Location</a></p>");
              */
-             buf.append("  <form action='location' method='post'>");
-             buf.append("   Twitter Username:");
-             buf.append("   <input type='text' name='twitterId'/>");
-             buf.append("   <br/>");
-             buf.append("   Twitter Password:");
-             buf.append("   <input type='text' name='twitterPass'/>");
-             buf.append("   <br/>");
-             buf.append("   Device Nickname (optional):");
-             buf.append("   <input type='text' name='deviceDesc'/>");
-             buf.append("   <br/>");
-             buf.append("   <input type='hidden' name='user' value='" + user.getId() + "'/>");
-             buf.append("   <br/>");
-             buf.append("   <input type='submit' value='Give Permission'/>");
+             buf.append("  <form id='signIn' action='location' method='post'>");
+             buf.append("  <fieldset>");
+             buf.append("     <label for='twitterId'>Twitter Username:</label>");
+             buf.append("     <input id='twitterId' class='twitterId' name='twitterId' type='text' tabindex='100' />");
+             buf.append("  </fieldset>");
+             
+             buf.append("  <fieldset>");
+             buf.append("     <label for='twitterPass'>Twitter Password:</label>");
+             buf.append("     <input id='twitterPass' class='twitterPass' name='twitterPass' type='text' tabindex='100' />");
+             buf.append("  </fieldset>");
+             
+             buf.append("  <fieldset class='optional'>");
+             buf.append("     <label for='deviceDesc'>Device Nickname (optional):</label>");
+             buf.append("     <input id='deviceDesc' class='deviceDesc' name='deviceDesc' type='text' tabindex='100' /><span class='deviceDesc-example'>e.g. My Phone</span>");
+             buf.append("     <input type='hidden' name='user' value='" + user.getId() + "'/>");
+             buf.append("  </fieldset>");
+             
+             buf.append("  <button class='button submit' type='submit' value='Submit' tabindex='120' />");
              buf.append("  </form>");
 
          } else {
             buf.append("  <h2>Cannot link your accounts</h2>");
-            buf.append("  <p>We could not discover your Veripalce user ID.  please try again.</p>");
+            buf.append("  <p>We could not discover your Veripalce user ID. Please try again.</p>");
          }
 
          buf.append("     </div>");
-         buf.append("   </div>  ");
-         buf.append(" </body>");
+         buf.append("     <!-- /content -->  ");
+         // XXX: needs link to privacy policy
+         buf.append("     <div id='footer'>  ");
+         buf.append("        <a href='#'>privacy policy</a>  ");
+         buf.append("     </div>  ");
+         buf.append("     <!-- /footer -->  ");
+         
+         
+         buf.append("  </div>  ");
+         buf.append("  <!-- container -->  ");
+         buf.append("</body>");
          buf.append("</html>");
 
          

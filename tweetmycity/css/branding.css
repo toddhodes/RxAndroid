@@ -1,0 +1,30 @@
+/* BRANDING */
+
+/* logo and header are one */
+#branding {
+background-color: #F90;
+padding: 50px 25px;
+border: 1px solid #000;
+margin-bottom: 20px;
+
+/* REVISED */
+margin-bottom:0;
+padding:0;
+border:0;
+position:relative;
+width:950px;
+height:189px;
+background:#e3f2f8 url(/tweetmycity/images/tweetMyCity.png) 0 0 no-repeat;
+}
+
+/* link on logo if need be */
+#branding h1{
+	width:310px;
+	height:60px;
+	text-indent:-9999px;
+	position:relative;
+	top:20px;
+	/*
+	background-color:green;
+	*/
+}

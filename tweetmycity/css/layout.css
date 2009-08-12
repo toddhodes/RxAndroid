@@ -1,0 +1,26 @@
+/* LAYOUT */
+html{width:auto;}
+body {margin:0 auto; background-color:#e3f2f8;}
+
+#container {
+padding: 20px;
+
+/* REVISED */
+margin:0 auto;
+padding:0;
+width:950px;
+border:1px solid #75b6d2; 
+}
+
+#content {
+margin-left: 242px;
+border: solid 1px #000;
+padding: 10px;
+
+/* REVISED */
+margin-left:0;
+padding:75px 300px 50px 62px;
+min-height:250px;
+border:0;
+background-color: #FFF;
+}

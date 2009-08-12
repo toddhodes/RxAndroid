@@ -145,33 +145,53 @@ public class GetLocation
          buf.append(" <head>");
          buf.append("       <title>tweetmycity</title>");
          buf.append("       <meta http-equiv='content-type' content='text/html'/>");
-         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/tmc.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/normalize.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/typography.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/graphics.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/footer.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/branding.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/layout.css'/>");
+         buf.append("       <link rel='stylesheet' href='/tweetmycity/css/forms.css'/>");
+         
+         buf.append("    <!--[if IE]>");
+         buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE.css' />");
+         buf.append("    <![endif]-->");
+         buf.append("    <!--[if IE 6]>");
+         buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE6.css' />");
+         buf.append("    <![endif]-->");
          buf.append(" </head>");
 
          buf.append(" <body>");
-         buf.append("   <div class='background_image'>");
-         buf.append("     <div class='text_properties'>");
-
-         buf.append("  <h2>Success!</h2>");
-         //buf.append("  <p>You've successfully linked Veriplace to twitter.</p>");
-         buf.append("  <p>Tweet My City will post on your behalf");
-         buf.append("  when you arrive in a new city.  To turn this off");
-         buf.append("  at any time, simply go to veriplace.com and disallow");
-         buf.append("  location sharing.</p>");
-         //buf.append("  <p>User: " + user.getId() + "</p>");
+         buf.append("   <div id='container'>");
+         buf.append("     <div id='branding'>");
+         buf.append("        <h1>Tweet My City</h1>");
+         buf.append("     </div>");
+         buf.append("     <!-- /branding -->");
+         
+         buf.append("     <div id='content'>");
+         buf.append("        <p>Success! Tweet My City will post on your behalf when you arrive in a new city. To turn this off later, simply go to veriplace.com and turn off location sharing.</p>");
+         //buf.append("      <p>You've successfully linked Veriplace to twitter.</p>");
+         //buf.append("      <p>User: " + user.getId() + "</p>");
          if (location != null 
              && location.getCity() != null
              && location.getState() != null) {
-            buf.append("  <p>Additionally, we have a location for you");
-            buf.append("  and you've tweeted your current city as:</p>");
-            buf.append("  <p><b>'" + stat + "'</b></p>");
+            buf.append("     <p>Additionally, we have a location for you and you've tweeted your current city as:</p>");
+            buf.append("     <p><strong>'" + stat + "'</strong></p>");
          } else {
-            buf.append("  <p>We were not able to located you right now, ");
-            buf.append("  but we'll keep trying!</p>");
+            buf.append("     <p>We were not able to located you right now, but we'll keep trying!</p>");
          }
-
+         // XXX: not sure if this goes back to index or not
+         buf.append("        <a class='button ok' href='#' tabindex='100'>OK</a>");
          buf.append("     </div>");
+         buf.append("     <!-- /content -->");
+         
+         buf.append("     <div id='footer'>");
+         // XXX: needs link to privacy policy
+         buf.append("        <a href='#'>privacy policy</a>");
+         buf.append("     </div>");
+         buf.append("     <!-- /footer -->");
          buf.append("   </div>  ");
+         buf.append("   <!-- /container -->  ");
          buf.append(" </body>");
          buf.append("</html>");
 
