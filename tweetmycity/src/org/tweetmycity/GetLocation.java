@@ -14,6 +14,9 @@
  */
 package org.tweetmycity;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.veriplace.client.Location;
 import com.veriplace.client.User;
 import com.veriplace.oauth.consumer.Token;
@@ -34,6 +37,8 @@ import twitter4j.Status;
  */
 public class GetLocation
    extends ClientServlet {
+
+   private static final Log logger = LogFactory.getLog(GetLocation.class);
 
    @Override
    protected void doGet(HttpServletRequest request,
@@ -121,7 +126,7 @@ public class GetLocation
             TmcUser tmc = (new UserStore()).get(user.getId());
             stat = Tweet.tweet(tmc, location);
          } else {
-            System.out.println("No location available.  Did not update the status");
+            logger.info("No location available.  Did not update the status");
          }
          
 

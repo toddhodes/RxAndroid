@@ -203,11 +203,11 @@ public class UserStore {
       File dir = new File(directory);
       dir.mkdirs();
       File userdir = new File(directory);
-      //System.out.println("usersdir '" + userdir + "'");
+      //logger.debug("usersdir '" + userdir + "'");
 
       for (String file : userdir.list()) {
          String[] split = file.split("\\.");
-         //System.out.println("file '" + file + "'");
+         //logger.debug("file '" + file + "'");
 
          //tmcuser.8219567698096403872.tid
          if (split.length == 3 && split[2].equals("tid")) {
@@ -216,7 +216,7 @@ public class UserStore {
                TmcUser u = get(vpId);
                ret.add(u);               
             } catch (NumberFormatException nfe) {
-               System.out.println("error parsing file '" + file + "'");
+               logger.error("error parsing file '" + file + "'");
             }
          }
       }

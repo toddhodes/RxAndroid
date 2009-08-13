@@ -17,7 +17,9 @@ import com.veriplace.oauth.message.Revision;
 
 import java.net.URL;
 import java.net.HttpURLConnection;
-//
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +40,8 @@ import twitter4j.Status;
  */
 public class UpdateSubscribers
    extends ClientServlet {
+
+   private static final Log logger = LogFactory.getLog(UpdateSubscribers.class);
 
    @Override
    protected void doGet(HttpServletRequest request,
@@ -125,10 +129,10 @@ public class UpdateSubscribers
                              "http://veriplace.com",
                              tokenStore);
       } catch (java.security.NoSuchAlgorithmException nsae) {
-         System.err.println(nsae);
+         logger.error(nsae);
          return null;
       } catch (java.net.MalformedURLException mue) {
-         System.err.println(mue);
+         logger.error(mue);
          return null;
       }
 
@@ -148,32 +152,32 @@ public class UpdateSubscribers
          connection = (HttpURLConnection)authorizationUrl.openConnection();
          connection.setInstanceFollowRedirects(false);
          code = connection.getResponseCode();
-         System.out.println("response code: " + code);
+         logger.info("response code: " + code);
       } catch (IOException ioe) {
-         System.err.println(ioe);
+         logger.error(ioe);
          return null;
       }
 
       if (code == 302) {
          // The User Authorization URL sent a redirect, extract the callback URL
          String location_header = connection.getHeaderField("Location");
-         System.out.println("location:" + location_header);
+         logger.debug("location:" + location_header);
 
          // The callback URL contains the oauth_token and oauth_verifier values (as of Rev A)
          String oauth_token = location_header.split("oauth_token=")[1].split("&")[0];
          String oauth_verifier = location_header.split("oauth_verifier=")[1].split("&")[0];
-         System.out.println("callback oauth_token: " + oauth_token);
-         System.out.println("callback oauth_verifier: " + oauth_verifier);
+         logger.debug("callback oauth_token: " + oauth_token);
+         logger.debug("callback oauth_verifier: " + oauth_verifier);
 
 
          // Retrieve the request token from storage
          Token requestToken = tokenStore.get(oauth_token);
-         System.out.println("requestToken: " + requestToken.getToken());
+         logger.debug("requestToken: " + requestToken.getToken());
 
          try {
             // Attempt to get an access token
             Token accessToken = client.getConsumer().getAccessToken(requestToken,oauth_verifier);
-            System.out.println("accessToken: " + accessToken.getToken());
+            logger.debug("accessToken: " + accessToken.getToken());
 
             // We got an access token, now make a location request
             // If our application was provisioned for it, we can try cached location by setting the mode
@@ -184,7 +188,7 @@ public class UpdateSubscribers
                // If we didn't get back a location object, it means we encountered a rare
                // race condition where the access token was revoked between when we retrieved it
                // and when the location request was issued
-               System.out.println("Could not obtain location");
+               logger.info("Could not obtain location");
                return null;
             }
 
@@ -192,30 +196,29 @@ public class UpdateSubscribers
             if (location.getLongitude() != null &&
                 location.getLatitude() != null) {
                // Yes!
-               System.out.println(location.getLatitude() + " " + location.getLongitude());
-               System.out.println("user is in " 
-                                  + location.getCity() + ", " + location.getState());
+               logger.info(location.getLatitude() + " " + location.getLongitude());
+               logger.info("user is in "+ location.getCity() + ", " + location.getState());
                return location;
             } else {
                // Sadly, no...
-               System.out.println(location.getMessage());
+               logger.info(location.getMessage());
                return null;
             }
          } catch (OAuthException e) {
             // An exception here means an Access Token wasn't available
             // Try granting permission directly for your application in the Privacy Manager
             // There should now be a permission request visible in the sidebar
-            System.err.println(e);
+            logger.error(e);
             return null;
          } catch (IOException ioe) {
             // from Token accessToken = client.getConsumer().getAccessToken(requestToken,oauth_verifier);
-            System.err.println(ioe);
+            logger.error(ioe);
             return null;
          } finally {
             tokenStore.remove(requestToken);
          }
       } else {
-         System.out.println("Unexpected http response code: " + code);
+         logger.warn("Unexpected http response code: " + code);
          return null;
       }
    }

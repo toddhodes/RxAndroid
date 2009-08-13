@@ -136,9 +136,8 @@
       <lib file="${log4j.jar}"/>
       <lib file="${wmutils-logging.jar}"/>
       <classes dir="build/classes"/>
-      <!--zipfileset dir="etc"
-                  includes="commons-logging.properties"
-                  prefix="WEB-INF/classes"/-->
+      <zipfileset dir="etc" includes="commons-logging.properties"
+                  prefix="WEB-INF/classes"/>
     </war>
   </target>
 

@@ -23,10 +23,10 @@ public class Tweet {
          + location.getCity() + ", " + location.getState();
       try {
          Status status = twitter.updateStatus(stat);
-         System.out.println("Successfully updated the status to ["
-                            + status.getText() + "].");
+         logger.info("Successfully updated the status to ["
+                     + status.getText() + "].");
       } catch (twitter4j.TwitterException te) {
-         System.out.println("Got exception:" + te.getMessage() );
+         logger.info("Got exception:" + te.getMessage() );
       }
      return stat;
    }
