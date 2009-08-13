@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.text.SimpleDateFormat;
+
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.Status;
@@ -54,6 +56,7 @@ public class UpdateSubscribers
       StringBuilder buf = new StringBuilder();
 
       if (doText) {
+         buf.append((new SimpleDateFormat()).format(System.currentTimeMillis()) + "\n");
          buf.append("Updating subscribers:\n");
       } else {
          buf.append("<html>");
