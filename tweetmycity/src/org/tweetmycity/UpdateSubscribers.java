@@ -3,16 +3,11 @@ package org.tweetmycity;
 
 import com.veriplace.client.Location;
 import com.veriplace.client.User;
-import com.veriplace.oauth.consumer.Token;
-
-//query.bash
 import com.veriplace.client.Client;
-//import com.veriplace.client.Location;
-//import com.veriplace.client.User;
 import com.veriplace.client.store.TokenStore;
 import com.veriplace.client.store.MemoryTokenStore;
+import com.veriplace.oauth.consumer.Token;
 import com.veriplace.oauth.OAuthException;
-//import com.veriplace.oauth.consumer.Token;
 import com.veriplace.oauth.message.Revision;
 
 import java.net.URL;
@@ -116,6 +111,7 @@ public class UpdateSubscribers
    }
 
    protected Location getLocation(TmcUser tmcUser) {
+      logger.info("getting location for " + tmcUser);
 
       // This callback is required by the OAuth standard, but is unused
       String callback = "http://veriplace.com";
@@ -124,7 +120,6 @@ public class UpdateSubscribers
       // For your application, you can find this value in the Developer Portal
       Token applicationToken = new Token("DHgu0Ky1zUS8llHxMXt0",
                                          "nJs2pAxco6wmsOASgmOV");
-
 
       // We'll need to use our own token store below.
       TokenStore tokenStore = new MemoryTokenStore();
