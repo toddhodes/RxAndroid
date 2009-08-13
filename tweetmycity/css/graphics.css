@@ -19,8 +19,11 @@
 	text-indent: -9000px;  
 	height: 25px;
 	line-height:25px;
+	/*\*/
 	display: block;
+	/*/
 	display: inline-block;
+ 	/**/	
 	text-decoration: none;
 	cursor: pointer;
 	padding: 0;
