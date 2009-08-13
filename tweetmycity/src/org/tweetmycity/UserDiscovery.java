@@ -80,7 +80,7 @@ public class UserDiscovery
       buf.append("     <!-- /branding -->");
          
       buf.append("     <div id='content'>");
-      buf.append("        <p>Tweet My City is a simple utility that follows your phone&#39;s location and posts to Twitter when you arrive in a new city.</p>");
+      buf.append("        <p>TweetMyCity is a simple utility that follows your phone&#39;s location and posts to Twitter when you arrive in a new city.</p>");
       buf.append("         <form method='post'>");
       buf.append("            <button class='button getStarted' type='submit' value='Get Started' tabindex='100'>");
       buf.append("            Get Started</button>");
@@ -152,8 +152,8 @@ public class UserDiscovery
                        + "(for locating your phone) "
                        //"(" + user.getId() + ") "
                        + "with your Twitter account.");
-            buf.append("  To do so, you need to give permission for location requests on Veriplace.");
-            buf.append("  Be sure to choose 'on an ongoing basis' when asked.</p>");
+            //buf.append("  To do so, you need to give permission for location requests on Veriplace.");
+            //buf.append("  Be sure to choose 'on an ongoing basis' when asked.</p>");
             /*
             buf.append("  <p><a href='location?user=" + user.getId() + "'>Get Location</a></p>");
              */

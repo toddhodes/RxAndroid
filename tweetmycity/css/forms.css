@@ -48,7 +48,7 @@ input.deviceDesc{width:35%;}
 
 /* special cases */
 form#signIn input{top:-.25em;}
-form#signIn input.deviceDesc{top:-.5em;}
+form#signIn input.deviceDesc{top:-.25em;}
 
 /* BUTTONS */	
 #buttons{margin:1em 0; display:block; position:relative; height:25px; }
