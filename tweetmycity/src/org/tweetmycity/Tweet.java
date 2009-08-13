@@ -14,6 +14,33 @@ public class Tweet {
 
    private static final Log logger = LogFactory.getLog(Tweet.class);
 
+
+   public static String tryTweet(TmcUser tmc, Location location) {
+      if (!GetLocation.empty(location)) {
+         String cityState = location.getCity() + ", " + location.getState();
+         if (!cityState.equals(tmc.getLastCityState())) {
+
+            // not same as last time
+            logger.info("tweeting the location, it's not the same as last time: " + cityState);
+
+            // tweet the city
+            String stat = tweet(tmc, location);
+            
+            // ... and update and save new location
+            tmc.updateLastCity(cityState);
+            (new UserStore()).update(tmc);
+
+            return stat;
+         } else {
+            logger.info("not tweeting the location, it's the same as last time: " + cityState);
+         }
+      } else {
+         logger.info("No location available.  Did not update the status");
+      }
+      return null;
+   }
+
+
    public static String tweet(TmcUser tmc, Location location) {
       Twitter twitter = new Twitter(tmc.getTwitterId(),
                                     tmc.getTwitterPass());

@@ -97,7 +97,6 @@ public class UserStore {
             tId.append((char)c);
          }
          
-
          file = getFile(userId + ".tpass");
          fis = new FileInputStream(file);
          logger.debug("Reading info from file: " + file.getPath());
@@ -122,15 +121,33 @@ public class UserStore {
             dev.append((char)c);
          }
 
+         file = getFile(userId + ".lastloc");
+         StringBuilder lastloc = new StringBuilder();         
+         if (file.exists()) {
+            fis = new FileInputStream(file);
+            logger.debug("Reading info from file: " + file.getPath());
+
+            while ((c = fis.read()) != -1) {
+               if (c == '\n') {
+                  break;
+               }
+               lastloc.append((char)c);
+            }
+         } else {
+            lastloc.append("unknown");
+         }
+
 
          logger.debug("twitterId was: " + tId.toString());
          logger.debug("twitterPass was: " + tPass.toString());
          logger.debug("deviceDesc: " + dev.toString());
+         logger.debug("lastloc: " + lastloc.toString());
 
          return new TmcUser(userId,
                             tId.toString(),
                             tPass.toString(),
-                            dev.toString());
+                            dev.toString(),
+                            lastloc.toString());
       } catch (FileNotFoundException e) {
          logger.debug(e);
 
@@ -162,14 +179,29 @@ public class UserStore {
 
          file = getFile(tmcUser.getUserId() + ".dev");
          fos = new FileOutputStream(file);
-         logger.debug("Writing tpass to file: " + file.getPath());
+         logger.debug("Writing device description to file: " + file.getPath());
          fos.write(tmcUser.getDeviceDescription().getBytes());
+         fos.close();
+
+         file = getFile(tmcUser.getUserId() + ".lastloc");
+         fos = new FileOutputStream(file);
+         logger.debug("Writing lastloc to file: " + file.getPath());
+         fos.write(tmcUser.getLastCityState().getBytes());
          fos.close();
 
       } catch (IOException e) {
          logger.warn(e);
       }
    }
+
+   /**
+    * Update user information in this store.
+    */
+   public synchronized void update(TmcUser tmcUser) {
+      add(tmcUser);
+   }
+
+
 
    /**
     * Remove a user from this store.

@@ -25,24 +25,34 @@ public class TmcUser {
    private String twitterId;
    private String twitterPass;
    private String deviceDescription;
+   private String lastCityState;
 
-   public TmcUser(long uId, String tId, String tPass, String dev) {
+   public TmcUser(long uId, String tId, String tPass, String dev, String cityState) {
       userId = uId;
       twitterId = tId;
       twitterPass = tPass;
       deviceDescription = dev;
+      lastCityState = cityState;
+      if (lastCityState == null)
+         lastCityState = "unknown";
+   }
+
+   public void updateLastCity(String cs) {
+      lastCityState = cs;
    }
 
    public long getUserId() { return userId; }
    public String getTwitterId() { return twitterId; }
    public String getTwitterPass() { return twitterPass; }
    public String getDeviceDescription() { return deviceDescription; }
+   public String getLastCityState() { return lastCityState; }
 
    public String toString() {
       return "[TmcUser: vpId=" + userId 
          + ", twitterId=" + twitterId 
          //+ ", twitterPass=" + twitterPass 
          + ", device=" + deviceDescription
+         + ", lastloc=" + lastCityState
          + "]";
    }
 }

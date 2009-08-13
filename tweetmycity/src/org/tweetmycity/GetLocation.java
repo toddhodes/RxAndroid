@@ -120,15 +120,9 @@ public class GetLocation
          // get user
          Location location = client.getGetLocationAPI().getLocation(accessToken, user);
 
-         String stat = null;
-         if (!empty(location)) {
-            // tweet the city
-            TmcUser tmc = (new UserStore()).get(user.getId());
-            stat = Tweet.tweet(tmc, location);
-         } else {
-            logger.info("No location available.  Did not update the status");
-         }
-         
+         TmcUser tmc = (new UserStore()).get(user.getId());
+
+         String stat = Tweet.tryTweet(tmc, location);
 
          // show user
          StringBuilder buf = new StringBuilder();
@@ -231,9 +225,8 @@ public class GetLocation
    }
 
    protected void saveUser(long vpId, String twitterId, String twitterPass, String dev) {
-       TmcUser u = new TmcUser(vpId, twitterId, twitterPass, dev); 
-       UserStore us = new UserStore(); 
-      
+       TmcUser u = new TmcUser(vpId, twitterId, twitterPass, dev, null); 
+       UserStore us = new UserStore();       
        us.add(u);
    }
 

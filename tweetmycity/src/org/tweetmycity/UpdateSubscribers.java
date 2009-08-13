@@ -56,9 +56,11 @@ public class UpdateSubscribers
       StringBuilder buf = new StringBuilder();
 
       if (doText) {
+         response.setContentType("text/plain");
          buf.append((new SimpleDateFormat()).format(System.currentTimeMillis()) + "\n");
          buf.append("Updating subscribers:\n");
       } else {
+         response.setContentType("text/html");
          buf.append("<html>");
          buf.append(" <head>");
          buf.append("       <title>TweetMyCity</title>");
@@ -71,41 +73,46 @@ public class UpdateSubscribers
          buf.append("   <div class='background_image'>");
          buf.append("     <div class='text_properties'>");
          buf.append("      <h2>Update Subscribers</h2>");
+         buf.append("      <p>" + (new SimpleDateFormat()).format(System.currentTimeMillis()) + "</p>");
          buf.append("      <p>Updating the following:</p>");
       }
 
       for (TmcUser tmcUser : (new UserStore()).getUsers()) {
-         Location location = getLocation(tmcUser);
-         if (!GetLocation.empty(location)) {
-            Tweet.tweet(tmcUser, location);
-            if (doText) 
-               buf.append("tweet: " + tmcUser 
-                          + " is in " + location.getCity() + ", " + location.getState()
-                          + "\n");
-            else
-               buf.append("<p>tweet: " + tmcUser 
-                          + " is in " + location.getCity() + ", " + location.getState()
-                          + "</p>");
-         } else {
-            if (doText) 
-               buf.append("no location for: " + tmcUser + "\n");
-            else
-               buf.append("<p>no location for: " + tmcUser + "</p>");
-         }
+         if (doText) 
+            buf.append(tmcUser + "\n");
+         else
+            buf.append("<p>" + tmcUser + "</p>");
       }
 
       if (doText) {
          buf.append("\n");
-         response.setContentType("text/plain");
       } else {
          buf.append("     </div>");
          buf.append("   </div>  ");
          buf.append(" </body>");
          buf.append("</html>");
-         response.setContentType("text/html");
       }
 
+      startUpdateThread();
+
       response.getOutputStream().write(buf.toString().getBytes());
+   }
+
+
+   protected void updateAll() {
+      for (TmcUser tmcUser : (new UserStore()).getUsers()) {
+         Location location = getLocation(tmcUser);
+         String status = Tweet.tryTweet(tmcUser, location);
+      }
+   }
+
+
+   protected void startUpdateThread() {
+      new Thread(new Runnable() { public void run() { 
+         logger.info("starting update thread");
+         updateAll(); 
+         logger.info("finished update thread");
+      } } ).start();
    }
 
    protected Location getLocation(TmcUser tmcUser) {
