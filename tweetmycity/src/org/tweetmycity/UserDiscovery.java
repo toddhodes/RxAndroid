@@ -82,7 +82,8 @@ public class UserDiscovery
       buf.append("     <div id='content'>");
       buf.append("        <p>Tweet My City is a simple utility that follows your phone&#39;s location and posts to Twitter when you arrive in a new city.</p>");
       buf.append("         <form method='post'>");
-      buf.append("            <button class='button getStarted' type='submit' value='Get Started' tabindex='100' />");
+      buf.append("            <button class='button getStarted' type='submit' value='Get Started' tabindex='100'>");
+      buf.append("            Get Started</button>");
       buf.append("         </form>");
       buf.append("     </div>");
       buf.append("     <!-- /content -->");
@@ -173,7 +174,8 @@ public class UserDiscovery
              buf.append("     <input type='hidden' name='user' value='" + user.getId() + "'/>");
              buf.append("  </fieldset>");
              
-             buf.append("  <button class='button continue' type='submit' value='Continue' tabindex='120' />");
+             buf.append("  <button class='button continue' type='submit' value='Continue' tabindex='120'>");
+             buf.append("  Continue</button>");
              buf.append("  </form>");
 
          } else {
