@@ -26,6 +26,11 @@
     <servlet-class>org.tweetmycity.UpdateSubscribers</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>twitterOAuth</servlet-name>
+    <servlet-class>org.tweetmycity.TwitterOAuth</servlet-class>
+  </servlet>
+
 
   <servlet-mapping>
     <servlet-name>userDiscovery</servlet-name>
@@ -40,6 +45,11 @@
   <servlet-mapping>
     <servlet-name>updateSubscribers</servlet-name>
     <url-pattern>/update</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>twitterOAuth</servlet-name>
+    <url-pattern>/twitteroauth</url-pattern>
   </servlet-mapping>
 
 </web-app>

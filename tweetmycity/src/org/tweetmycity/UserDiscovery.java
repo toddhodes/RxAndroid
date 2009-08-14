@@ -111,10 +111,6 @@ public class UserDiscovery
          // get user
          User user = client.getUserDiscoveryAPI().getUser(accessToken);
 
-      //append the twitter info
-      String twitterId = request.getParameter("twitterId");
-      String twitterPass = request.getParameter("twitterPass");
-
          // show user
          StringBuilder buf = new StringBuilder();
          buf.append("<html>");
@@ -154,9 +150,7 @@ public class UserDiscovery
                        + "with your Twitter account.");
             //buf.append("  To do so, you need to give permission for location requests on Veriplace.");
             //buf.append("  Be sure to choose 'on an ongoing basis' when asked.</p>");
-            /*
-            buf.append("  <p><a href='location?user=" + user.getId() + "'>Get Location</a></p>");
-             */
+            //buf.append("  <p><a href='location?user=" + user.getId() + "'>Get Location</a></p>");
              buf.append("  <form id='signIn' action='location' method='post'>");
              buf.append("  <fieldset>");
              buf.append("     <label for='twitterId'>Twitter Username:</label>");
@@ -180,7 +174,7 @@ public class UserDiscovery
 
          } else {
             buf.append("  <h2>Cannot link your accounts</h2>");
-            buf.append("  <p>We could not discover your Veripalce user ID. Please try again.</p>");
+            buf.append("  <p>We could not discover your Veriplace user ID. Please try again.</p>");
          }
 
          buf.append("     </div>");
