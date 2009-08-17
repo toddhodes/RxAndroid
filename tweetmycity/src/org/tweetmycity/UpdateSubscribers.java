@@ -69,19 +69,17 @@ public class UpdateSubscribers
          buf.append("     <div class='text_properties'>");
          buf.append("      <h2>Update Subscribers</h2>");
          buf.append("      <p>" + (new SimpleDateFormat()).format(System.currentTimeMillis()) + "</p>");
-         buf.append("      <p>Updating the following:</p>");
+         buf.append("      <p>Updating the following:</p><pre>");
       }
 
       for (TmcUser tmcUser : (new UserStore()).getUsers()) {
-         if (doText) 
-            buf.append(tmcUser + "\n");
-         else
-            buf.append("<p>" + tmcUser + "</p>");
+         buf.append(tmcUser + "\n");
       }
 
       if (doText) {
          buf.append("\n");
       } else {
+         buf.append("       </pre>");
          buf.append("     </div>");
          buf.append("   </div>  ");
          buf.append(" </body>");
