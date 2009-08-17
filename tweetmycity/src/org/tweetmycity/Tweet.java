@@ -150,6 +150,7 @@ public class Tweet {
          + " is now in "
          + location.getCity() + ", " + location.getState();
       try {
+         logger.info("creds = " + twitter.verifyCredentials());
          Status status = twitter.updateStatus(stat);
          logger.info("Successfully updated the status to ["
                      + status.getText() + "].");

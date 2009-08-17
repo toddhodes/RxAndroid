@@ -206,7 +206,7 @@ public class UpdateSubscribers
                return location;
             } else {
                // Sadly, no...
-               logger.info(location.getMessage());
+               logger.info("have a location, but, no longlat: " + location.getMessage());
                return null;
             }
          } catch (OAuthException e) {
