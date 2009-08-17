@@ -49,7 +49,7 @@
 
   <servlet-mapping>
     <servlet-name>twitterOAuth</servlet-name>
-    <url-pattern>/twitteroauth</url-pattern>
+    <url-pattern>/oauth</url-pattern>
   </servlet-mapping>
 
 </web-app>

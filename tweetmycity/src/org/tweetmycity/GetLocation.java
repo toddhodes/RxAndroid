@@ -155,7 +155,8 @@ public class GetLocation
          buf.append("     <!-- /branding -->");
          
          buf.append("     <div id='content'>");
-         buf.append("        <p>Success! Tweet My City will post on your behalf when you arrive in a new city. To turn this off later, simply go to veriplace.com and turn off location sharing.</p>");
+         buf.append("        <p>Success! Tweet My City will post on your behalf when you arrive in a new city. ");
+         buf.append("     To turn this off later, simply go to veriplace.com and turn off location sharing.</p>");
          //buf.append("      <p>You've successfully linked Veriplace to twitter.</p>");
          //buf.append("      <p>User: " + user.getId() + "</p>");
          if (!empty(location)) {

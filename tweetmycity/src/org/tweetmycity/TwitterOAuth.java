@@ -65,10 +65,13 @@ public class TwitterOAuth
       buf.append("   <div class='background_image'>");
       buf.append("     <div class='text_properties'>");
       buf.append("      <h2>Twitter testing</h2>");
+
       buf.append("      <p>" + (new SimpleDateFormat()).format(System.currentTimeMillis()) + "</p>");
-      buf.append("      <p>Give permission at the following URL:</p>");
+      buf.append("      <p>Authorize access to Twitter via the following URL:</p>");
       String authUrl = Tweet.startOAuth();
       buf.append("      <p><a href='" + authUrl + "'>" + authUrl + "</a></p>");
+      buf.append("      <p>(You will be returned here afterward automatically.)</p>");
+
       buf.append("     </div>");
       buf.append("   </div>  ");
       buf.append(" </body>");

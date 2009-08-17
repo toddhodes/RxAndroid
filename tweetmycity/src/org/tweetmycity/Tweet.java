@@ -23,6 +23,7 @@ public class Tweet {
 
    public static String startOAuth() {
       Twitter twitter = new Twitter();
+      twitter.setSource("TweetMyCity.org");
       twitter.setOAuthConsumer(consumer_key, consumer_secret);
 
       //RequestToken requestToken = null;
@@ -43,6 +44,7 @@ public class Tweet {
 
    public static void finishOAuth() {
       Twitter twitter = new Twitter();
+      twitter.setSource("TweetMyCity.org");
       twitter.setOAuthConsumer(consumer_key, consumer_secret);
 
       logger.debug("requestToken = " + requestToken);
@@ -83,6 +85,7 @@ public class Tweet {
 
    public static void updateStatusViaOAuth(String statusMsg) {
       Twitter twitter = new Twitter();
+      twitter.setSource("TweetMyCity.org");
       twitter.setOAuthConsumer(consumer_key, consumer_secret);
       AccessToken accessToken = loadAccessToken(-1);
       twitter.setOAuthAccessToken(accessToken);
@@ -141,6 +144,7 @@ public class Tweet {
    public static String tweet(TmcUser tmc, Location location) {
       Twitter twitter = new Twitter(tmc.getTwitterId(),
                                     tmc.getTwitterPass());
+      twitter.setSource("TweetMyCity.org");
       String stat = "TweetMyCity.org: "//"@tweet_my_city: "
          + tmc.getDeviceDescription()
          + " is now in "
