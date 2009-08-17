@@ -128,9 +128,13 @@ public class Tweet {
             // tweet the city
             String stat = tweet(tmc, location);
             
-            // ... and update and save new location
-            tmc.updateLastCity(cityState);
-            (new UserStore()).update(tmc);
+            if (stat != null) {
+               // ... and update and save new location
+               tmc.updateLastCity(cityState);
+               (new UserStore()).update(tmc);
+            } else {
+               logger.info("could not tweet, not updating last location: " + cityState);
+            }
 
             return stat;
          } else {
@@ -172,6 +176,8 @@ public class Tweet {
                logger.warn("exceeded max retry count tweeting.  giving up.");
             }
          }
+         // if exceedeed retry or got non-408 error, didn't update successfully
+         return null;
       }
      return stat;
    }

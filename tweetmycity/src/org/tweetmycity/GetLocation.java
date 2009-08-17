@@ -160,10 +160,18 @@ public class GetLocation
          //buf.append("      <p>You've successfully linked Veriplace to twitter.</p>");
          //buf.append("      <p>User: " + user.getId() + "</p>");
          if (!empty(location)) {
-            buf.append("     <p>Additionally, we have a location for you and you've tweeted your current city as:</p>");
-            buf.append("     <p><strong>" + stat + "</strong></p>");
+            if (stat == null) {
+               buf.append("     <p>Additionally, we have a location for you, ");
+               buf.append("        and we've tried tweeting your current city, but, alas,");
+               buf.append("        Twitter seems to be either down or unresponsive right now.");
+               buf.append("        Don't worry, though, we'll keep trying in the future!</p>");
+            } else {
+               buf.append("     <p>Additionally, we have a location for you, ");
+               buf.append("        and you've tweeted your current city as:</p>");
+               buf.append("     <p><strong>" + stat + "</strong></p>");
+            }
          } else {
-            buf.append("     <p>We were not able to located you right now, but we'll keep trying!</p>");
+            buf.append("     <p>We were not able to locate you right now, but we'll keep trying!</p>");
          }
          buf.append("        <a class='button ok' href='user' tabindex='100'>OK</a>");
          buf.append("     </div>");
