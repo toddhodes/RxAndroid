@@ -20,6 +20,8 @@ public class Tweet {
    private static final String consumer_key = "4lUrVENZYCIcfx5U3L45Ig";
    private static final String consumer_secret = "q1O8Rytr6HZy8cZKEMs9oxRawplHRjC56yCFqaFhI";
 
+   private static final int MAX_RETRY_COUNT = 10;
+
 
    public static String startOAuth() {
       Twitter twitter = new Twitter();
@@ -142,6 +144,11 @@ public class Tweet {
 
 
    public static String tweet(TmcUser tmc, Location location) {
+      return tweet(tmc, location, 0);
+   }
+
+
+   public static String tweet(TmcUser tmc, Location location, int retryCount) {
       Twitter twitter = new Twitter(tmc.getTwitterId(),
                                     tmc.getTwitterPass());
       twitter.setSource("TweetMyCity.org");
@@ -152,13 +159,24 @@ public class Tweet {
       try {
          logger.info("creds = " + twitter.verifyCredentials());
          Status status = twitter.updateStatus(stat);
-         logger.info("Successfully updated the status to ["
-                     + status.getText() + "].");
+         logger.info("Successfully updated the status to [" + status.getText() + "].");
       } catch (twitter4j.TwitterException te) {
-         logger.info("Got exception:" + te.getMessage() );
+         String msg = te.getMessage();
+         int code = te.getStatusCode();
+         logger.info("Got twitter exception: " + code + ": " + msg);
+         if (code == 408) {
+            if (retryCount < MAX_RETRY_COUNT) {
+               logger.info("retrying");
+               return tweet(tmc, location, ++retryCount);
+            } else {
+               logger.warn("exceeded max retry count tweeting.  giving up.");
+            }
+         }
       }
      return stat;
    }
+
+
 
 }
 
