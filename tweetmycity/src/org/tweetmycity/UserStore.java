@@ -84,41 +84,45 @@ public class UserStore {
    public synchronized TmcUser get(long userId) {
 
       try {
-         File file = getFile(userId + ".tid");
+         File file = getFile(userId + ".ttok");
          FileInputStream fis = new FileInputStream(file);
          logger.debug("Reading info from file: " + file.getPath());
          
-         StringBuilder tId = new StringBuilder();
+         StringBuilder tTok = new StringBuilder();
          int c;
          while ((c = fis.read()) != -1) {
             if (c == '\n') {
                break;
             }
-            tId.append((char)c);
+            tTok.append((char)c);
          }
          
-         file = getFile(userId + ".tpass");
+         file = getFile(userId + ".ttoksec");
          fis = new FileInputStream(file);
          logger.debug("Reading info from file: " + file.getPath());
 
-         StringBuilder tPass = new StringBuilder();
+         StringBuilder tTokSec = new StringBuilder();
          while ((c = fis.read()) != -1) {
             if (c == '\n') {
                break;
             }
-            tPass.append((char)c);
+            tTokSec.append((char)c);
          }
 
          file = getFile(userId + ".dev");
-         fis = new FileInputStream(file);
-         logger.debug("Reading info from file: " + file.getPath());
 
+         fis = new FileInputStream(file);
          StringBuilder dev = new StringBuilder();
-         while ((c = fis.read()) != -1) {
-            if (c == '\n') {
-               break;
+         if (file.exists()) {
+            logger.debug("Reading info from file: " + file.getPath());
+            while ((c = fis.read()) != -1) {
+               if (c == '\n') {
+                  break;
+               }
+               dev.append((char)c);
             }
-            dev.append((char)c);
+         }  else {
+            dev.append("phone");
          }
 
          file = getFile(userId + ".lastloc");
@@ -138,14 +142,14 @@ public class UserStore {
          }
 
 
-         logger.debug("twitterId was: " + tId.toString());
-         logger.debug("twitterPass was: " + tPass.toString());
+         logger.debug("twitterTok was: " + tTok.toString());
+         logger.debug("twitterTokSec was: " + tTokSec.toString());
          logger.debug("deviceDesc: " + dev.toString());
          logger.debug("lastloc: " + lastloc.toString());
 
          return new TmcUser(userId,
-                            tId.toString(),
-                            tPass.toString(),
+                            tTok.toString(),
+                            tTokSec.toString(),
                             dev.toString(),
                             lastloc.toString());
       } catch (FileNotFoundException e) {
@@ -165,16 +169,16 @@ public class UserStore {
    public synchronized void add(TmcUser tmcUser) {
 
       try {
-         File file = getFile(tmcUser.getUserId() + ".tid");
+         File file = getFile(tmcUser.getUserId() + ".ttok");
          FileOutputStream fos = new FileOutputStream(file);
-         logger.debug("Writing tid to file: " + file.getPath());
-         fos.write(tmcUser.getTwitterId().getBytes());
+         logger.debug("Writing ttok to file: " + file.getPath());
+         fos.write(tmcUser.getTwitterToken().getBytes());
          fos.close();
 
-         file = getFile(tmcUser.getUserId() + ".tpass");
+         file = getFile(tmcUser.getUserId() + ".ttoksec");
          fos = new FileOutputStream(file);
-         logger.debug("Writing tpass to file: " + file.getPath());
-         fos.write(tmcUser.getTwitterPass().getBytes());
+         logger.debug("Writing ttoksec to file: " + file.getPath());
+         fos.write(tmcUser.getTwitterTokenSecret().getBytes());
          fos.close();
 
          file = getFile(tmcUser.getUserId() + ".dev");
@@ -194,6 +198,17 @@ public class UserStore {
       }
    }
 
+
+   public void addUser(long vpId, String twitterTok, String twitterTokSec, String dev) {
+      TmcUser u = new TmcUser(vpId, twitterTok, twitterTokSec, dev, null); 
+      add(u);
+   }
+
+   public void addUser(long vpId, String twitterTok, String twitterTokSec) {
+      addUser(vpId, twitterTok, twitterTokSec, null); 
+   }
+
+
    /**
     * Update user information in this store.
     */
@@ -208,17 +223,22 @@ public class UserStore {
     */
    public synchronized void remove(TmcUser tmcUser) {
 
-      File file = getFile(tmcUser.getUserId() + ".tid");
+      File file = getFile(tmcUser.getUserId() + ".ttok");
       if (file.exists()) {
          file.delete();
       }
 
-      file = getFile(tmcUser.getUserId() + ".tpass");
+      file = getFile(tmcUser.getUserId() + ".ttoksec");
       if (file.exists()) {
          file.delete();
       }
 
       file = getFile(tmcUser.getUserId() + ".dev");
+      if (file.exists()) {
+         file.delete();
+      }
+
+      file = getFile(tmcUser.getUserId() + ".lastloc");
       if (file.exists()) {
          file.delete();
       }
@@ -242,7 +262,7 @@ public class UserStore {
          //logger.debug("file '" + file + "'");
 
          //tmcuser.8219567698096403872.tid
-         if (split.length == 3 && split[2].equals("tid")) {
+         if (split.length == 3 && split[2].equals("ttok")) {
             try {
                long vpId = Long.parseLong(split[1]);
                TmcUser u = get(vpId);

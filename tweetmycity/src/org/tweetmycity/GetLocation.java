@@ -46,6 +46,8 @@ public class GetLocation
       throws ServletException,
              IOException {
 
+      logger.info("doGet");
+
       User user = getUser(request);
 
       if (user == null) {
@@ -57,18 +59,6 @@ public class GetLocation
       }
    }
 
-   /**
-    * Pull the current user from request parameters
-    */
-   protected User getUser(HttpServletRequest request) {
-      try {
-         long userId = Long.parseLong(request.getParameter("user"));
-         return new User(userId);
-      } catch (NullPointerException e) {
-      } catch (NumberFormatException e) {
-      }
-      return null;
-   }
 
    /**
     * Delegate to {@link UserDiscovery} servlet, e.g. if we don't know the user.
@@ -93,14 +83,11 @@ public class GetLocation
              IOException {
 
       StringBuilder buf = new StringBuilder();
-       // ignore this -- never called!
+       // ignore this -- never should get here in noormal flow
       buf.append("<html>");
       buf.append(" <body>");
-      buf.append("  <h2>Veriplace Client Example</h2>");
-      buf.append("  <form method='post'>");
-      buf.append("   <input type='hidden' name='user' value='" + user.getId() + "'/>");
-      buf.append("   <input type='submit' value='Locate User'/>");
-      buf.append("  </form>");
+      buf.append("  <h2>Bad request</h2>");
+      buf.append("  <p>Your request was invalid</p>");
       buf.append(" </body>");
       buf.append("</html>");
 
@@ -156,7 +143,8 @@ public class GetLocation
          
          buf.append("     <div id='content'>");
          buf.append("        <p>Success! Tweet My City will post on your behalf when you arrive in a new city. ");
-         buf.append("     To turn this off later, simply go to veriplace.com and turn off location sharing.</p>");
+         buf.append("     To turn this off later, simply go to veriplace.com and turn off location sharing,");
+         buf.append("     and optionally revoke access at Twitter.</p>");
          //buf.append("      <p>You've successfully linked Veriplace to twitter.</p>");
          //buf.append("      <p>User: " + user.getId() + "</p>");
          if (!empty(location)) {
@@ -205,20 +193,24 @@ public class GetLocation
       throws ServletException,
              IOException {
 
+      logger.info("doPost " + request.getQueryString());
       User user = getUser(request);
+      logger.info("user = " + user);
 
       if (user == null) {
          doDiscoverUser(request,response);
       } else {
-          //save the twitter + vp info
-          String twitterId = request.getParameter("twitterId");
-          String twitterPass = request.getParameter("twitterPass");
-          String deviceDesc = request.getParameter("deviceDesc");
-          if (deviceDesc == null || "".equals(deviceDesc)) {
-             deviceDesc = "phone";
-          }
-          long vpUserId = user.getId();
-          saveUser(vpUserId, twitterId, twitterPass, deviceDesc);
+
+         // add device description to user
+         long vpUserId = user.getId();
+         UserStore us = new UserStore();
+         TmcUser tmc = us.get(vpUserId);
+         String deviceDesc = request.getParameter("deviceDesc");
+         logger.info("dev = " + deviceDesc);
+         if (deviceDesc != null && !"".equals(deviceDesc)) {
+            tmc.updateDeviceDescription(deviceDesc);
+            us.update(tmc);
+         }          
 
          // construct callback url
          String callback = 
@@ -233,11 +225,6 @@ public class GetLocation
       }
    }
 
-   protected void saveUser(long vpId, String twitterId, String twitterPass, String dev) {
-       TmcUser u = new TmcUser(vpId, twitterId, twitterPass, dev, null); 
-       UserStore us = new UserStore();       
-       us.add(u);
-   }
 
    public static boolean empty(Location location) {
        return location == null 

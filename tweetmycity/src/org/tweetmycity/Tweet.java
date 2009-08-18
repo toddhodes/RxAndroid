@@ -44,7 +44,7 @@ public class Tweet {
    static RequestToken requestToken = null;
 
 
-   public static void finishOAuth() {
+   public static AccessToken finishOAuth() {
       Twitter twitter = new Twitter();
       twitter.setSource("TweetMyCity.org");
       twitter.setOAuthConsumer(consumer_key, consumer_secret);
@@ -52,7 +52,7 @@ public class Tweet {
       logger.debug("requestToken = " + requestToken);
       AccessToken accessToken = null;
       int retry = 0;
-      while (accessToken == null && retry < 100) {
+      while (accessToken == null && retry < 12) {
          try{
             accessToken = requestToken.getAccessToken();
          } catch (TwitterException te) {
@@ -70,26 +70,23 @@ public class Tweet {
          logger.info("accessToken = " + accessToken);
          twitter.setOAuthAccessToken(accessToken);
          logger.info("creds = " + twitter.verifyCredentials());
-         logger.info("creds = " + twitter.verifyCredentials().getId());
-         //persist to the accessToken for future reference.
-         storeAccessToken(twitter.verifyCredentials().getId(), accessToken);
-
-         Status status = twitter.updateStatus("update using oauth credentials");
-         logger.info("Successfully updated the status to [" + status.getText() + "].");
+         //Status status = twitter.updateStatus("update using oauth credentials");
+         //logger.info("Successfully updated the status to [" + status.getText() + "].");
       }  catch (TwitterException te) {
          te.printStackTrace();
          logger.error(te);
       }
+
+      return accessToken;
    }
 
 
 
-
-   public static void updateStatusViaOAuth(String statusMsg) {
+   public static void updateStatusViaOAuth(long vpuserid, String statusMsg) {
       Twitter twitter = new Twitter();
       twitter.setSource("TweetMyCity.org");
       twitter.setOAuthConsumer(consumer_key, consumer_secret);
-      AccessToken accessToken = loadAccessToken(-1);
+      AccessToken accessToken = (new UserStore()).get(vpuserid).getAccessToken();
       twitter.setOAuthAccessToken(accessToken);
       try {
          Status status = twitter.updateStatus(statusMsg);
@@ -99,21 +96,6 @@ public class Tweet {
       }
    }
 
-
-      // XXX store to persistent store
-   private static void storeAccessToken(int userId, AccessToken at){
-      tokenStore = at.getToken();
-      tokenSecretStore = at.getTokenSecret();
-   }
-   static String tokenStore;
-   static String tokenSecretStore;
-
-      // XXX load from persistent store
-   private static AccessToken loadAccessToken(int userId){
-      String token = tokenStore;
-      String tokenSecret = tokenSecretStore;
-      return new AccessToken(token, tokenSecret);
-   }
 
 
 
@@ -153,9 +135,12 @@ public class Tweet {
 
 
    public static String tweet(TmcUser tmc, Location location, int retryCount) {
-      Twitter twitter = new Twitter(tmc.getTwitterId(),
-                                    tmc.getTwitterPass());
+
+      Twitter twitter = new Twitter();
+      twitter.setOAuthConsumer(consumer_key, consumer_secret);
+      twitter.setOAuthAccessToken(tmc.getAccessToken());
       twitter.setSource("TweetMyCity.org");
+
       String stat = "TweetMyCity.org: "//"@tweet_my_city: "
          + tmc.getDeviceDescription()
          + " is now in "

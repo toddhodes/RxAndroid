@@ -80,10 +80,11 @@ public class UserDiscovery
       buf.append("     <!-- /branding -->");
          
       buf.append("     <div id='content'>");
-      buf.append("        <p>TweetMyCity is a simple utility that follows your phone&#39;s location and posts to Twitter when you arrive in a new city.</p>");
+      buf.append("        <p>TweetMyCity is a simple utility that follows your phone&#39;s location ");
+      buf.append("           and posts to Twitter when you arrive in a new city.</p>");
       buf.append("         <form method='post'>");
-      buf.append("            <button class='button getStarted' type='submit' value='Get Started' tabindex='100'>");
-      buf.append("            Get Started</button>");
+      buf.append("            <button class='button getStarted' type='submit' ");
+      buf.append("                    value='Get Started' tabindex='100'>Get Started</button>");
       buf.append("         </form>");
       buf.append("     </div>");
       buf.append("     <!-- /content -->");
@@ -110,6 +111,12 @@ public class UserDiscovery
       if (accessToken != null) {
          // get user
          User user = client.getUserDiscoveryAPI().getUser(accessToken);
+
+         if (user != null) {
+            // we have some text below for this case, but, don't really need it.
+            response.sendRedirect("oauth?vpuser=" + user.getId());
+            return;
+         }
 
          // show user
          StringBuilder buf = new StringBuilder();
@@ -144,33 +151,14 @@ public class UserDiscovery
 
          if (user != null) {
             buf.append("  <h2 id='header-getStarted'>Get Started</h2>");
-            buf.append("  <p>You are about to link your Veriplace account "
-                       + "(for locating your phone) "
-                       //"(" + user.getId() + ") "
-                       + "with your Twitter account.");
+            buf.append("  <br/><p>First, let's find your Veriplace account ");
+            buf.append("     (for locating your phone).</p>");
             //buf.append("  To do so, you need to give permission for location requests on Veriplace.");
             //buf.append("  Be sure to choose 'on an ongoing basis' when asked.</p>");
             //buf.append("  <p><a href='location?user=" + user.getId() + "'>Get Location</a></p>");
-             buf.append("  <form id='signIn' action='location' method='post'>");
-             buf.append("  <fieldset>");
-             buf.append("     <label for='twitterId'>Twitter Username:</label>");
-             buf.append("     <input id='twitterId' class='twitterId' name='twitterId' type='text' tabindex='100' />");
-             buf.append("  </fieldset>");
-             
-             buf.append("  <fieldset>");
-             buf.append("     <label for='twitterPass'>Twitter Password:</label>");
-             buf.append("     <input id='twitterPass' class='twitterPass' name='twitterPass' type='password' tabindex='100' />");
-             buf.append("  </fieldset>");
-             
-             buf.append("  <fieldset class='optional'>");
-             buf.append("     <label for='deviceDesc'>Device Nickname (optional):</label>");
-             buf.append("     <input id='deviceDesc' class='deviceDesc' name='deviceDesc' type='text' tabindex='100' /><span class='deviceDesc-example'>e.g. My Phone</span>");
-             buf.append("     <input type='hidden' name='user' value='" + user.getId() + "'/>");
-             buf.append("  </fieldset>");
-             
-             buf.append("  <button class='button continue' type='submit' value='Continue' tabindex='120'>");
-             buf.append("  Continue</button>");
-             buf.append("  </form>");
+
+            buf.append("  <p><a class='button continue' ");
+            buf.append("        href='oauth?vpuser=" + user.getId() + "'>Continue</a></p>");
 
          } else {
             buf.append("  <h2>Cannot link your accounts</h2>");
@@ -216,12 +204,6 @@ public class UserDiscovery
          request.getRequestURI();
       // construct the redirect URL for user authorization
       String redirectUrl = client.getUserDiscoveryAPI().getRedirectURL(callback,null);
-
-      /*
-      //append the twitter info
-      redirectUrl += "&twitterId=" + request.getParameter("twitterId");
-      redirectUrl += "&twitterPass=" + request.getParameter("twitterPass");
-      */
 
       // redirect the User Agent
       response.sendRedirect(redirectUrl);

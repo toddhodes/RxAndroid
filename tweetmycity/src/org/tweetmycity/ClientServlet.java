@@ -15,6 +15,7 @@
 package org.tweetmycity;
 
 import com.veriplace.client.Client;
+import com.veriplace.client.User;
 import com.veriplace.client.factory.ClientFactory;
 import com.veriplace.client.store.TokenStore;
 import com.veriplace.client.store.FileTokenStore;
@@ -100,6 +101,39 @@ public abstract class ClientServlet
          throw new ServletException(e);
       }
    }
+
+
+
+   /**
+    * Pull the current user from request parameters
+    */
+   protected User getUser(HttpServletRequest request) {
+      try {
+         long userId = Long.parseLong(request.getParameter("user"));
+         return new User(userId);
+      } catch (NullPointerException e) {
+      } catch (NumberFormatException e) {
+      }
+      return null;
+   }
+
+   /**
+    * Construct User.
+    */
+   protected User getUser(String vpUserId) {
+      try {
+         long userId = Long.parseLong(vpUserId);
+         return new User(userId);
+      } catch (NullPointerException e) {
+         e.printStackTrace();
+      } catch (NumberFormatException e) {
+         e.printStackTrace();
+      }
+      return null;
+   }
+
+
+
 }
 
 /*

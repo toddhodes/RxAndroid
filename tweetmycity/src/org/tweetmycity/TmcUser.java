@@ -17,21 +17,28 @@ package org.tweetmycity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import twitter4j.http.AccessToken;
+
+
 public class TmcUser {
 
    private static final Log logger = LogFactory.getLog(TmcUser.class);
 
    private long userId;
-   private String twitterId;
-   private String twitterPass;
+   private String twitterToken;
+   private String twitterTokenSecret;
    private String deviceDescription;
    private String lastCityState;
 
-   public TmcUser(long uId, String tId, String tPass, String dev, String cityState) {
+   public TmcUser(long uId, String tTok, String tTokSec, String dev, String cityState) {
       userId = uId;
-      twitterId = tId;
-      twitterPass = tPass;
+      twitterToken = tTok;
+      twitterTokenSecret = tTokSec;
+
       deviceDescription = dev;
+      if (deviceDescription == null)
+         deviceDescription = "phone";
+
       lastCityState = cityState;
       if (lastCityState == null)
          lastCityState = "unknown";
@@ -41,16 +48,25 @@ public class TmcUser {
       lastCityState = cs;
    }
 
+   public void updateDeviceDescription(String dd) {
+      deviceDescription = dd;
+   }
+
    public long getUserId() { return userId; }
-   public String getTwitterId() { return twitterId; }
-   public String getTwitterPass() { return twitterPass; }
+
+   public String getTwitterToken() { return twitterToken; }
+   public String getTwitterTokenSecret() { return twitterTokenSecret; }
+   public AccessToken getAccessToken() { 
+      return new AccessToken(getTwitterToken(), getTwitterTokenSecret()); 
+   }
+
    public String getDeviceDescription() { return deviceDescription; }
    public String getLastCityState() { return lastCityState; }
 
    public String toString() {
       return "[TmcUser: vpId=" + userId 
-         + ", twitterId=" + twitterId 
-         //+ ", twitterPass=" + twitterPass 
+         + ", twitterToken=" + twitterToken
+         //+ ", twitterTokenSecret=" + twitterTokenSecret
          + ", device=" + deviceDescription
          + ", lastloc=" + lastCityState
          + "]";
