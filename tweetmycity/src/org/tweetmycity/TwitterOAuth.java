@@ -96,7 +96,7 @@ public class TwitterOAuth
       buf.append("     <div id='content'>");
 
       // content
-      buf.append("      <h2>Get Started</h2>");
+      //buf.append("      <h2>Get Started</h2>");
       //buf.append("      <p>Done!  Next, let's link your Twitter account.</p>");
       buf.append("  <p>You are about to link your Veriplace account ");
       buf.append("    (for locating your phone) with your Twitter account.");
@@ -134,7 +134,7 @@ public class TwitterOAuth
 
       String vpuser = (String)request.getSession().getAttribute("vpuser");
       logger.info("vpuser from session = " + vpuser);
-      User user = getUser(vpuser);
+      User user = userFromString(vpuser);
       logger.info("vpuser = " + user);
 
       StringBuilder buf = new StringBuilder();

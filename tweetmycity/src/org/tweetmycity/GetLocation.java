@@ -49,12 +49,16 @@ public class GetLocation
       logger.info("doGet");
 
       User user = getUser(request);
+      if (user != null) logger.info("GET GetLocation: have a valid user");
 
       if (user == null) {
+         logger.info("GET GetLocation: no valid user");
          doDiscoverUser(request,response);
       } else if (client.isCallback(request)) {
+         logger.info("GET GetLocation: doCallback");
          doCallback(request,response,user);
       } else {
+         //doDiscoverUser(request,response);
          doForm(request,response,user);
       }
    }
@@ -70,6 +74,7 @@ public class GetLocation
 
       String callback = client.prepareCallback(request) + request.getRequestURI();
       String redirectUrl = client.getUserDiscoveryAPI().getRedirectURL(callback,null);
+      logger.info("redirect url = " + redirectUrl);
       response.sendRedirect(redirectUrl);
    }
 

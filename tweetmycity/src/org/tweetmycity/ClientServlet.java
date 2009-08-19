@@ -120,7 +120,7 @@ public abstract class ClientServlet
    /**
     * Construct User.
     */
-   protected User getUser(String vpUserId) {
+   protected User userFromString(String vpUserId) {
       try {
          long userId = Long.parseLong(vpUserId);
          return new User(userId);
