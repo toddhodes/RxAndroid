@@ -147,25 +147,55 @@ public class GetLocation
          buf.append("     <!-- /branding -->");
          
          buf.append("     <div id='content'>");
-         buf.append("        <p>Success! Tweet My City will post on your behalf when you arrive in a new city. ");
-         buf.append("     To turn this off later, simply go to veriplace.com and turn off location sharing,");
-         buf.append("     and optionally revoke access at Twitter.</p>");
-         //buf.append("      <p>You've successfully linked Veriplace to twitter.</p>");
-         //buf.append("      <p>User: " + user.getId() + "</p>");
+
+
          if (!empty(location)) {
             if (stat == null) {
-               buf.append("     <p>Additionally, we have a location for you, ");
-               buf.append("        and we've tried tweeting your current city, but, alas,");
+               buf.append("        <p>Success! Tweet My City will post on your behalf ");
+               buf.append("              when you arrive in a new city.");
+               buf.append("           To turn this off later, simply go to veriplace.com");
+               buf.append("           and turn off location sharing.");
+               buf.append("        </p>");
+               buf.append("     <p>Additionally, we discovered your current location, ");
+               buf.append("        and tried tweeting your current city, but, alas,");
                buf.append("        Twitter seems to be either down or unresponsive right now.");
                buf.append("        Don't worry, though, we'll keep trying in the future!</p>");
             } else {
-               buf.append("     <p>Additionally, we have a location for you, ");
+               buf.append("        <p>Success! Tweet My City will post on your behalf ");
+               buf.append("              when you arrive in a new city.");
+               buf.append("           To turn this off later, simply go to veriplace.com");
+               buf.append("           and turn off location sharing.");
+               buf.append("          Your first tweet is: ");
+               buf.append("     <p><strong>" + stat + "</strong></p>");
+               /*
+               buf.append("        <p>Success! We've discovered your current location and ");
+               buf.append("           tweeted it, and, Tweet My City will post on your ");
+               buf.append("           behalf when you arrive in a new city.");
+               buf.append("           To turn this off later, simply go to veriplace.com");
+               buf.append("           and turn off location sharing.");
+               buf.append("        </p>");
+               */
+               /*
+               buf.append("        <p>Success! Tweet My City will post on your behalf ");
+               buf.append("              when you arrive in a new city.");
+               buf.append("           To turn this off later, simply go to veriplace.com");
+               buf.append("           and turn off location sharing.");
+               buf.append("        </p>");
+               buf.append("     <p>Additionally, We've discovered your current location, ");
                buf.append("        and you've tweeted your current city as:</p>");
                buf.append("     <p><strong>" + stat + "</strong></p>");
+               */
             }
          } else {
-            buf.append("     <p>We were not able to locate you right now, but we'll keep trying!</p>");
+               buf.append("        <p>Success! Tweet My City will post on your behalf ");
+               buf.append("              when you arrive in a new city.");
+               buf.append("           To turn this off later, simply go to veriplace.com");
+               buf.append("           and turn off location sharing.");
+               buf.append("        </p>");
+               buf.append("     <p>We were not able to locate you right now, ");
+               buf.append("        but we'll keep trying!</p>");
          }
+
          buf.append("        <a class='button ok' href='user' tabindex='100'>OK</a>");
          buf.append("     </div>");
          buf.append("     <!-- /content -->");

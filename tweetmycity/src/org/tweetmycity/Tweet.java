@@ -141,7 +141,7 @@ public class Tweet {
       twitter.setOAuthAccessToken(tmc.getAccessToken());
       twitter.setSource("TweetMyCity.org");
 
-      String stat = "TweetMyCity.org: "//"@tweet_my_city: "
+      String stat = "" //"TweetMyCity.org: " / "@tweet_my_city: "
          + tmc.getDeviceDescription()
          + " is now in "
          + location.getCity() + ", " + location.getState();

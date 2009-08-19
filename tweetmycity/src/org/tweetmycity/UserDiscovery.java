@@ -80,8 +80,8 @@ public class UserDiscovery
       buf.append("     <!-- /branding -->");
          
       buf.append("     <div id='content'>");
-      buf.append("        <p>TweetMyCity is a simple utility that follows your phone&#39;s location ");
-      buf.append("           and posts to Twitter when you arrive in a new city.</p>");
+      buf.append("        <p>TweetMyCity is a simple utility that follows your phone&#39;s ");
+      buf.append("          location and posts to Twitter when you arrive in a new city.</p>");
       buf.append("         <form method='post'>");
       buf.append("            <button class='button getStarted' type='submit' ");
       buf.append("                    value='Get Started' tabindex='100'>Get Started</button>");

@@ -98,9 +98,11 @@ public class TwitterOAuth
       // content
       //buf.append("      <h2>Get Started</h2>");
       //buf.append("      <p>Done!  Next, let's link your Twitter account.</p>");
-      buf.append("  <p>You are about to link your Veriplace account ");
-      buf.append("    (for locating your phone) with your Twitter account.");
-      buf.append("    We'll start with Twitter.</p>");
+      buf.append("      <h2>Veriplace account signed in</h2>");
+      buf.append("  <p>You are successfully signed into Veriplace.");
+      buf.append("     Next, we'll link your Veriplace account ");
+      buf.append("    (for locating your phone) with your Twitter account (for tweeting).");
+      buf.append("  </p>");
 
 
       String authUrl = Tweet.startOAuth();
@@ -167,7 +169,7 @@ public class TwitterOAuth
       buf.append("     <div id='content'>");
 
       // content
-      buf.append("      <h2>Success!</h2>");
+      buf.append("      <h2>Twitter access granted</h2>");
       buf.append("      <p>Twitter access has been authorized.</p>");
       buf.append("      <p>You can revoke this authorization");
       buf.append("         at any time by visiting your Twitter account, under");
