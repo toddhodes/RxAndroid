@@ -211,7 +211,9 @@ public class UpdateSubscribers
             // An exception here means an Access Token wasn't available
             // Try granting permission directly for your application in the Privacy Manager
             // There should now be a permission request visible in the sidebar
-            logger.error(e);
+            logger.info(e);
+            logger.info("user has revoked our location permission -- remove them.");
+            (new UserStore()).remove(tmcUser);
             return null;
          } catch (IOException ioe) {
             // from Token accessToken = client.getConsumer().getAccessToken(requestToken,oauth_verifier);
