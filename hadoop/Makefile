@@ -3,7 +3,7 @@
 
 HADOOP_HOME=/ext/home/todd/src/hadoop-0.20.1/
 HADOOP_VERSION=0.20.1
-HADOOP_BIN=/ext/home/todd/src/hadoop-0.20.1/bin
+HADOOP_BIN=$(HADOOP_HOME)/bin
 
 all: build load run
 
