@@ -24,11 +24,11 @@ public class CellDB {
 
         /** Done:    
             - create average cell locations
-            - ### remove cells with too few observations ###
+            - remove cells with too few observations
 
             Todo:
-            - ### remove outliers ###
-            - ### remove cells with too little uncertainty ###
+            - remove outliers
+            - remove cells with too little uncertainty
         */
 
 
@@ -40,18 +40,17 @@ public class CellDB {
 
             String line = value.toString();
             Observation obs = Observation.makeObs(line);
-            Text id = new Text();
 
             FloatWritable lon = new FloatWritable(obs.lon);
-            id.set(obs.id() + "-lon");
-            output.collect(id, lon);
+            Text lonid = new Text(obs.id() + "-lon");
+            output.collect(lonid, lon);
 
             FloatWritable lat = new FloatWritable(obs.lat);
-            id.set(obs.id() + "-lat");
-            output.collect(id, lat);
+            Text latid = new Text(obs.id() + "-lat");
+            output.collect(latid, lat);
 
-            id.set(obs.id() + "-uncert");
-            output.collect(id, new FloatWritable(obs.uncertainty));
+            Text uncertid = new Text(obs.id() + "-uncert");
+            output.collect(uncertid, new FloatWritable(obs.uncertainty));
         }
     }
 
@@ -62,19 +61,33 @@ public class CellDB {
                            OutputCollector<Text, FloatWritable> output, 
                            Reporter reporter) throws IOException {
 
+            // only sum -lon, -lat
+            String k = key.toString();
+            if (!k.endsWith("-lon") && !k.endsWith("-lat")) {
+                return;
+            }
+
             float sum = 0.0f;
             int count = 0;
             while (values.hasNext()) {
-                sum += values.next().get();
+                float val = values.next().get();
+
+                /// debug: log our intermediate values
+                output.collect(key, new FloatWritable(val));            
+
+                sum += val;
                 count++;
             }
 
             // ### remove cells with too few observations ###
             int min_observations = 4;
-            if (count >= min_observations)
-                output.collect(key, new FloatWritable(sum/count));
-            else
-                output.collect(key, new FloatWritable(count*-1.0f));
+            if (count >= min_observations) {
+                output.collect(new Text(key.toString()+ "-avg"), new FloatWritable(sum/count));
+            }
+
+            /// debug: log totals
+            output.collect(new Text(key.toString()+ "-count"), new FloatWritable(count * 1.0f));
+
         }
     }
 

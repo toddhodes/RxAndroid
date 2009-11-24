@@ -8,8 +8,8 @@ HADOOP_HOME=/ext/home/todd/src/hadoop-0.20.1/
 HADOOP_VERSION=0.20.1
 HADOOP_BIN=$(HADOOP_HOME)/bin
 
-all: build load_wlan run_wlan
 cell: build load_vpcell run_vpcell
+all: build load_wlan run_wlan
 
 build:
 	mkdir -p classes
@@ -31,12 +31,13 @@ run_wlan:
 load_vpcell:
 	$(HADOOP_BIN)/hadoop dfs -rm input/vpcells
 	$(HADOOP_BIN)/hadoop dfs -put VpCellId/observations-11-17-2009.txt input/vpcells
+	#$(HADOOP_BIN)/hadoop dfs -put VpCellId/alldups input/vpcells
 
 run_vpcell:
 	$(HADOOP_BIN)/hadoop dfs -rmr output-vpcells
 	time $(HADOOP_BIN)/hadoop jar all.jar com.wavemarket.hadoop.CellDB input/vpcells output-vpcells
-	echo "lines of output:"
+	@echo "output size:"
 	$(HADOOP_BIN)/hadoop dfs -cat output-vpcells/part* | wc
-	echo "samples:"
-	$(HADOOP_BIN)/hadoop dfs -cat output-vpcells/part* | head
+	@echo "to view output:"
+	@echo $(HADOOP_BIN)/hadoop dfs -cat output-vpcells/part*
 
