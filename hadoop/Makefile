@@ -1,5 +1,5 @@
 
-.phony: all build load run 
+.phony: all build load run clean
 .phony: load_wlan run_wlan
 .phony: load_vpcell run_vpcell cell
 
@@ -16,6 +16,8 @@ build:
 	javac -classpath $(HADOOP_HOME)/hadoop-$(HADOOP_VERSION)-core.jar -d classes *.java
 	jar -cvf all.jar -C classes/ .
 
+clean:
+	rm -rf classes/ all.jar
 
 load_wlan:
 	ssh dmz 'echo "select * from WlanInfo" | mysql -ulp -plp lp' > wlaninfo
@@ -31,13 +33,9 @@ run_wlan:
 load_vpcell:
 	$(HADOOP_BIN)/hadoop dfs -rm input/vpcells
 	$(HADOOP_BIN)/hadoop dfs -put VpCellId/observations-11-17-2009.txt input/vpcells
-	#$(HADOOP_BIN)/hadoop dfs -put VpCellId/alldups input/vpcells
 
 run_vpcell:
 	$(HADOOP_BIN)/hadoop dfs -rmr output-vpcells
 	time $(HADOOP_BIN)/hadoop jar all.jar com.wavemarket.hadoop.CellDB input/vpcells output-vpcells
-	@echo "output size:"
-	$(HADOOP_BIN)/hadoop dfs -cat output-vpcells/part* | wc
-	@echo "to view output:"
-	@echo $(HADOOP_BIN)/hadoop dfs -cat output-vpcells/part*
+	$(HADOOP_BIN)/hadoop dfs -cat output-vpcells/part*
 

@@ -17,76 +17,122 @@ import org.apache.hadoop.util.*;
 // 4       264     4183    -122.29113      37.84064        67.88   1249533613
 
 
+/**
+ * create average cell locations via:
+ * - remove cells with too few observations
+ * - remove outliers
+ * - remove cells with too little uncertainty
+ */
 public class CellDB {
  	
-    public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, FloatWritable> {
-
-
-        /** Done:    
-            - create average cell locations
-            - remove cells with too few observations
-
-            Todo:
-            - remove outliers
-            - remove cells with too little uncertainty
-        */
-
-
- 	
+    public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, Text> {
         public void map(LongWritable key, 
                         Text value, 
-                        OutputCollector<Text, FloatWritable> output, 
+                        OutputCollector<Text, Text> output, 
                         Reporter reporter) throws IOException {
 
             String line = value.toString();
             Observation obs = Observation.makeObs(line);
 
-            FloatWritable lon = new FloatWritable(obs.lon);
-            Text lonid = new Text(obs.id() + "-lon");
-            output.collect(lonid, lon);
-
-            FloatWritable lat = new FloatWritable(obs.lat);
-            Text latid = new Text(obs.id() + "-lat");
-            output.collect(latid, lat);
-
-            Text uncertid = new Text(obs.id() + "-uncert");
-            output.collect(uncertid, new FloatWritable(obs.uncertainty));
+            Text id = new Text(obs.id());
+            Text val = new Text(line);
+            output.collect(id, val);
         }
     }
 
 
-    public static class Reduce extends MapReduceBase implements Reducer<Text, FloatWritable, Text, FloatWritable> {
+    public static class Reduce extends MapReduceBase implements Reducer<Text, Text, Text, Text> {
         public void reduce(Text key, 
-                           Iterator<FloatWritable> values, 
-                           OutputCollector<Text, FloatWritable> output, 
+                           Iterator<Text> values, 
+                           OutputCollector<Text, Text> output, 
                            Reporter reporter) throws IOException {
 
-            // only sum -lon, -lat
-            String k = key.toString();
-            if (!k.endsWith("-lon") && !k.endsWith("-lat")) {
-                return;
-            }
+            // need something like this if running a Combiner
+            //if (key.toString().indexOf("CELL:") != -1) return;
 
-            float sum = 0.0f;
+
+            List<Text> saved_values = new ArrayList<Text>();
+
+            float lat_sum = 0.0f;
+            float lon_sum = 0.0f;
             int count = 0;
+
             while (values.hasNext()) {
-                float val = values.next().get();
+                Text val = values.next();
+                saved_values.add(val);
+
+                String line = val.toString();
+                Observation obs = Observation.makeObs(line);
 
                 /// debug: log our intermediate values
-                output.collect(key, new FloatWritable(val));            
+                //output.collect(key, new FloatWritable(val));            
 
-                sum += val;
+                lon_sum += obs.lon;
+                lat_sum += obs.lat;
                 count++;
             }
 
-            // ### remove cells with too few observations ###
-            int min_observations = 4;
-            if (count >= min_observations) {
-                output.collect(new Text(key.toString()+ "-avg"), new FloatWritable(sum/count));
-            }
+            float lon_avg = lon_sum / count;
+            float lat_avg = lat_sum / count;
+            Coord avg = new Coord(lon_avg, lat_avg);
 
             /// debug: log totals
-            output.collect(new Text(key.toString()+ "-count"), new FloatWritable(count * 1.0f));
+            //output.collect(new Text(key.toString()+ "-count"), new FloatWritable(count * 1.0f));
+            
+            // ### remove cells with too few observations ###
+            int min_observations = 4;
+            if (count < min_observations) {
+                output.collect(key, new Text("too few obs (0 / " + count + ")"));
+                return;
+            }
+
+
+            List<Text> outliers = new ArrayList<Text>();
+            for (Text val : saved_values) {
+                String line = val.toString();
+                Observation obs = Observation.makeObs(line);
+
+                double dist = avg.distance_to(obs);
+
+                // ### remove outliers
+                int max_distance = 1000;
+                if (dist > max_distance) {
+                    outliers.add(val);
+                }
+
+                // ### remove cells with too little uncertainty ###
+                int min_uncertainty = 150;
+                if (dist + obs.uncertainty >= min_uncertainty) {
+                    if (!outliers.contains(val))
+                        outliers.add(val);
+                }
+
+            }
+
+
+            // process removals
+            for (Text val : outliers) {
+                saved_values.remove(val);
+            }
+
+            // recalulate actual results
+            lat_sum = 0.0f;
+            lon_sum = 0.0f;
+            count = 0;
+            for (Text val : saved_values) {
+                String line = val.toString();
+                Observation obs = Observation.makeObs(line);
+                lon_sum += obs.lon;
+                lat_sum += obs.lat;
+                count++;
+            }
+
+
+            // output the results            
+            //output.collect(key, new Text("CELL:" + avg.lon +", "+ avg.lat 
+            //                             + " (" + (count + outliers.size()) + ")"));
+            output.collect(key, new Text(lon_sum/count +", "+ lat_sum/count
+                                         + " (" + count + " / " + (count + outliers.size()) + ")"));
 
         }
     }
@@ -97,10 +143,10 @@ public class CellDB {
         conf.setJobName("centroid");
  	
         conf.setOutputKeyClass(Text.class);
-        conf.setOutputValueClass(FloatWritable.class);
+        conf.setOutputValueClass(Text.class);
  	
         conf.setMapperClass(Map.class);
-        conf.setCombinerClass(Reduce.class);
+        //conf.setCombinerClass(Reduce.class);
         conf.setReducerClass(Reduce.class);
  	
         conf.setInputFormat(TextInputFormat.class);
