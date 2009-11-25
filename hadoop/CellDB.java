@@ -103,7 +103,8 @@ public class CellDB {
 
                 // ### remove cells with too little uncertainty ###
                 int min_uncertainty = 150;
-                if (dist + obs.uncertainty >= min_uncertainty) {
+
+                if (obs.uncertainty != null && dist + obs.uncertainty >= min_uncertainty) {
                     if (!outliers.contains(val))
                         outliers.add(val);
                 }
