@@ -1,15 +1,18 @@
 
-.phony: all build load run clean
-.phony: load_wlan run_wlan
-.phony: load_vpcell run_vpcell cell
+.phony: default build load run clean
+.phony: wlan load_wlan run_wlan
+.phony: cell load_vpcell run_vpcell
 
 
 HADOOP_HOME=/ext/home/todd/src/hadoop-0.20.1/
 HADOOP_VERSION=0.20.1
 HADOOP_BIN=$(HADOOP_HOME)/bin
 
-cell: build load_vpcell run_vpcell
-all: build load_wlan run_wlan
+default: cell
+
+cell: build run_vpcell
+#cell: build load_vpcell run_vpcell
+wlan: build load_wlan run_wlan
 
 build:
 	mkdir -p classes
@@ -36,6 +39,9 @@ load_vpcell:
 
 run_vpcell:
 	$(HADOOP_BIN)/hadoop dfs -rmr output-vpcells
-	time $(HADOOP_BIN)/hadoop jar all.jar com.wavemarket.hadoop.CellDB input/vpcells output-vpcells
-	$(HADOOP_BIN)/hadoop dfs -cat output-vpcells/part*
+	time $(HADOOP_BIN)/hadoop jar all.jar com.wavemarket.hadoop.CellDB \
+		input/OpenCellId/measures.txt \
+		output-vpcells
+		# input/vpcells 
+	$(HADOOP_BIN)/hadoop dfs -ls output-vpcells/part*
 
