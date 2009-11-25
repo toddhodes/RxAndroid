@@ -10,15 +10,19 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 
 
-// GSM: (5,6) of 8
-// 310     410     56994   787655  -122.291068333333       37.840315       132     1249528508
+
+// OpenCellId
+// 542009,42.3652839660645,-71.1137771606445,310,26,5194,60293,15315,2,\N,2008-04-05 20:02:35,2006-01-18 23:25:31,7
+// XXX
 
 
-public class GSM_Obs extends Observation {
+
+public class OpenCellIdObs extends Observation {
     String mcc;
     String mnc;
     String lac;
     String cid;
+    // XXX
 
     public String id() {
         return mcc+","+mnc+","+lac+","+cid;

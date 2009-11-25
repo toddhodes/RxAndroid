@@ -53,9 +53,38 @@ public class Observation extends Coord {
             obs = o;
             
         } else {
-            System.out.println("ERROR: data has bad length ("
-                               + s.length
-                               +"): '" + input + "'");
+            s = input.split(",");
+            if (s.length == 12 || s.length == 13) {
+
+// 542009,42.3652839660645,-71.1137771606445,310,26,5194,60293,15315,2,\N,2008-04-05 20:02:35,2006-01-18 23:25:31,7
+                OpenCellIdObs o = new OpenCellIdObs();
+                // 0 = item id?
+                if ("\\N".equals(s[1]) || "\\N".equals(s[2])) {
+                    //throw new NumberFormatException("bad input line: " + input);
+                    return null;
+                }
+                o.lat = Float.parseFloat(s[1]);
+                o.lon = Float.parseFloat(s[2]);
+                o.mcc = s[3];
+                o.mnc = s[4];
+                o.lac = s[5];
+                o.cid = s[6];
+                // 7-9 ?
+                o.timestamp = s[10];
+                //o.uncertainty = Float.parseFloat(s[?]);
+                // 11?
+
+                if (s.length == 13) {
+                    // 12?
+                }
+
+                obs = o;
+
+            }
+        }
+
+        if (obs == null) {
+            System.out.println("ERROR: bad data (" + s.length +"): '" + input + "'");
         }
         
         return obs;

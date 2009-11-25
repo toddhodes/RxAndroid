@@ -1,6 +1,7 @@
 package com.wavemarket.hadoop;
 
 import java.io.IOException;
+import java.io.File;
 import java.util.*;
 
 import org.apache.hadoop.fs.Path;
@@ -10,11 +11,6 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 
 
-// GSM: (5,6) of 8
-// 310     410     56994   787655  -122.291068333333       37.840315       132     1249528508
-
-// CDMA: (4,5) of 7
-// 4       264     4183    -122.29113      37.84064        67.88   1249533613
 
 
 /**
@@ -33,6 +29,7 @@ public class CellDB {
 
             String line = value.toString();
             Observation obs = Observation.makeObs(line);
+            if (obs == null) return;
 
             Text id = new Text(obs.id());
             Text val = new Text(line);
@@ -63,6 +60,10 @@ public class CellDB {
 
                 String line = val.toString();
                 Observation obs = Observation.makeObs(line);
+                if (obs == null) {
+                    reporter.setStatus("bad input line: " + line);
+                    continue;
+                }
 
                 /// debug: log our intermediate values
                 //output.collect(key, new FloatWritable(val));            
@@ -91,7 +92,7 @@ public class CellDB {
             for (Text val : saved_values) {
                 String line = val.toString();
                 Observation obs = Observation.makeObs(line);
-
+                if (obs == null) continue;
                 double dist = avg.distance_to(obs);
 
                 // ### remove outliers
@@ -122,6 +123,7 @@ public class CellDB {
             for (Text val : saved_values) {
                 String line = val.toString();
                 Observation obs = Observation.makeObs(line);
+                if (obs == null) continue;
                 lon_sum += obs.lon;
                 lat_sum += obs.lat;
                 count++;
