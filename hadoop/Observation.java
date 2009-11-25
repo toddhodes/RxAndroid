@@ -55,8 +55,6 @@ public class Observation extends Coord {
         } else {
             s = input.split(",");
             if (s.length == 12 || s.length == 13) {
-
-// 542009,42.3652839660645,-71.1137771606445,310,26,5194,60293,15315,2,\N,2008-04-05 20:02:35,2006-01-18 23:25:31,7
                 OpenCellIdObs o = new OpenCellIdObs();
                 // 0 = item id?
                 if ("\\N".equals(s[1]) || "\\N".equals(s[2])) {
