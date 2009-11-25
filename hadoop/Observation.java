@@ -16,6 +16,8 @@ import org.apache.hadoop.util.*;
 // CDMA: (4,5) of 7
 // 4       264     4183    -122.29113      37.84064        67.88   1249533613
 
+// OpenCellId
+// 542009,42.3652839660645,-71.1137771606445,310,26,5194,60293,15315,2,\N,2008-04-05 20:02:35,2006-01-18 23:25:31,7,???
 
 public class Observation extends Coord {
 
@@ -69,8 +71,10 @@ public class Observation extends Coord {
                 o.cid = s[6];
                 // 7-9 ?
                 o.timestamp = s[10];
-                //o.uncertainty = Float.parseFloat(s[?]);
                 // 11?
+
+                // ???
+                //o.uncertainty = Float.parseFloat(s[?]);
 
                 if (s.length == 13) {
                     // 12?
