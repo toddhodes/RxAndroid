@@ -142,7 +142,7 @@ public class CellDB {
 
     public static void main(String[] args) throws Exception {
         JobConf conf = new JobConf(CellDB.class);
-        conf.setJobName("centroid");
+        conf.setJobName("CellDB");
  	
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(Text.class);

@@ -18,6 +18,8 @@ import org.apache.hadoop.util.*;
 
 // OpenCellId
 // 542009,42.3652839660645,-71.1137771606445,310,26,5194,60293,15315,2,\N,2008-04-05 20:02:35,2006-01-18 23:25:31,7,???
+// id,lat,lon,mcc,mnc,lac,cellid,id_of_Cell,userid,extraInfo,created_at,measured_at,signal
+
 
 public class Observation extends Coord {
 
