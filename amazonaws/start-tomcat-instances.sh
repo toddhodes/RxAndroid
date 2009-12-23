@@ -1,11 +1,10 @@
 
-export AWS_ELB_HOME=~/svn/users/todd/amazonaws/tools/ElasticLoadBalancing-1.0.3.4/
 echo setting paths and credentials
 
 export EC2_PRIVATE_KEY=~/svn/users/todd/amazonaws/pk-COPS5EWHDTA2KPEVTNLXL2GJE524KSOG.pem
 export EC2_CERT=~/svn/users/todd/amazonaws/cert-COPS5EWHDTA2KPEVTNLXL2GJE524KSOG.pem
-
 export AWS_CREDENTIAL_FILE=~/svn/users/todd/amazonaws/tools/ElasticLoadBalancing-1.0.3.4/credential-file
+
 export AWS_ELB_HOME=~/svn/users/todd/amazonaws/tools/ElasticLoadBalancing-1.0.3.4/
 export EC2_HOME=~/svn/users/todd/amazonaws/tools/ec2-api-tools-1.3-46266
 #PATH=$PATH:$EC2_HOME:$AWS_ELB_HOME
