@@ -2,19 +2,35 @@
 
 /* LAYOUT */
 #content{height:250px;}
+#footer{width:878px}/* 950px - 62px of left padding */
 
+body.popup #container{width:557px; height:500px;}
+body.popup #footer{width:485px;}/* 547px - 62px of left padding */
 
 /* FORMS */
 
 /* GRAPHICS */
 #branding{ background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/tweetMyCity.png');}
 
+/* FOOTER: protected by Veriplace */
+.veriplace{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='images/veriplace.png');}
+
+#header-about{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/header_about.png');}
+
+#header-agreementForTMC{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/header_agreementForTMC.png');}
+
+#header-faqs{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/header_faqs.png');}
+
 #header-getStarted{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/header_getStarted.png');}
 
 #header-privacyPolicy{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/header_privacyPolicy.png');}
 
+#header-supportedPhones{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/header_supportedPhones.png');}
+
 /* BUTTONS */
 .getStarted{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/btn_getStarted.png');}
+
+.iAcceptGetStarted{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/btn_getStarted.png');}
 
 .ok{background:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='crop', src='/tweetmycity/images/btn_ok.png');}
 

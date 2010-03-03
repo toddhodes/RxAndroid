@@ -3,6 +3,3 @@
 /* CENTER LAYOUT: needs this even though it didn't before */
 body{text-align:center;}
 #container{text-align:left;}
-
-/* in order for footer to reach edge to edge of layout */
-#footer{width:950px;}

@@ -1,5 +1,25 @@
 /* GRAPHICS */
+#header-about{
+	text-indent:-9999px; 
+	background: url(/tweetmycity/images/header_about.png) 0 no-repeat; 
+	width:79px; 
+	height:21px;
+	}
+	
+#header-agreementForTMC{
+	text-indent:-9999px; 
+	background: url(/tweetmycity/images/header_agreementForTMC.png) 0 no-repeat; 
+	width:379px; 
+	height:26px;
+	}
 
+#header-faqs{
+	text-indent:-9999px; 
+	background: url(/tweetmycity/images/header_faqs.png) 0 no-repeat; 
+	width:367px; 
+	height:26px;
+	}
+	
 #header-getStarted{
 	text-indent:-9999px; 
 	background: url(/tweetmycity/images/header_getStarted.png) 0 no-repeat; 
@@ -13,6 +33,18 @@
 	width:183px; 
 	height:26px;
 	}
+	
+#header-supportedPhones{
+	text-indent:-9999px; 
+	background: url(/tweetmycity/images/header_supportedPhones.png) 0 no-repeat; 
+	width:241px; 
+	height:26px;
+	}
+
+	
+/* FOOTER: protected by Veriplace */
+.veriplace{width:112px; height:28px; background: url(../images/veriplace.png) 0 0 no-repeat;}
+.veriplace a{width:112px; height:28px; display:block; text-indent:-9999px; cursor:pointer;}
 
 /* BUTTONS */
 .button {
@@ -50,7 +82,11 @@ button::-moz-focus-inner {
 .continue{background:url(/tweetmycity/images/btn_continue.png) 0 0 no-repeat; width:107px;}
 /*NO ROLLOVER YET... .continue:hover{background-position:-80px;}*/
 
-.getStarted{background:url(/tweetmycity/images/btn_getStarted.png) 0 0 no-repeat; width:107px;}
+/* replaced by I Accept, Get Started btn
+.getStarted{background:url(/tweetmycity/images/btn_getStarted.png) 0 0 no-repeat; width:107px;}*/
+/*NO ROLLOVER YET... .continue:hover{background-position:-80px;}*/
+
+.iAcceptGetStarted{background:url(/tweetmycity/images/btn_iAcceptGetStarted.png) 0 0 no-repeat; width:162px;}
 /*NO ROLLOVER YET... .continue:hover{background-position:-80px;}*/
 
 .ok{background:url(/tweetmycity/images/btn_ok.png) 0 0 no-repeat; width:88px;}
