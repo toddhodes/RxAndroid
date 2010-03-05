@@ -65,6 +65,9 @@ public class UserDiscovery
       buf.append("    <!--[if IE]>");
       buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE.css' />");
       buf.append("    <![endif]-->");
+		buf.append("    <!--[if IE7]>");
+      buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE7.css' />");
+      buf.append("    <![endif]-->");
       buf.append("    <!--[if IE 6]>");
       buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE6.css' />");
       buf.append("    <![endif]-->");
@@ -160,6 +163,9 @@ public class UserDiscovery
          
          buf.append("    <!--[if IE]>");
          buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE.css' />");
+         buf.append("    <![endif]-->");
+			buf.append("    <!--[if IE7]>");
+         buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE7.css' />");
          buf.append("    <![endif]-->");
          buf.append("    <!--[if IE 6]>");
          buf.append("       <link rel='stylesheet' type='text/css' media='screen' href='css/fixes_IE6.css' />");
