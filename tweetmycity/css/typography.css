@@ -22,6 +22,8 @@ input,select,option,textarea{color:#333;}
 #content.faqs p,
 #content.terms p{font-size:70%; line-height:150%; font-weight:normal; letter-spacing:.01em;}/* smaller text */
 
+ol.ordered-list li h3{display:inline;}
+
 p + h2,
 p + h3,
 p.arrow + h3{margin-top:2em;}
@@ -34,6 +36,8 @@ p{margin-bottom:1em;}
 .errorMsg {color:#FC0; font-weight:bold; margin-bottom:1em; font-size:100%;}
 .required{color:#FC0;}
 .note{background-color:#6C6C6C; padding:.35em .5em; border:1px dotted #CEDAE2}
+
+#content.terms p.tos_lastUpdated{font-size:65%;}
 
 /* links */
 a:link{color:#369;}

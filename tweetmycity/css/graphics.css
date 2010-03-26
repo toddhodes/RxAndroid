@@ -1,4 +1,6 @@
 /* GRAPHICS */
+#branding {width:950px; height:189px; background:#e3f2f8 url(/tweetmycity/images/tweetMyCity.png) 0 0 no-repeat;}
+
 #header-about{
 	text-indent:-9999px; 
 	background: url(/tweetmycity/images/header_about.png) 0 no-repeat; 

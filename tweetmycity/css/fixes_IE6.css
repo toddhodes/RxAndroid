@@ -1,5 +1,6 @@
 /* TYPOGRAPHY */
-#branding h1 a{position:relative; z-index:10; border:1px solid red;}
+#branding{z-index:10;}
+#branding h1 a{position:relative; z-index:25;}
 
 /* LAYOUT */
 /* CENTER LAYOUT: needs this even though it didn't before */
@@ -7,7 +8,6 @@ body{text-align:center;}
 #container{text-align:left;}
 
 #content{height:250px;}
-#footer{width:878px}/* 950px - 62px of left padding */
 
 body.popup #container{width:557px; height:500px;}
 body.popup #footer{width:485px;}/* 547px - 62px of left padding */
