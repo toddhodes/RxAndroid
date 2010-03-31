@@ -120,9 +120,10 @@ public class GetLocation
          StringBuilder buf = new StringBuilder();
          buf.append("<html>");
 
-         buf.append(" <head>");
+         buf.append(" <head profile='http://www.w3.org/2005/10/profile'>");
          buf.append("       <title>TweetMyCity</title>");
          buf.append("       <meta http-equiv='content-type' content='text/html'/>");
+			buf.append("       <link rel='shortcut icon' type='image/ico' href='/tweetmycity/images/favicon.ico' />");
          buf.append("       <link rel='stylesheet' href='/tweetmycity/css/normalize.css'/>");
          buf.append("       <link rel='stylesheet' href='/tweetmycity/css/typography.css'/>");
          buf.append("       <link rel='stylesheet' href='/tweetmycity/css/graphics.css'/>");
