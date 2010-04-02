@@ -110,7 +110,7 @@ public class GetLocation
       Token accessToken = client.getAccessToken(request);
       if (accessToken != null) {
          // get user
-         Location location = client.getGetLocationAPI().getLocation(accessToken, user);
+         Location location = client.getGetLocationAPI().getLocation(accessToken, user, "FREEDOM");
 
          TmcUser tmc = (new UserStore()).get(user.getId());
 
