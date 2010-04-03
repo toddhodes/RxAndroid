@@ -8,6 +8,7 @@ import com.veriplace.client.Location;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.Status;
+import twitter4j.User;
 import twitter4j.http.RequestToken;
 import twitter4j.http.AccessToken;
 
@@ -146,13 +147,20 @@ public class Tweet {
          + " is now in "
          + location.getCity() + ", " + location.getState();
       try {
-         logger.info("creds = " + twitter.verifyCredentials());
+         User twitterUser = twitter.verifyCredentials();
+         logger.info("creds = " + twitterUser);
+
          Status status = twitter.updateStatus(stat);
          logger.info("Successfully updated the status to [" + status.getText() + "].");
       } catch (twitter4j.TwitterException te) {
          String msg = te.getMessage();
          int code = te.getStatusCode();
          logger.info("Got twitter exception: " + code + ": " + msg);
+         if (code == 401) {
+            // have no user credentials, delete the user
+            logger.info("got a 401: remove user " + tmc);
+            (new UserStore()).remove(tmc);
+         }
          if (code == 408) {
             if (retryCount < MAX_RETRY_COUNT) {
                logger.info("retrying");

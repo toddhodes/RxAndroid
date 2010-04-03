@@ -205,41 +205,52 @@ public class TwitterOAuth
          buf.append("        <a class='button continue' href='user' tabindex='100'>OK</a>");
 
       } else {
-         // success
-         buf.append("      <h2>Twitter access granted</h2>");
-         buf.append("      <p>Twitter access has been authorized.</p>");
-         buf.append("      <p>You can revoke this authorization");
-         buf.append("         at any time by visiting your Twitter account, under");
-         buf.append("         <i>Settings&nbsp;-->&nbsp;Connections&nbsp;-->&nbsp;Revoke Access</i>");
-         buf.append("      </p>");
          
          AccessToken at = Tweet.finishOAuth();
          logger.info("accesstoken = " + at);
 
-         // store user info
-         UserStore us = new UserStore();
-         us.addUser(user.getId(),
-                    at.getToken(),
-                    at.getTokenSecret());      
-         
-         //Tweet.updateStatusViaOAuth(user.getId(),
-         //                           (new SimpleDateFormat()).format(System.currentTimeMillis()));
+         if (at == null) {
+            // did not have access to twitter
+            buf.append("      <h2>Oops!</h2>");
+            buf.append("      <p>Seems we do not have valid Twitter");
+            buf.append("         user information.  Let's try this again...");
+            buf.append("      </p>");         
+            buf.append("        <a class='button continue' href='user' tabindex='100'>OK</a>");
 
-         buf.append("      <p>Now, choose an optional Nickname for your device, and");
-         buf.append("         we'll go ahead and try our first TweetMyCity!");
-         buf.append("      </p>");
-         buf.append("  <form id='signIn' action='location' method='post'>");
-         buf.append("  <fieldset class='optional'>");
-         buf.append("     <label for='deviceDesc'>Device Nickname (optional):</label>");
-         buf.append("     <input id='deviceDesc' class='deviceDesc' name='deviceDesc' type='text' ");
-         buf.append("            tabindex='100' />");
-         buf.append("                       <span class='deviceDesc-example'>e.g. My Phone</span>");
-         buf.append("     <input type='hidden' name='user' value='" + user.getId() + "'/>");
-         buf.append("  </fieldset>");
+         } else {
+            // success
+            buf.append("      <h2>Twitter access granted</h2>");
+            buf.append("      <p>Twitter access has been authorized.</p>");
+            buf.append("      <p>You can revoke this authorization");
+            buf.append("         at any time by visiting your Twitter account, under");
+            buf.append("         <i>Settings&nbsp;-->&nbsp;Connections&nbsp;-->&nbsp;Revoke Access</i>");
+            buf.append("      </p>");
+
+            // store user info
+            UserStore us = new UserStore();
+            us.addUser(user.getId(),
+                       at.getToken(),
+                       at.getTokenSecret());      
          
-         buf.append("  <button class='button continue' type='submit' value='Continue' tabindex='120'>");
-         buf.append("  Continue</button>");
-         buf.append("  </form>");
+            //Tweet.updateStatusViaOAuth(user.getId(),
+            //                           (new SimpleDateFormat()).format(System.currentTimeMillis()));
+
+            buf.append("      <p>Now, choose an optional Nickname for your device, and");
+            buf.append("         we'll go ahead and try our first TweetMyCity!");
+            buf.append("      </p>");
+            buf.append("  <form id='signIn' action='location' method='post'>");
+            buf.append("  <fieldset class='optional'>");
+            buf.append("     <label for='deviceDesc'>Device Nickname (optional):</label>");
+            buf.append("     <input id='deviceDesc' class='deviceDesc' name='deviceDesc' type='text' ");
+            buf.append("            tabindex='100' />");
+            buf.append("                       <span class='deviceDesc-example'>e.g. My Phone</span>");
+            buf.append("     <input type='hidden' name='user' value='" + user.getId() + "'/>");
+            buf.append("  </fieldset>");
+            
+            buf.append("  <button class='button continue' type='submit' value='Continue' tabindex='120'>");
+            buf.append("  Continue</button>");
+            buf.append("  </form>");
+         }
       }
 
       buf.append("     </div>");
