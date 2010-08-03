@@ -15,7 +15,7 @@ finder-json-api
 The finder-json-api directory includes two sample calls to an instance
 of the finder v1 API.  It is using some sample credentials and an endpoint
 
-URL: http://meegodemo.wavemarket.com:8080/finder-att-family/finderApiJson.svc
+URL: http://meego.location-labs.com:8080/finder-att-family/finderApiJson.svc
 phone number: 5551114000
 password: madam0
 
