@@ -1,0 +1,6 @@
+{
+"error" : {
+            "message" : "",
+            "class" : "com.wavemarket.finder.core.v1.api.exception.AuthorizationException$InvalidToken"
+          }
+}

@@ -1,0 +1,32 @@
+{
+   "assetId" : 0,
+   "completed" : true,
+   "jobId" : [
+         113, 75, 80, 113, 102, 57, 112, 115, 122, 104, 86, 111, 80, 78, 51, 48
+      ],
+   "result" :
+      {
+         "accuracy" :
+            {
+               "angle" : 0.0,
+               "confidence" : 0.66,
+               "majorRadius" : 427,
+               "minorRadius" : 427
+            },
+         "longLat" :
+            {
+               "latitude" : 37457612,
+               "longitude" : -122143847
+            },
+         "observedTime" : "2010-08-02T16:55:48.000",
+         "reverseGeocodedAddress" :
+            {
+               "city" : "Palo Alto",
+               "country" : "USA",
+               "state" : "CA",
+               "streetaddr" : "75 Crescent Dr",
+               "zipcode" : "94301"
+            }
+      },
+   "success" : true
+}

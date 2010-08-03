@@ -1,0 +1,58 @@
+
+api-docs
+--------
+
+The api-docs directory contains javadoc describing the full Finder v1 API.
+To interact with it via JSON, simply match the method signature with the
+corresponding JSON types, enclosing the entire set of one or more arguments
+as a JSON list.  URL parameters indicate the service class and method name
+to call.
+
+
+finder-json-api
+---------------
+
+The finder-json-api directory includes two sample calls to an instance
+of the finder v1 API.  It is using some sample credentials and an endpoint
+
+URL: http://meegodemo.wavemarket.com:8080/finder-att-family/finderApiJson.svc
+phone number: 5551114000
+password: madam0
+
+which you are welcome to continue to use.
+
+
+Illustrated first is a call to authorize the client:
+
+doauth.sh   
+  - script that POSTs auth.json to a demo finder API endpoint, returning a result 
+    similar to auth.result, or an error
+auth.json   
+  - auth JSON input
+auth.result
+  - auth JSON output
+
+
+Illustrated second is a call to locate the first asset of a client:
+
+doloc.sh
+  - script that POSTs loc.json to a demo finder API endpoint, returning a result 
+    similar to loc.result and/or loc.result-pending.result, or an error
+loc.json
+  - locate JSON input
+loc.result-pending.result
+  - auth JSON output, returned while the locate is still pending a result
+loc.result
+  - locate JSON output, successful locate response
+
+NOTE: loc.json's sessionId byte[] must replaced by a valid sessionId, as 
+      returned by doauth.sh, above.
+
+
+Finally, a sample error response is illustrated; errors are returned as 
+HTTP 500s, with the body containing a JSON-formatted exception message
+and the class of the exception
+
+error.json
+  - sample error response, where the sessionId is invalid
+

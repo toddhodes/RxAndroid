@@ -1,0 +1,12 @@
+com.wavemarket.finder.core.v1.api
+com.wavemarket.finder.core.v1.api.exception
+com.wavemarket.finder.core.v1.api.result
+com.wavemarket.finder.core.v1.dto
+com.wavemarket.finder.core.v1.dto.admintool
+com.wavemarket.finder.core.v1.dto.alert
+com.wavemarket.finder.core.v1.dto.job
+com.wavemarket.finder.core.v1.dto.location
+com.wavemarket.finder.core.v1.dto.managephones
+com.wavemarket.finder.core.v1.dto.meta
+com.wavemarket.finder.core.v1.dto.payment
+com.wavemarket.finder.core.v1.dto.signup
