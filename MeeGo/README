@@ -1,4 +1,9 @@
 
+The following is information intended to help enable MeeGo interoperation
+with the WaveMarket cross-carrier finder API.  It assumes the intended wire
+format will be JSON.
+
+
 api-docs
 --------
 
@@ -7,6 +12,14 @@ To interact with it via JSON, simply match the method signature with the
 corresponding JSON types, enclosing the entire set of one or more arguments
 as a JSON list.  URL parameters indicate the service class and method name
 to call.
+
+
+api-src
+-------
+
+The api-src directory contains source code for all the java interfaces,
+classes, and enums in the API, simply for reference, and/or, to use in
+generating matching C++ versions.
 
 
 finder-json-api
@@ -55,4 +68,6 @@ and the class of the exception
 
 error.json
   - sample error response, where the sessionId is invalid
+
+
 
