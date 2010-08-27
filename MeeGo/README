@@ -55,11 +55,33 @@ loc.json
   - locate JSON input
 loc.result-pending.result
   - auth JSON output, returned while the locate is still pending a result
-loc.result
+loc.success.result
   - locate JSON output, successful locate response
+loc.fail.result
+  - locate JSON output, locate failure response
 
 NOTE: loc.json's sessionId byte[] must replaced by a valid sessionId, as 
       returned by doauth.sh, above.
+
+
+to get all the listed assets of a client:
+
+getAssets.sh
+  - script to POST
+getAssets.json
+  - JSON input
+getAssets.result
+  - JSON result
+
+to get location history of a client:
+
+
+getHistory.sh
+  - script to POST
+getHistory.json
+  - JSON input
+getHistory.result
+  - JSON result
 
 
 Finally, a sample error response is illustrated; errors are returned as 
