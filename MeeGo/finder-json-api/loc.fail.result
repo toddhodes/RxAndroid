@@ -1,0 +1,16 @@
+{
+   "assetId" : 207,
+   "completed" : true,
+   "jobId" :
+      [
+         98, 56, 112, 55, 78, 70, 104, 82, 87, 110, 99, 77, 77, 117, 70, 112
+      ],
+   "result" :
+      {
+         "locationErrorCode" : "POLLING_SERVER_ERROR",
+         "majorCode" : 3,
+         "minorCode" : 1,
+         "observedTime" : "2010-08-26T19:40:26.000"
+      },
+   "success" : false
+} 

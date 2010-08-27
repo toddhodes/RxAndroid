@@ -1,0 +1,36 @@
+[
+   {
+      "beingTracked" : false,
+      "contactPhone" : "5551114001",
+      "id" : 2,
+      "locateNotification" : "PERIODICALLY",
+      "name" : "Arthur Andrews",
+      "permittedToLocate" : true
+   },
+   {
+      "beingTracked" : false,
+      "contactPhone" : "5551114000",
+      "id" : 1,
+      "locateNotification" : "PERIODICALLY",
+      "name" : "Barbara Bishop",
+      "permittedToLocate" : true
+   },
+   {
+      "beingTracked" : false,
+      "contactPhone" : "5551114002",
+      "id" : 135,
+      "locateNotification" : "PERIODICALLY",
+      "name" : "John Smith",
+      "permittedToLocate" : true
+   },
+   {
+      "beingTracked" : false,
+      "contactPhone" : "5551114003",
+      "id" : 136,
+      "locateNotification" : "PERIODICALLY",
+      "name" : "Rajesh Lal",
+      "permittedToLocate" : true
+   }
+]
+
+
