@@ -64,7 +64,7 @@ NOTE: loc.json's sessionId byte[] must replaced by a valid sessionId, as
       returned by doauth.sh, above.
 
 
-to get all the listed assets of a client:
+To get all the listed assets of a client:
 
 getAssets.sh
   - script to POST
@@ -73,8 +73,8 @@ getAssets.json
 getAssets.result
   - JSON result
 
-to get location history of a client:
 
+To get location history of a client:
 
 getHistory.sh
   - script to POST
