@@ -84,6 +84,16 @@ getHistory.result
   - JSON result
 
 
+To get an asset image:
+
+getImg.sh
+  - script to POST
+getImg.json
+  - JSON input
+getImg.result
+  - JSON result
+
+
 Finally, a sample error response is illustrated; errors are returned as 
 HTTP 500s, with the body containing a JSON-formatted exception message
 and the class of the exception
