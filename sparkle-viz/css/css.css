@@ -9,7 +9,7 @@ h1, h2 {
 #fooObject {
  position:absolute;
  left:30px;
- top:40em;
+ top:400px;
  background:transparent;
 // background:#99ccff;
  line-height:2em;
@@ -22,5 +22,5 @@ h1, h2 {
 #timelineObject {
  position:absolute;
  left:40px;
- top:41.5em;
+ top:415px;
 }
