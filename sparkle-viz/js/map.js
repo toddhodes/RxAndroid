@@ -46,6 +46,7 @@ function init() {
   foo = document.getElementById('fooObject'); // get the "foo" object
   foo.style.left = '30px'; // set its initial position
 
+  createMap();
   doMove(); // start animating
 }
 
