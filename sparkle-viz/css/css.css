@@ -11,9 +11,9 @@ h1, h2 {
  left:30px;
  top:40em;
  background:transparent;
-//background:#99ccff;
+// background:#99ccff;
  line-height:2em;
- border:1px solid #003366;
+// border:1px solid #003366;
  white-space:nowrap;
  padding:0.5em;
 }
@@ -22,5 +22,5 @@ h1, h2 {
 #timelineObject {
  position:absolute;
  left:40px;
- top:41em;
+ top:41.5em;
 }
