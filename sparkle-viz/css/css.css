@@ -7,14 +7,20 @@ h1, h2 {
 }
 
 #fooObject {
- /* simple box */
  position:absolute;
  left:30px;
  top:40em;
- width:5em;
- line-height:3em;
- background:#99ccff;
+ background:transparent;
+//background:#99ccff;
+ line-height:2em;
  border:1px solid #003366;
  white-space:nowrap;
  padding:0.5em;
+}
+
+
+#timelineObject {
+ position:absolute;
+ left:40px;
+ top:41em;
 }
