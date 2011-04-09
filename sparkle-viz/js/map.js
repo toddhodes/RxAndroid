@@ -1,20 +1,23 @@
 
 var foo = null; // object
 var mapdiv = null;
+var map;
+var home;
 
 var playing = 1;
 
 
 function createMap() {
-  if (GBrowserIsCompatible()) {
-        // create the map
-        var map = new GMap2(document.getElementById("map"));
-        map.addControl(new GLargeMapControl());
-        map.setCenter(new GLatLng(37.828,-122.3), 14);
-    }
-    else {
-      alert("Sorry, the Google Maps API is not compatible with this browser");
-    }
+  // create the map
+  var latlng = new google.maps.LatLng(37.828,-122.3);
+  home = latlng;
+  var myOptions = {
+    zoom: 10,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+  map = new google.maps.Map(document.getElementById("map_canvas"),
+                                myOptions);
 }
 
 function togglePlayPause() {
@@ -34,11 +37,21 @@ function doMove() {
 
   var lpos = parseInt(foo.style.left);
 
-  var mapdiv = document.getElementById('map');
+  var mapdiv = document.getElementById('map_canvas');
   var mapRight = parseInt(mapdiv.style.width) - 70;
 
   if (lpos > mapRight) lpos = 30;
   foo.style.left = lpos+1 + 'px';
+
+  // random center updates
+  if (lpos % 80 == 0) {
+    var location = new google.maps.LatLng(
+                     home.lat() + 0.3 * Math.random(),
+                     home.lng() + 0.3 * Math.random());
+
+    map.setCenter(location);
+  }
+
   setTimeout(doMove,20); // call doMove in 20msec
 }
 
@@ -50,6 +63,4 @@ function init() {
   doMove(); // start animating
 }
 
-
 window.onload = init;
-window.onunload = GUnload;
