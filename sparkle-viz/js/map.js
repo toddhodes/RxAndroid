@@ -2,6 +2,9 @@
 var foo = null; // object
 var mapdiv = null;
 var map;
+var polyline;
+var locationCircle;
+
 var home;
 
 var playing = 1;
@@ -18,6 +21,14 @@ function createMap() {
   };
   map = new google.maps.Map(document.getElementById("map_canvas"),
                                 myOptions);
+
+  var polyOptions = {
+    strokeColor: '#540975',
+    strokeOpacity: 0.7,
+    strokeWeight: 2
+  }
+  polyline = new google.maps.Polyline(polyOptions);
+  polyline.setMap(map);
 }
 
 function togglePlayPause() {
@@ -44,10 +55,25 @@ function doMove() {
   foo.style.left = lpos+1 + 'px';
 
   // random center updates
-  if (lpos % 80 == 0) {
+  if (lpos % 130 == 0) {
     var location = new google.maps.LatLng(
-                     home.lat() + 0.3 * Math.random(),
-                     home.lng() + 0.3 * Math.random());
+                     home.lat() + 0.15 * Math.random(),
+                     home.lng() + 0.15 * Math.random());
+
+    var locCirOptions = {
+      strokeColor: "#FF0000",
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: "#FF0000",
+      fillOpacity: 0.35,
+      map: map,
+      center: location,
+      radius: Math.random()*1000
+    };
+    locationCircle = new google.maps.Circle(locCirOptions);
+
+    var path = polyline.getPath();
+    path.push(location);
 
     map.setCenter(location);
   }
