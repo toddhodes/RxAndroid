@@ -8,13 +8,8 @@ var locData = [
   {"location":{"id":2986,"lon":-122.29304866666666,"lat":37.84147203333333,"unc":160.0,"time":1302332868,"expiration":1303196868}},
   {"location":{"id":3029,"lon":-122.29356666000001,"lat":37.84172282,"unc":84.0,"time":1302367196,"expiration":1303231196}},
   {"location":{"id":3032,"lon":-122.2934872,"lat":37.8423684,"unc":446.0,"time":1302376341,"expiration":1303240341}},
-  {"location":{"id":3033,"lon":-122.29244781666667,"lat":37.84217885,"unc":145.0,"time":1302392559,"expiration":1303256559}},
-  {"location":{"id":3049,"lon":-122.29357968571428,"lat":37.84143125714286,"unc":121.0,"time":1302398325,"expiration":1303262325}},
-  {"location":{"id":3079,"lon":-122.29359704000001,"lat":37.841446739999995,"unc":161.0,"time":1302419092,"expiration":1303283092}},
-  {"location":{"id":3080,"lon":-122.29356182000001,"lat":37.84147779999999,"unc":165.0,"time":1302433824,"expiration":1303297824}},
-  {"location":{"id":3087,"lon":-122.294442,"lat":37.8426883,"unc":404.0,"time":1302537261,"expiration":1303401261}},
-  {"location":{"id":3089,"lon":-122.29136258333334,"lat":37.841574083333334,"unc":0.0,"time":1302537263,"expiration":1303401263}},
-  {"location":{"id":3110,"lon":-122.29282814999999,"lat":37.841758049999996,"unc":63.0,"time":1302546407,"expiration":1303410407}}
+  {"location":{"id":3033,"lon":-122.29244781666667,"lat":37.84217885,"unc":145.0,"time":1302392559,"expiration":1303256559}}
+
 ];
 
 
@@ -29,7 +24,7 @@ function Location(l) {
   this.unc = l.unc;
   this.time = l.time;
   this.expiration = l.expiration;
-  this.latLon = function() {
+  this.latLng = function() {
     return new google.maps.LatLng(this.lat, this.lon);
   }
 }
@@ -46,8 +41,8 @@ function TravelSpan(/*Location*/src, /*Location*/dest) {
   //console.log("src: " + this.srcLatLng +", dest:"+ this.destLatLng);
 
   this.getPosAtTime = function(time) {
-    var frac_src = (time - this.startTime) / this.timeSpan;
-    var frac_dest = (this.endTime - time) / this.timeSpan;
+    var frac_dest = (time - this.startTime) / this.timeSpan;
+    var frac_src = (this.endTime - time) / this.timeSpan;
     console.log((frac_src*100).toFixed(0) + "% along path");
 
     var lat = (this.srcLatLng.lat() * frac_src)
@@ -83,8 +78,8 @@ function computeTimeline() {
 function addRandomnessToLocData() {
   var cnt = locData.length;
   for (var i=0; i < cnt; i++) {
-    locData[i].location.lat = locData[i].location.lat + 0.1 * Math.random();
-    locData[i].location.lon = locData[i].location.lon + 0.1 * Math.random();
+    locData[i].location.lat = locData[i].location.lat + 0.01 * Math.random();
+    locData[i].location.lon = locData[i].location.lon + 0.01 * Math.random();
   }
 }
 
@@ -102,31 +97,30 @@ function getTimeFromNubPos(nubPos) {
 
 function getTravelLoc(time) {
   //console.log("getTravelLoc(" + time + ")");
-  var lastLoc = undefined;
-  var nextLoc = undefined;
+  var lastLoc = 0;
+  var nextLoc = 1;
 
-  // try and set prev and dest
   var cnt = locData.length;
   for (var i=0; i < cnt; i++) {
-    locVal = locData[i].location;
-    if (locVal.time < time) {
-      lastLoc = new Location(locVal);
+    var locVal = locData[i].location;
+    if (time > locVal.time) {
+      lastLoc = i;
     } else {
-      nextLoc = new Location(locVal);
+      nextLoc = i;
       break;
     }
   }
 
   // if next not set, next is beginning (prev is already set correctly)
   if (nextLoc == undefined) {
-    nextLoc = new Location(locData[0].location);
+    nextLoc = 0;
   }
 
-  //console.log("getTravelLoc: " + lastLoc.latLon()
-  //                             + " -> " + nextLoc.latLon());
+  var span = new TravelSpan(
+               new Location(locData[lastLoc].location),
+               new Location(locData[nextLoc].location));
 
-  var span = new TravelSpan(lastLoc, nextLoc);
-  //console.log(span);
+  console.log("tofrom: " + lastLoc + " -> " + nextLoc);
   var retpos = span.getPosAtTime(time);
   return retpos;
 }

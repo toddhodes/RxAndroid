@@ -38,6 +38,10 @@ function createMap() {
   map = new google.maps.Map(document.getElementById("map_canvas"),
                                 myOptions);
 
+  addPolyLine();
+}
+
+function addPolyLine() {
   var polyOptions = {
     strokeColor: '#9C09CD', //'#540975',
     strokeOpacity: 0.7,
@@ -46,6 +50,7 @@ function createMap() {
   polyline = new google.maps.Polyline(polyOptions);
   polyline.setMap(map);
 }
+
 
 function doMove() {
   if (!playing) return;
@@ -56,8 +61,13 @@ function doMove() {
   //var rightEdge = parseInt(timelinediv.style.width) - 70;
   var rightEdge = TIMELINE_WIDTH - 70;
 
-  if (lpos > rightEdge) lpos = TIMELINE_LEFT_EDGE;
-  nub.style.left = lpos+1 + 'px';
+  if (lpos > rightEdge) {
+    lpos = TIMELINE_LEFT_EDGE;
+    polyline.setMap(null);
+    addPolyLine();
+  }
+
+  nub.style.left = lpos+5 + 'px';
 
 
   var theTime = getTimeFromNubPos(lpos+1);
@@ -77,10 +87,10 @@ function doMove() {
                      home.lng() + 0.1 * Math.random());
 
     var locCirOptions = {
-      strokeColor: '#9C09CD', // '#540975',
+      strokeColor: '#9C09CD',
       strokeOpacity: 0.8,
       strokeWeight: 1,
-      fillColor: '#9C09CD', //'#540975',
+      fillColor: '#9C09CD',
       fillOpacity: 0.35,
       map: map,
       center: location,
@@ -94,7 +104,7 @@ function doMove() {
     map.setCenter(location);
   }
 
-  setTimeout(doMove,333); // call doMove in 333msec
+  setTimeout(doMove,150); // animation loop
 }
 
 function init() {
