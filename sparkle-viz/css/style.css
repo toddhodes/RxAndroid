@@ -16,6 +16,13 @@ body {
 	width:100%;
 }
 
+a {
+	text-decoration:none;
+}
+
+a:hover {
+	text-decoration:underline;
+}
 
 
 
@@ -77,12 +84,17 @@ body {
 	top:20px;
 	right:20px;
 	font-size:90%;
+	color:#593a5d;
+}
+
+#signIn a{
+	color:#593a5d;
 }
 
 #mainController {
 	height:90px;
 	position:relative;
-	top:5px;
+	top:0px;
 	left:45px;
 }
 
@@ -156,7 +168,7 @@ span.mainTimeHeader {
 .tick {
 	width:10px;
 	height:12.5px;	
-	background:lime;
+	background: #FF9;
 	position:absolute;
 	top:16px;
 	left:100px;
