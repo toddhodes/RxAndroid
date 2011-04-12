@@ -37,23 +37,6 @@ function createMap() {
   polyline.setMap(map);
 }
 
-function togglePlayPause() {
-  var btn;
-  if (playing)
-    btn = document.getElementById('mainButton');
-  else
-    btn = document.getElementById('pauseButton');
-
-  if (playing) {
-    btn.id = "pauseButton";
-    playing = 0;
-  } else {
-    playing = 1;
-    btn.id = "mainButton";
-    doMove();
-  }
-}
-
 function doMove() {
   if (!playing) return;
 
