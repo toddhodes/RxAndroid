@@ -94,7 +94,7 @@ a:hover {
 #mainController {
 	height:90px;
 	position:relative;
-	top:0px;
+	top:20px;
 	left:45px;
 }
 
@@ -153,7 +153,7 @@ a:hover {
 	background: url('../images/ui/timeline_Surround_v2.png') no-repeat 0 0;
 	z-index:2;
 	position:relative;
-	top:20px;
+	top:0px;
 	left:-20px;
 }
 
