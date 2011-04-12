@@ -45,7 +45,7 @@ a:hover {
 #playerContainer {
 	width:946px;
 	height:629px;
-	background: url('../images/ui/playerBackground.png')no-repeat 0 0;
+	background: url('../images/ui/playerBackground.png') no-repeat 0 0;
 	position:relative;
 	top:10px;
 }
@@ -99,17 +99,21 @@ a:hover {
 }
 
 #mainButton {
-	background: url('../images/ui/playButton.png') no-repeat 0 0;
-	width:54px;
-	height:53px;	
+		
 	z-index:50;
 	position:absolute;
 	top:-5px;
 	cursor:pointer;
 }
 
+.playing {
+	background: url('../images/ui/playButton.png') no-repeat 0 0;
+	width:54px;
+	height:53px;
+}
+
 #mainButton:hover {
-	background: url('../images/ui/playButtonOver.png')no-repeat 0 0;	
+	background: url('../images/ui/playButtonOver.png') no-repeat 0 0;	
 	width:54px;
 	height:53px;
 	z-index:50;
@@ -120,7 +124,7 @@ a:hover {
 
 
 #pauseButton {
-	background: url('../images/ui/pauseButton.png')no-repeat 0 0;
+	background: url('../images/ui/pauseButton.png') no-repeat 0 0;
 	width:54px;
 	height:53px;	
 	z-index:50;
@@ -130,7 +134,7 @@ a:hover {
 }
 
 #pauseButton:hover {
-	background: url('../images/ui/pauseButtonOver.png')no-repeat 0 0;
+	background: url('../images/ui/pauseButtonOver.png') no-repeat 0 0;
 	width:54px;
 	height:53px;	
 	z-index:50;
@@ -139,6 +143,9 @@ a:hover {
 	cursor:pointer;
 }
 
+.paused {
+	
+}
 
 #timelineBackground {
 	width:892px;

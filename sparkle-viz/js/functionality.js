@@ -9,7 +9,7 @@
   dojo.connect(mainButton, "onclick", function(){
     if(activated){
       dojo.attr(mainButton, "id", "pauseButton");
-      var pausedButton = dojo.byId("pauseButton");
+      var pauseButton = dojo.byId("pauseButton");
       activated = false;
       playing = 0;
       doMove();
