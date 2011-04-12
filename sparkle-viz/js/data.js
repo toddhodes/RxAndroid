@@ -18,60 +18,115 @@ var locData = [
 ];
 
 
+var travelSpans;
+var beginTime;
+var endTime;
 
-function Location() {
-  var id;
-  var lon;
-  var lat;
-  var unc;
-  var time;
-  var expiration;
+function Location(l) {
+  this.id = l.id;
+  this.lon = l.lon;
+  this.lat = l.lat;
+  this.unc = l.unc;
+  this.time = l.time;
+  this.expiration = l.expiration;
+  this.latLon = function() {
+    return new google.maps.LatLng(this.lat, this.lon);
+  }
 }
 
 
-function Travel(/*Location*/src, /*Location*/dest) {
-  var startTime = src.time;
-  var endTime = dest.time;
-  var timeSpan = dest.time - src.time;
+function TravelSpan(/*Location*/src, /*Location*/dest) {
 
-  var srcLatLng = new google.maps.LatLng(src.lat, src.lon);
-  var destLatLng = new google.maps.LatLng(dest.lat, dest.lon);
+  this.startTime = src.time;
+  this.endTime = dest.time;
+  this.timeSpan = dest.time - src.time;
 
-    /* this.
-       getPosAtTime: function getPosAtTime(time) {
-    }
-   */
+  this.srcLatLng = new google.maps.LatLng(src.lat, src.lon);
+  this.destLatLng = new google.maps.LatLng(dest.lat, dest.lon);
+  //console.log("src: " + this.srcLatLng +", dest:"+ this.destLatLng);
+
+  this.getPosAtTime = function(time) {
+    var frac_src = (time - this.startTime) / this.timeSpan;
+    var frac_dest = (this.endTime - time) / this.timeSpan;
+    console.log((frac_src*100).toFixed(0) + "% along path");
+
+    var lat = (this.srcLatLng.lat() * frac_src)
+                + (this.destLatLng.lat() * frac_dest);
+    var lon = (this.srcLatLng.lng() * frac_src)
+                + (this.destLatLng.lng() * frac_dest);
+    //console.log("lat: " + lat +", lon:"+ lon);
+
+    return new google.maps.LatLng(lat, lon);
+  }
 }
-
-
 
 function computeTimeline() {
-  var cnt = locData.length;
-  for (var i=0; i < cnt; i++) {
-    var locVal = locData[i].location;
+  travelSpans = [];
 
+  var cnt = locData.length;
+  if (cnt < 2) {
+    alert("Need at least two locations to animate anything");
+    return;
   }
 
+  beginTime = locData[0].location.time;
+  endTime = locData[locData.length-1].location.time;
+
+  for (var i=0; i < cnt-1; i++) {
+    var travelSpan = new TravelSpan(locData[i].location,
+                                        locData[i+1].location);
+    travelSpans.push(travelSpan);
+  }
+  console.log(travelSpans);
 }
 
-function setDest(time) {
-  var locVal = undefined;
+function addRandomnessToLocData() {
+  var cnt = locData.length;
+  for (var i=0; i < cnt; i++) {
+    locData[i].location.lat = locData[i].location.lat + 0.1 * Math.random();
+    locData[i].location.lon = locData[i].location.lon + 0.1 * Math.random();
+  }
+}
+
+
+function getTimeFromNubPos(nubPos) {
+  //console.log("getTimeFromNubPos(" + nubPos + "): "
+  //            + beginTime + "-" + endTime + " span=" + (endTime - beginTime));
+
+  var offset =  (endTime - beginTime)
+                  * (nubPos / (TIMELINE_WIDTH - TIMELINE_LEFT_EDGE));
+  //console.log("offset from begin: " + offset);
+
+  return beginTime + offset;
+}
+
+function getTravelLoc(time) {
+  //console.log("getTravelLoc(" + time + ")");
+  var lastLoc = undefined;
+  var nextLoc = undefined;
 
   // try and set prev and dest
+  var cnt = locData.length;
   for (var i=0; i < cnt; i++) {
     locVal = locData[i].location;
-    destLatLng = undefined;
     if (locVal.time < time) {
-      prevLatLng = new google.maps.LatLng(locVal.lat, locVal.lon);
+      lastLoc = new Location(locVal);
     } else {
-      destLatLng = new google.maps.LatLng(locVal.lat, locVal.lon);
+      nextLoc = new Location(locVal);
+      break;
     }
   }
 
-  // if dest not set, loop back to front
-  if (destLatLng == undefined) {
-    locVal = locData[0].location;
-    destLatLng = new google.maps.LatLng(locVal.lat, locVal.lon);
-    // prev is already set correctly
+  // if next not set, next is beginning (prev is already set correctly)
+  if (nextLoc == undefined) {
+    nextLoc = new Location(locData[0].location);
   }
+
+  //console.log("getTravelLoc: " + lastLoc.latLon()
+  //                             + " -> " + nextLoc.latLon());
+
+  var span = new TravelSpan(lastLoc, nextLoc);
+  //console.log(span);
+  var retpos = span.getPosAtTime(time);
+  return retpos;
 }

@@ -59,8 +59,19 @@ function doMove() {
   if (lpos > rightEdge) lpos = TIMELINE_LEFT_EDGE;
   nub.style.left = lpos+1 + 'px';
 
+
+  var theTime = getTimeFromNubPos(lpos+1);
+  updateTime(theTime);
+
+  var center = getTravelLoc(theTime);
+  console.log(fmtDate(theTime) + ': ' + center);
+  map.setCenter(center);
+
+  var path = polyline.getPath();
+  path.push(center);
+
   // random center updates
-  if (lpos % 130 == 0) {
+  if (lpos % 1300000 == 0) {
     var location = new google.maps.LatLng(
                      home.lat() + 0.1 * Math.random(),
                      home.lng() + 0.1 * Math.random());
@@ -83,12 +94,15 @@ function doMove() {
     map.setCenter(location);
   }
 
-  setTimeout(doMove,20); // call doMove in 20msec
+  setTimeout(doMove,333); // call doMove in 333msec
 }
 
 function init() {
   nub = document.getElementById('mainButton');
   nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
+
+  addRandomnessToLocData();
+  computeTimeline();
 
   createMap();
   doMove(); // start animating

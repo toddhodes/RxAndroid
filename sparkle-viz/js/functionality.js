@@ -5,7 +5,7 @@
   var logo = dojo.byId("logo");
   var mainButton = dojo.byId("mainButton");
   var activated = true;
-    
+
   dojo.connect(mainButton, "onclick", function(){
     if(activated){
       dojo.attr(mainButton, "id", "pauseButton");
@@ -20,9 +20,25 @@
       doMove();
     }
   });
-    
-    
+
+
   dojo.connect(logo, "onclick", function() {
       //code for logo click through
     });
   });
+
+
+function updateTime(time) {
+  var dt = new Date(time*1000);
+  var timeStringElem = document.getElementById('timeString');
+  timeStringElem.innerHTML = dt.format("h:MMtt");
+
+  var dateStringElem = document.getElementById('dateString');
+  dateStringElem.innerHTML = dt.format("mmmm dS, yyyy");
+}
+
+function fmtDate(time) {
+  var dt = new Date(time*1000);
+  return dt.format("mmmm dS, yyyy h:MMtt");
+}
+
