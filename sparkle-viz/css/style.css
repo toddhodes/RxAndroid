@@ -99,7 +99,7 @@ a:hover {
 }
 
 #mainButton {
-	background: url('../images/ui/playButton.png') no-repeat 0 0;
+	background: url('../images/ui/pauseButton.png') no-repeat 0 0;
 	width:54px;
 	height:53px;	
 	z-index:50;
@@ -110,7 +110,7 @@ a:hover {
 
 
 #mainButton:hover {
-	background: url('../images/ui/playButtonOver.png') no-repeat 0 0;	
+	background: url('../images/ui/pauseButtonOver.png') no-repeat 0 0;	
 	width:54px;
 	height:53px;
 	z-index:50;
@@ -121,7 +121,7 @@ a:hover {
 
 
 #pauseButton {
-	background: url('../images/ui/pauseButton.png') no-repeat 0 0;
+	background: url('../images/ui/playButton.png') no-repeat 0 0;
 	width:54px;
 	height:53px;	
 	z-index:50;
@@ -131,7 +131,7 @@ a:hover {
 }
 
 #pauseButton:hover {
-	background: url('../images/ui/pauseButtonOver.png') no-repeat 0 0;
+	background: url('../images/ui/playButtonOver.png') no-repeat 0 0;
 	width:54px;
 	height:53px;	
 	z-index:50;
