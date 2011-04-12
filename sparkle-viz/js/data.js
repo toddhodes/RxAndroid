@@ -106,15 +106,9 @@ function getTravelSpan(time) {
     }
   }
 
-  // if next not set, next is beginning (prev is already set correctly)
-  if (nextLoc == undefined) {
-    nextLoc = 0;
-  }
-
-  var span = new TravelSpan(
-               new Location(locData[lastLoc].location),
-               new Location(locData[nextLoc].location));
-
   //console.debug("tofrom: " + lastLoc + " -> " + nextLoc);
+  var span = new TravelSpan(new Location(locData[lastLoc].location),
+                            new Location(locData[nextLoc].location));
+
   return span;
 }

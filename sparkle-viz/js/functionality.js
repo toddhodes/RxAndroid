@@ -30,11 +30,10 @@
 
 function updateTime(time) {
   var dt = new Date(time*1000);
-  var timeStringElem = document.getElementById('timeString');
-  timeStringElem.innerHTML = dt.format("h:MMtt");
-
-  var dateStringElem = document.getElementById('dateString');
-  dateStringElem.innerHTML = dt.format("mmmm dS, yyyy");
+  var timeElem = document.getElementById('timeMsg');
+  timeElem.innerHTML = dt.format("h:MMtt");
+  var dateElem = document.getElementById('dateMsg');
+  dateElem.innerHTML = dt.format("mmmm dS, yyyy");
 }
 
 function fmtDate(time) {

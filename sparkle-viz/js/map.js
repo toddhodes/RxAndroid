@@ -118,6 +118,10 @@ function init() {
   computeTimeline();
 
   createMap();
+
+  var msgElem = document.getElementById('mainMsg');
+  msgElem.innerHTML = locData.length + " location updates";
+
   doMove(); // start animating
 }
 
