@@ -29,7 +29,7 @@ function createMap() {
                                 myOptions);
 
   var polyOptions = {
-    strokeColor: '#540975',
+    strokeColor: '#9C09CD', //'#540975',
     strokeOpacity: 0.7,
     strokeWeight: 2
   }
@@ -56,10 +56,10 @@ function doMove() {
                      home.lng() + 0.1 * Math.random());
 
     var locCirOptions = {
-      strokeColor: "#FF0000",
+      strokeColor: '#9C09CD', // '#540975',
       strokeOpacity: 0.8,
       strokeWeight: 1,
-      fillColor: "#FF0000",
+      fillColor: '#9C09CD', //'#540975',
       fillOpacity: 0.35,
       map: map,
       center: location,
