@@ -21,9 +21,7 @@ function createMap() {
     mapTypeControlOptions: {
       position: google.maps.ControlPosition.LEFT_CENTER
     },
-    panControlOptions: {
-      position: google.maps.ControlPosition.LEFT_CENTER
-    },
+    panControl: false,
     zoomControlOptions: {
       position: google.maps.ControlPosition.LEFT_CENTER
     },
