@@ -6,20 +6,15 @@ var nub = null;
 var mapdiv = null;
 var map;
 var polyline;
-var locationCircle;
-
-var home;
+var accuracyCircles;
+var lastSpanSrcId;
 
 var playing = 1;
-var prevLatLng;
-var currLatLng;
-var destLatLng;
 
 
 function createMap() {
   // create the map
   var latlng = new google.maps.LatLng(37.828,-122.3);
-  home = latlng;
   var myOptions = {
     zoom: 10,
     center: latlng,
@@ -38,10 +33,10 @@ function createMap() {
   map = new google.maps.Map(document.getElementById("map_canvas"),
                                 myOptions);
 
-  addPolyLine();
+  addBasePolygons();
 }
 
-function addPolyLine() {
+function addBasePolygons() {
   var polyOptions = {
     strokeColor: '#9C09CD', //'#540975',
     strokeOpacity: 0.7,
@@ -49,42 +44,56 @@ function addPolyLine() {
   }
   polyline = new google.maps.Polyline(polyOptions);
   polyline.setMap(map);
+
+  accuracyCircles = [];
 }
+
+function clearPolygons() {
+  polyline.setMap(null);
+  for (var circ in accuracyCircles) {
+    accuracyCircles[circ].setMap(null);
+  }
+  addBasePolygons();
+}
+
 
 
 function doMove() {
   if (!playing) return;
 
-  var lpos = parseInt(nub.style.left);
-
   //var timelinediv = document.getElementById('timelineBackground');
   //var rightEdge = parseInt(timelinediv.style.width) - 70;
   var rightEdge = TIMELINE_WIDTH - 70;
 
+  var lpos = parseInt(nub.style.left);
+
   if (lpos > rightEdge) {
     lpos = TIMELINE_LEFT_EDGE;
-    polyline.setMap(null);
-    addPolyLine();
+    clearPolygons();
   }
 
-  nub.style.left = lpos+5 + 'px';
+  nub.style.left = lpos+2 + 'px';
 
+  var curTime = getTimeFromNubPos(lpos+1);
+  updateTime(curTime);
 
-  var theTime = getTimeFromNubPos(lpos+1);
-  updateTime(theTime);
+  var curSpan = getTravelSpan(curTime);
+  checkForNewSpan(curSpan);
 
-  var center = getTravelLoc(theTime);
-  console.log(fmtDate(theTime) + ': ' + center);
+  var center = curSpan.getPosAtTime(curTime);
+  //console.debug(fmtDate(curTime) + ': ' + center);
   map.setCenter(center);
 
   var path = polyline.getPath();
   path.push(center);
 
-  // random center updates
-  if (lpos % 1300000 == 0) {
-    var location = new google.maps.LatLng(
-                     home.lat() + 0.1 * Math.random(),
-                     home.lng() + 0.1 * Math.random());
+  setTimeout(doMove,100); // animation loop
+}
+
+
+function checkForNewSpan(curSpan) {
+  if (curSpan.src.id != lastSpanSrcId) {
+    console.log("on path id:"+ curSpan.src.id +" -> id:"+ curSpan.dest.id);
 
     var locCirOptions = {
       strokeColor: '#9C09CD',
@@ -93,18 +102,12 @@ function doMove() {
       fillColor: '#9C09CD',
       fillOpacity: 0.35,
       map: map,
-      center: location,
-      radius: Math.random()*1000
+      center: curSpan.src.latLng(),
+      radius: curSpan.src.unc
     };
-    locationCircle = new google.maps.Circle(locCirOptions);
-
-    var path = polyline.getPath();
-    path.push(location);
-
-    map.setCenter(location);
+    accuracyCircles.push(new google.maps.Circle(locCirOptions));
+    lastSpanSrcId = curSpan.src.id;
   }
-
-  setTimeout(doMove,150); // animation loop
 }
 
 function init() {

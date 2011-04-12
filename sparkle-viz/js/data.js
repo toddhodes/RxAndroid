@@ -31,25 +31,23 @@ function Location(l) {
 
 
 function TravelSpan(/*Location*/src, /*Location*/dest) {
+  this.src = src;
+  this.dest = dest;
 
   this.startTime = src.time;
   this.endTime = dest.time;
   this.timeSpan = dest.time - src.time;
 
-  this.srcLatLng = new google.maps.LatLng(src.lat, src.lon);
-  this.destLatLng = new google.maps.LatLng(dest.lat, dest.lon);
-  //console.log("src: " + this.srcLatLng +", dest:"+ this.destLatLng);
-
   this.getPosAtTime = function(time) {
     var frac_dest = (time - this.startTime) / this.timeSpan;
     var frac_src = (this.endTime - time) / this.timeSpan;
-    console.log((frac_src*100).toFixed(0) + "% along path");
+    //console.debug((frac_dest*100).toFixed(0) + "% along path");
 
-    var lat = (this.srcLatLng.lat() * frac_src)
-                + (this.destLatLng.lat() * frac_dest);
-    var lon = (this.srcLatLng.lng() * frac_src)
-                + (this.destLatLng.lng() * frac_dest);
-    //console.log("lat: " + lat +", lon:"+ lon);
+    var lat = (this.src.latLng().lat() * frac_src)
+                + (this.dest.latLng().lat() * frac_dest);
+    var lon = (this.src.latLng().lng() * frac_src)
+                + (this.dest.latLng().lng() * frac_dest);
+    //console.debug("lat: " + lat +", lon:"+ lon);
 
     return new google.maps.LatLng(lat, lon);
   }
@@ -72,7 +70,7 @@ function computeTimeline() {
                                         locData[i+1].location);
     travelSpans.push(travelSpan);
   }
-  console.log(travelSpans);
+  console.debug(travelSpans);
 }
 
 function addRandomnessToLocData() {
@@ -85,18 +83,15 @@ function addRandomnessToLocData() {
 
 
 function getTimeFromNubPos(nubPos) {
-  //console.log("getTimeFromNubPos(" + nubPos + "): "
-  //            + beginTime + "-" + endTime + " span=" + (endTime - beginTime));
-
   var offset =  (endTime - beginTime)
                   * (nubPos / (TIMELINE_WIDTH - TIMELINE_LEFT_EDGE));
-  //console.log("offset from begin: " + offset);
+  //console.debug("offset from begin: " + offset);
 
   return beginTime + offset;
 }
 
-function getTravelLoc(time) {
-  //console.log("getTravelLoc(" + time + ")");
+function getTravelSpan(time) {
+  //console.debug("getTravelLoc(" + time + ")");
   var lastLoc = 0;
   var nextLoc = 1;
 
@@ -120,7 +115,6 @@ function getTravelLoc(time) {
                new Location(locData[lastLoc].location),
                new Location(locData[nextLoc].location));
 
-  console.log("tofrom: " + lastLoc + " -> " + nextLoc);
-  var retpos = span.getPosAtTime(time);
-  return retpos;
+  //console.debug("tofrom: " + lastLoc + " -> " + nextLoc);
+  return span;
 }
