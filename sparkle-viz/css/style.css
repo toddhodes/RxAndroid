@@ -26,9 +26,8 @@ body {
 }
 
 #map_canvas {
-	//background: url('../images/map.jpg') no-repeat 0 0;	
-	width:906px;
-	height:497px;
+	width:866px;
+	height:455px;
 	padding:20px;
 	position:relative;
 	top:75px;
