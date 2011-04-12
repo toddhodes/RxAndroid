@@ -34,7 +34,7 @@ a:hover {
 
 #map_canvas {
 	width:866px;
-	height:455px;
+	height:460px;
 	padding:20px;
 	position:relative;
 	top:75px;
@@ -99,18 +99,15 @@ a:hover {
 }
 
 #mainButton {
-		
+	background: url('../images/ui/playButton.png') no-repeat 0 0;
+	width:54px;
+	height:53px;	
 	z-index:50;
 	position:absolute;
 	top:-5px;
 	cursor:pointer;
 }
 
-.playing {
-	background: url('../images/ui/playButton.png') no-repeat 0 0;
-	width:54px;
-	height:53px;
-}
 
 #mainButton:hover {
 	background: url('../images/ui/playButtonOver.png') no-repeat 0 0;	
