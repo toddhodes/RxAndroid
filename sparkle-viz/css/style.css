@@ -1,0 +1,169 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import 'normalize.css';
+
+
+body {
+	background: url('../images/ui/bodyBackgroundGradient.png') repeat-x 0 0;
+	font-family:Arial, Helvetica, sans-serif;
+	background:white;
+}
+
+
+.normalCenter {
+	text-align:center;	
+	width:100%;
+}
+
+
+
+
+#mainContainer {
+	width:966px;
+	margin:0 auto 0;
+	height:610px;
+}
+
+#map_canvas {
+	//background: url('../images/map.jpg') no-repeat 0 0;	
+	width:906px;
+	height:497px;
+	padding:20px;
+	position:relative;
+	top:75px;
+	left:20px;
+	overflow:hidden;
+}
+
+#playerContainer {
+	width:946px;
+	height:629px;
+	background: url('../images/ui/playerBackground.png')no-repeat 0 0;
+	position:relative;
+	top:10px;
+}
+
+#logo {
+	background: url('../images/sparkleLogo.png') no-repeat 0 0;	
+	width:386px;
+	height:77px;	
+	position:absolute;
+	top:25px;	
+	left:25px;
+}
+
+#logo:hover {
+	cursor:pointer;	
+}
+
+
+
+#announcementBar {
+	background: rgba(0, 0, 0, 0.5);
+	width: 906px;
+	height: 60px;
+	position:absolute;
+	top:75px;
+	left:20px;
+	z-index:75;
+}
+
+#announcementBar span{
+	color:#fff;
+}
+#signIn {
+	float:right;
+	position:absolute;
+	top:20px;
+	right:20px;
+	font-size:90%;
+}
+
+#mainController {
+	height:90px;
+	position:relative;
+	top:-25px;
+	left:45px;
+}
+
+#mainButton {
+	background: url('../images/ui/playButton.png') no-repeat 0 0;
+	width:54px;
+	height:53px;	
+	z-index:50;
+	position:absolute;
+	top:-5px;
+	cursor:pointer;
+}
+
+#mainButton:hover {
+	background: url('../images/ui/playButtonOver.png')no-repeat 0 0;	
+	width:54px;
+	height:53px;
+	z-index:50;
+	position:absolute;
+	top:-5px;
+	cursor:pointer;
+}
+
+
+#pauseButton {
+	background: url('../images/ui/pauseButton.png')no-repeat 0 0;
+	width:54px;
+	height:53px;	
+	z-index:50;
+	position:absolute;
+	top:-5px;
+	cursor:pointer;
+}
+
+#pauseButton:hover {
+	background: url('../images/ui/pauseButtonOver.png')no-repeat 0 0;
+	width:54px;
+	height:53px;	
+	z-index:50;
+	position:absolute;
+	top:-5px;
+	cursor:pointer;
+}
+
+
+#timelineBackground {
+	width:892px;
+	height:45px;
+	background: url('../images/ui/timeline_Surround_v2.png') no-repeat 0 0;
+	z-index:2;
+	position:relative;
+	top:5px;
+	left:-20px;
+}
+
+
+
+span.mainTimeHeader {
+	font-weight:bold;	
+	color:#e1f9ff;
+}
+
+.mainMessage {
+
+}
+
+#locationMessage {
+	padding:10px;	
+}
+
+.tick {
+	width:10px;
+	height:12.5px;	
+	background:lime;
+	position:absolute;
+	top:16px;
+	left:100px;
+}
+
+.timeMessage {
+	float:right;
+	font-weight:bold;
+}

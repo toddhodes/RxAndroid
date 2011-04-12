@@ -1,5 +1,8 @@
 
-var foo = null; // object
+var TIMELINE_LEFT_EDGE = 10;
+var TIMELINE_WIDTH = 906;
+
+var nub = null;
 var mapdiv = null;
 var map;
 var polyline;
@@ -8,6 +11,9 @@ var locationCircle;
 var home;
 
 var playing = 1;
+var prevLatLng;
+var currLatLng;
+var destLatLng;
 
 
 function createMap() {
@@ -32,13 +38,18 @@ function createMap() {
 }
 
 function togglePlayPause() {
-  var btn = document.getElementById('playButtonInput');
+  var btn;
+  if (playing)
+    btn = document.getElementById('mainButton');
+  else
+    btn = document.getElementById('pauseButton');
+
   if (playing) {
-    btn.value = 'play';
+    btn.id = "pauseButton";
     playing = 0;
   } else {
     playing = 1;
-    btn.value = 'pause';
+    btn.id = "mainButton";
     doMove();
   }
 }
@@ -46,19 +57,20 @@ function togglePlayPause() {
 function doMove() {
   if (!playing) return;
 
-  var lpos = parseInt(foo.style.left);
+  var lpos = parseInt(nub.style.left);
 
-  var mapdiv = document.getElementById('map_canvas');
-  var mapRight = parseInt(mapdiv.style.width) - 70;
+  //var timelinediv = document.getElementById('timelineBackground');
+  //var rightEdge = parseInt(timelinediv.style.width) - 70;
+  var rightEdge = TIMELINE_WIDTH - 70;
 
-  if (lpos > mapRight) lpos = 30;
-  foo.style.left = lpos+1 + 'px';
+  if (lpos > rightEdge) lpos = TIMELINE_LEFT_EDGE;
+  nub.style.left = lpos+1 + 'px';
 
   // random center updates
   if (lpos % 130 == 0) {
     var location = new google.maps.LatLng(
-                     home.lat() + 0.15 * Math.random(),
-                     home.lng() + 0.15 * Math.random());
+                     home.lat() + 0.1 * Math.random(),
+                     home.lng() + 0.1 * Math.random());
 
     var locCirOptions = {
       strokeColor: "#FF0000",
@@ -82,8 +94,8 @@ function doMove() {
 }
 
 function init() {
-  foo = document.getElementById('fooObject'); // get the "foo" object
-  foo.style.left = '30px'; // set its initial position
+  nub = document.getElementById('mainButton');
+  nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
 
   createMap();
   doMove(); // start animating
