@@ -24,7 +24,7 @@
 	dojo.connect(moveableObj, "onDndStart", function(){
 
 	});
-	
+
 
     var playPauseToggle = function(){
       if (activated) {
@@ -73,3 +73,13 @@ function fmtDate(time) {
   return dt.format("mmmm dS, yyyy h:MMtt");
 }
 
+function urlArg(name) {
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if (results == null)
+    return "";
+  else
+    return results[1];
+}

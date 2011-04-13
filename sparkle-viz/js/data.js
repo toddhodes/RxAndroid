@@ -43,8 +43,11 @@ function TravelSpan(/*Location*/src, /*Location*/dest) {
 
 function loadLocData() {
   locData = [];
+  var mdn = urlArg("mdn");
+  if (mdn == "") mdn = "5105551212";
+
   var url = 'http://sparkledemo.locationlabs.com/finder-att-family/'
-            + 'location_feed/5105551212/playback.svc';
+            + 'location_feed/' + mdn + '/playback.svc';
 
   var xhrArgs = {
     url: url,

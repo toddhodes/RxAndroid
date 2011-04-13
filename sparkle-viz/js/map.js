@@ -38,7 +38,7 @@ function createMap() {
 
 function addBasePolygons() {
   var polyOptions = {
-    strokeColor: '#9C09CD', //'#540975',
+    strokeColor: '#9C09CD',
     strokeOpacity: 0.7,
     strokeWeight: 2
   };
