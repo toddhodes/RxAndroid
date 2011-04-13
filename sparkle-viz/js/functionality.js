@@ -10,8 +10,8 @@
     var f1 = function() {
       b = {};
       b["t"] = -5;
-      b["l"] = 10;
-      b["w"] = 906;
+      b["l"] = TIMELINE_LEFT_EDGE;
+      b["w"] = TIMELINE_IMG_WIDTH -26;
       b["h"] = 53;
       return b;
     };
@@ -22,8 +22,8 @@
                                              constraints: f1,
                                              within: true});
 
-    dojo.connect(mainButton, "onclick", function(){
-      if(activated){
+    var playPauseToggle = function(){
+      if (activated) {
         dojo.attr(mainButton, "id", "pauseButton");
         var pauseButton = dojo.byId("pauseButton");
         activated = false;
@@ -33,10 +33,16 @@
         dojo.attr(dojo.byId("pauseButton"), "id", "mainButton");
         activated = true;
         playing = 0;
-        doMove();
       }
-    });
+    };
 
+    dojo.connect(mainButton, "onclick", playPauseToggle);
+    dojo.connect(moveableObj, "onFirstMove", function(){
+                   //console.log("onFirstMove");
+                 });
+    dojo.connect(moveableObj, "onMoveStop", function() {
+                   //console.log("oonMoveStop");
+                 });
 
     dojo.connect(logo, "onclick", function() {
       //code for logo click through

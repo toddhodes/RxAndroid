@@ -18,7 +18,7 @@ function createMap() {
   // create the map
   var latlng = new google.maps.LatLng(37.828,-122.3);
   var myOptions = {
-    zoom: 10,
+    zoom: 14,
     center: latlng,
     mapTypeControlOptions: {
       position: google.maps.ControlPosition.LEFT_CENTER
@@ -30,7 +30,7 @@ function createMap() {
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
   map = new google.maps.Map(document.getElementById("map_canvas"),
-                                myOptions);
+                            myOptions);
 
   addBasePolygons();
 }
@@ -82,7 +82,7 @@ function doMove() {
   var path = polyline.getPath();
   path.push(center);
 
-  setTimeout(doMove,100); // animation loop
+  setTimeout(doMove,200); // animation loop
 }
 
 
