@@ -50,6 +50,17 @@ a:hover {
 	top:10px;
 }
 
+#playerContainerBackground {
+		width:928px;
+		height:315px;
+		background: url('../images/ui/backgroundGradient_signInPage.png') no-repeat 0 0;
+		position:absolute;
+		top:200px;
+		left:8px;
+}
+
+
+
 #logo {
 	background: url('../images/sparkleLogo.png') no-repeat 0 0;	
 	width:386px;
@@ -62,6 +73,62 @@ a:hover {
 #logo:hover {
 	cursor:pointer;	
 }
+/* Sign In Page */
+
+#logoSignIn {
+	background: url('../images/sparkleLogo.png') no-repeat 0 0;	
+	width:386px;
+	height:77px;	
+	position:absolute;
+	top:-60px;	
+	left:300px;
+}
+
+#signInForm {
+	position:absolute;
+	top:10px;
+	left:315px;
+}
+
+#signInForm input {
+	background:transparent;
+	border:0;
+	background: url('../images/ui/inputField.png') no-repeat 0 5px;
+	padding:10px;	
+	width:215px;
+	color:#593a5d;
+}
+
+
+button.signInButton {
+	border:0;
+	background: url('../images/ui/signInButton.png') no-repeat 0 0;	
+	width:116px;
+	height:34px;
+	margin-left:82px;
+	-moz-outline:none;
+	cursor: pointer;
+	margin-top:10px;
+}
+
+button.signInButton:hover {
+	border:0;
+	background: url('../images/ui/signInButton.png') no-repeat 0 -35px;	
+	width:116px;
+	height:34px;
+	margin-left:82px;
+	
+}
+
+
+span.inputLabels {
+	display:inline-block;
+	width:80px;	
+	color:#593a5d;
+	font-weight:bold;
+}
+
+
 
 
 

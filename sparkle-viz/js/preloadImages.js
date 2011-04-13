@@ -1,8 +1,9 @@
 // JavaScript Document
 //preload images
-var buttons = new Image(214,54);
-
-
+var pauseImage = new Image(214,54);
+var mainImage = new Image(214,54);
+var pauseOverImage = new Image(214,54);
 
 //src for preload images
-buttons.src = "../images/ui/all_buttons.png";
+pauseButtonImg.src = "../images/ui/pauseButton.png";
+mainButtonImg.src = "../images/ui/mainButton.png";
