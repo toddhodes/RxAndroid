@@ -22,7 +22,7 @@ function createMap() {
     zoom: 14,
     center: latlng,
     mapTypeControlOptions: {
-      position: google.maps.ControlPosition.LEFT_CENTER
+      position: google.maps.ControlPosition.RIGHT_TOP
     },
     panControl: false,
     zoomControlOptions: {
