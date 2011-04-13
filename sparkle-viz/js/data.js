@@ -53,7 +53,7 @@ function loadLocData() {
     url: url,
     handleAs: 'json',
     postLoad: function() {
-      addRandomnessToLocData();
+      //addRandomnessToLocData();
       computeTimeline();
       // now we have data; init the map
       setTimeout(init,1000);
