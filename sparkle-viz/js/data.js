@@ -20,7 +20,9 @@ var locData = [
   {"location":{"id":3089,"lon":-122.29136258333334,"lat":37.841574083333334,"unc":0.0,"time":1302537263,"expiration":1303401263}},
   {"location":{"id":3110,"lon":-122.29282814999999,"lat":37.841758049999996,"unc":63.0,"time":1302546407,"expiration":1303410407}},
   {"location":{"id":3243,"lon":-122.37029,"lat":37.802792,"unc":2345.0,"time":1302575254,"expiration":1303439254}},
-  {"location":{"id":3244,"lon":-122.2915467,"lat":37.84156975,"unc":0.0,"time":1302575257,"expiration":1303439257}}
+  {"location":{"id":3244,"lon":-122.2915467,"lat":37.84156975,"unc":0.0,"time":1302575257,"expiration":1303439257}},
+  {"location":{"id":3247,"lon":-122.2924743125,"lat":37.841843149999995,"unc":139.0,"time":1302609794,"expiration":1303473794}},
+  {"location":{"id":3327,"lon":-122.296003,"lat":37.840202,"unc":992.0,"time":1302640339,"expiration":1303504339}}
 ];
 
 
@@ -87,17 +89,13 @@ function computeTimeline() {
 function addRandomnessToLocData() {
   var cnt = locData.length;
   for (var i=0; i < cnt; i++) {
-    locData[i].location.lat = locData[i].location.lat + 0.01 * Math.random();
-    locData[i].location.lon = locData[i].location.lon + 0.01 * Math.random();
+    locData[i].location.lat = locData[i].location.lat + 0.1 * Math.random();
+    locData[i].location.lon = locData[i].location.lon + 0.1 * Math.random();
   }
 }
 
-
-function getTimeFromNubPos(nubPos) {
-  var offset =  (endTime - beginTime)
-                  * (nubPos / (TIMELINE_WIDTH - TIMELINE_LEFT_EDGE));
-  //console.debug("offset from begin: " + offset);
-
+function getTimeAt(percentComplete) {
+  var offset =  (endTime - beginTime) * (percentComplete / 100);
   return beginTime + offset;
 }
 
@@ -117,9 +115,16 @@ function getTravelSpan(time) {
     }
   }
 
-  //console.debug("tofrom: " + lastLoc + " -> " + nextLoc);
+  var dbgmsg = "tofrom: " + lastLoc + " -> " + nextLoc;
+  if (dbgmsg != lastdbgmsg) {
+    console.debug(dbgmsg);
+    lastdbgmsg = dbgmsg;
+  }
+
   var span = new TravelSpan(new Location(locData[lastLoc].location),
                             new Location(locData[nextLoc].location));
 
   return span;
 }
+var lastdbgmsg = undefined;
+

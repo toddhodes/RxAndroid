@@ -23,12 +23,12 @@
       dojo.attr(mainButton, "id", "pauseButton");
       var pauseButton = dojo.byId("pauseButton");
       activated = false;
-      playing = 0;
+      playing = 1;
       doMove();
     } else {
       dojo.attr(dojo.byId("pauseButton"), "id", "mainButton");
       activated = true;
-      playing = 1;
+      playing = 0;
       doMove();
     }
   });
@@ -40,10 +40,13 @@
   });
 
 
-function updateTime(time) {
+function updateTime(time, progressPercent) {
   var dt = new Date(time*1000);
   var timeElem = document.getElementById('timeMsg');
   timeElem.innerHTML = dt.format("h:MMtt");
+  if (progressPercent) {
+    timeElem.innerHTML += "<p>(" +progressPercent.toFixed(1) +"%)</p>";
+  }
   var dateElem = document.getElementById('dateMsg');
   dateElem.innerHTML = dt.format("mmmm dS, yyyy");
 }

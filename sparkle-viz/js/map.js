@@ -1,6 +1,8 @@
 
-var TIMELINE_LEFT_EDGE = 10;
-var TIMELINE_WIDTH = 906;
+var TIMELINE_LEFT_EDGE = 7;
+var TIMELINE_IMG_WIDTH = 906;
+var TIMELINE_RIGHT_EDGE = TIMELINE_IMG_WIDTH - 70;
+var TIMELINE_WIDTH = TIMELINE_RIGHT_EDGE - TIMELINE_LEFT_EDGE;
 
 var nub = null;
 var mapdiv = null;
@@ -9,7 +11,7 @@ var polyline;
 var accuracyCircles;
 var lastSpanSrcId;
 
-var playing = 1;
+var playing = 0;
 
 
 function createMap() {
@@ -59,21 +61,17 @@ function clearPolygons() {
 function doMove() {
   if (!playing) return;
 
-  //var timelinediv = document.getElementById('timelineBackground');
-  //var rightEdge = parseInt(timelinediv.style.width) - 70;
-  var rightEdge = TIMELINE_WIDTH - 70;
-
   var lpos = parseInt(nub.style.left);
-
-  if (lpos > rightEdge) {
+  lpos += 1;
+  if (lpos > TIMELINE_RIGHT_EDGE) {
     lpos = TIMELINE_LEFT_EDGE;
     clearPolygons();
   }
+  nub.style.left = lpos + 'px';
 
-  nub.style.left = lpos+2 + 'px';
-
-  var curTime = getTimeFromNubPos(lpos+1);
-  updateTime(curTime);
+  var progressPercent = 100 * ((lpos-TIMELINE_LEFT_EDGE)/TIMELINE_WIDTH);
+  var curTime = getTimeAt(progressPercent);
+  updateTime(curTime, progressPercent);
 
   var curSpan = getTravelSpan(curTime);
   checkForNewSpan(curSpan);
@@ -91,8 +89,6 @@ function doMove() {
 
 function checkForNewSpan(curSpan) {
   if (curSpan.src.id != lastSpanSrcId) {
-    console.log("on path id:"+ curSpan.src.id +" -> id:"+ curSpan.dest.id);
-
     var locCirOptions = {
       strokeColor: '#9C09CD',
       strokeOpacity: 0.8,
