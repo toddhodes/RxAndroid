@@ -20,25 +20,31 @@ function stat() {
 //setInterval(stat, 15000);
 
 process.addListener("SIGINT",
-  function () {
-    stat();
-    log("goodbye");
-    process.exit(0)
-  });
+                    function () {
+                      stat();
+                      log("goodbye");
+                      process.exit(0);
+                    });
 
-
-var s = http.createServer(function (req, res) {
+var s = http.createServer(function(req,res) {
   req.on('data', function (chunk) {
-    console.log('BODY:\n' + chunk);
-    var locStore = fs.createWriteStream('data/captured-data.txt', {'flags': 'a'});
-    locStore.write(new Date() + ": " + chunk + '\n');
+    console.log('\n' + chunk);
+    var locStore =
+      fs.createWriteStream('data/captured-data.txt', {'flags': 'a'});
+    locStore.write(new Date() + ": " + chunk);
+
+    var jsonStore =
+      fs.createWriteStream('data/captured-data.json', {'flags': 'a'});
+    jsonStore.write((""+chunk).replace("[","").replace("]",""));
+
     posts++;
   });
+
   reqs++;
-  //console.log('HEADERS: ');
   console.log(req.headers);
+
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Accepted pushed data\n');
+  res.end("OK");
 });
 //s.listen(8421, "127.0.0.1");
 s.listen(8421);
