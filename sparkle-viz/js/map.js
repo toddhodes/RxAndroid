@@ -9,6 +9,7 @@ var mapdiv = null;
 var map;
 var polyline;
 var accuracyCircles;
+var accuracyCircleMarkers;
 var lastSpanSrcId;
 
 var playing = 0;
@@ -45,12 +46,14 @@ function addBasePolygons() {
   polyline.setMap(map);
 
   accuracyCircles = [];
+  accuracyCircleMarkers = [];
 }
 
 function clearPolygons() {
   polyline.setMap(null);
   for (var circ in accuracyCircles) {
     accuracyCircles[circ].setMap(null);
+    accuracyCircleMarkers[circ].setMap(null);
   }
   addBasePolygons();
 }
@@ -103,7 +106,31 @@ function checkForNewSpan(curSpan) {
       center: curSpan.src.latLng(),
       radius: curSpan.src.unc
     };
-    accuracyCircles.push(new google.maps.Circle(locCirOptions));
+    var circ = new google.maps.Circle(locCirOptions);
+    accuracyCircles.push(circ);
+
+      // add address info to accuracy circle
+    var geocoder = new google.maps.Geocoder();
+    var ll = curSpan.src.latLng();
+    geocoder.geocode({'latLng': ll}, function(results, status) {
+      var text = fmtDate(curSpan.src.time) + ": ";
+
+      if (status == google.maps.GeocoderStatus.OK && results[0]) {
+        console.debug(results[0].formatted_address);
+        text += results[0].formatted_address;
+      } else {
+        text += ll;
+      }
+
+      var marker = new google.maps.Marker({
+        position: curSpan.src.latLng(),
+        map: map,
+        icon: 'images/circle_transparent.png',
+        title: text
+      });
+      accuracyCircleMarkers.push(marker);
+    });
+
     polyline.getPath().push(curSpan.src.latLng());
     lastSpanSrcId = curSpan.src.id;
   }
