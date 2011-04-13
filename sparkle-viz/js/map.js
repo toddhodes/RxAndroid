@@ -21,13 +21,6 @@ function createMap() {
   var myOptions = {
     zoom: 14,
     center: latlng,
-    mapTypeControlOptions: {
-      position: google.maps.ControlPosition.RIGHT_TOP
-    },
-    panControl: false,
-    zoomControlOptions: {
-      position: google.maps.ControlPosition.LEFT_CENTER
-    },
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
   map = new google.maps.Map(document.getElementById("map_canvas"),
