@@ -65,6 +65,11 @@ function doMove() {
   if (lpos > TIMELINE_RIGHT_EDGE) {
     lpos = TIMELINE_LEFT_EDGE;
     clearPolygons();
+      // tmp fix for map refresh bug
+    nub.style.left = lpos + 'px';
+    dojo.attr(dojo.byId("pauseButton"), "id", "mainButton");
+    playing = 0;
+    return;
   }
   nub.style.left = lpos + 'px';
 

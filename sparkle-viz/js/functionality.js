@@ -6,7 +6,6 @@
   dojo.addOnLoad(function(){
     var logo = dojo.byId("logo");
     var mainButton = dojo.byId("mainButton");
-    var activated = true;
     var f1 = function() {
       b = {};
       b["t"] = -5;
@@ -23,25 +22,32 @@
                                              within: true});
 
     var playPauseToggle = function(){
-      if (activated) {
+      if (!playing) {
         dojo.attr(mainButton, "id", "pauseButton");
         var pauseButton = dojo.byId("pauseButton");
-        activated = false;
         playing = 1;
         doMove();
       } else {
         dojo.attr(dojo.byId("pauseButton"), "id", "mainButton");
-        activated = true;
         playing = 0;
       }
     };
 
     dojo.connect(mainButton, "onclick", playPauseToggle);
+
+      // clear polygons if dragged much
+    var prevNubLoc;
     dojo.connect(moveableObj, "onFirstMove", function(){
                    //console.log("onFirstMove");
+                   prevNubLoc = parseInt(nub.style.left);
                  });
     dojo.connect(moveableObj, "onMoveStop", function() {
                    //console.log("oonMoveStop");
+                   var newNubLoc = parseInt(nub.style.left);
+                   if (Math.abs(newNubLoc - prevNubLoc) > 20) {
+                     console.log("nub moved " + Math.abs(newNubLoc - prevNubLoc));
+                     clearPolygons();
+                   }
                  });
 
     dojo.connect(logo, "onclick", function() {

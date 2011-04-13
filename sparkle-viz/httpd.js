@@ -38,7 +38,7 @@ var s = http.createServer(function (req, res) {
   //console.log('HEADERS: ');
   console.log(req.headers);
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
+  res.end('Accepted pushed data\n');
 });
 //s.listen(8421, "127.0.0.1");
 s.listen(8421);

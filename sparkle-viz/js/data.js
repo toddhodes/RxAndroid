@@ -83,7 +83,27 @@ function computeTimeline() {
                                         locData[i+1].location);
     travelSpans.push(travelSpan);
   }
-  console.debug(travelSpans);
+  console.debug("travelspans: ", travelSpans);
+
+  var ticks = getTickPercentages();
+  console.log("ticks: " , ticks);
+  var tickHolder = dojo.byId("timelineBackground");
+  for (var tick in ticks) {
+    var left = 20 + ticks[tick]/100 * TIMELINE_WIDTH;
+    dojo.create("span", { 'class': "tick",
+                          style: { left: left.toFixed(0)+"px" }
+                        }, tickHolder);
+  }
+}
+
+
+function getTickPercentages() {
+  var ticks = [];
+  var cnt = locData.length;
+  for (var i=0; i < cnt; i++) {
+    ticks.push(getPercentAt(locData[i].location.time).toFixed(2));
+  }
+  return ticks;
 }
 
 function addRandomnessToLocData() {
@@ -97,6 +117,10 @@ function addRandomnessToLocData() {
 function getTimeAt(percentComplete) {
   var offset =  (endTime - beginTime) * (percentComplete / 100);
   return beginTime + offset;
+}
+
+function getPercentAt(time) {
+  return 100 * (time - beginTime) / (endTime - beginTime);
 }
 
 function getTravelSpan(time) {

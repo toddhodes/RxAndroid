@@ -238,7 +238,7 @@ span.mainTimeHeader {
 }
 
 .tick {
-	width:10px;
+	width:3px;
 	height:12.5px;	
 	background: #FF9;
 	position:absolute;
