@@ -27,7 +27,6 @@ function createMap() {
     zoomControlOptions: {
       position: google.maps.ControlPosition.LEFT_CENTER
     },
-
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
   map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -41,7 +40,7 @@ function addBasePolygons() {
     strokeColor: '#9C09CD', //'#540975',
     strokeOpacity: 0.7,
     strokeWeight: 2
-  }
+  };
   polyline = new google.maps.Polyline(polyOptions);
   polyline.setMap(map);
 

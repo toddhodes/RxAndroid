@@ -39,7 +39,7 @@ function Location(l) {
   this.expiration = l.expiration;
   this.latLng = function() {
     return new google.maps.LatLng(this.lat, this.lon);
-  }
+  };
 }
 
 
@@ -63,7 +63,7 @@ function TravelSpan(/*Location*/src, /*Location*/dest) {
     //console.debug("lat: " + lat +", lon:"+ lon);
 
     return new google.maps.LatLng(lat, lon);
-  }
+  };
 }
 
 function computeTimeline() {
