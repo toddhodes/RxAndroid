@@ -8,11 +8,10 @@ zip:
 		js/*.js \
 		*.html
 
-
 deploy:
+	scp /tmp/sviz.zip root@sparkledemo:packages/
 	ssh root@sparkledemo mkdir -p /opt/wm/apache-tomcat-5.5.28/webapps/sviz
-	scp /tmp/sviz.zip root@sparkledemo:/opt/wm/apache-tomcat-5.5.28/webapps/sviz/
-	ssh root@sparkledemo unzip /opt/wm/apache-tomcat-5.5.28/webapps/sviz/sviz.zip -d /opt/wm/apache-tomcat-5.5.28/webapps/sviz/
+	ssh root@sparkledemo unzip packages/sviz.zip -d /opt/wm/apache-tomcat-5.5.28/webapps/sviz/
 
 clean:
 	rm -f /tmp/sviz.zip
