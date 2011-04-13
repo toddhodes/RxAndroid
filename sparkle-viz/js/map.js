@@ -104,6 +104,7 @@ function checkForNewSpan(curSpan) {
       radius: curSpan.src.unc
     };
     accuracyCircles.push(new google.maps.Circle(locCirOptions));
+    polyline.getPath().push(curSpan.src.latLng());
     lastSpanSrcId = curSpan.src.id;
   }
 }
