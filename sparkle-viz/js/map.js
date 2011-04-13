@@ -140,9 +140,6 @@ function init() {
   nub = document.getElementById('mainButton');
   nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
 
-  addRandomnessToLocData();
-  computeTimeline();
-
   createMap();
 
   var msgElem = document.getElementById('mainMsg');
@@ -151,4 +148,6 @@ function init() {
   doMove(); // start animating
 }
 
-window.onload = init;
+
+window.onload = loadLocData;  // load location data,
+                              //   which in turn calls init

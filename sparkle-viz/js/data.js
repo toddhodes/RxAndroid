@@ -1,34 +1,9 @@
 
-var locData = [
-  {"location":{"id":2913,"lon":-122.29324161666666,"lat":37.841334333333336,"unc":150.0,"time":1302262620,"expiration":1303126620}},
-  {"location":{"id":2914,"lon":-122.29279204,"lat":37.84161864,"unc":156.0,"time":1302269594,"expiration":1303133594}},
-  {"location":{"id":2915,"lon":-122.29302671666666,"lat":37.8416964,"unc":169.0,"time":1302273059,"expiration":1303137059}},
-  {"location":{"id":2917,"lon":-122.29396273000002,"lat":37.841997889999995,"unc":119.0,"time":1302288371,"expiration":1303152371}},
-  {"location":{"id":2922,"lon":-122.29375341,"lat":37.841896659999996,"unc":150.0,"time":1302296506,"expiration":1303160506}},
-  {"location":{"id":2924,"lon":-122.29357625555556,"lat":37.841870088888896,"unc":155.0,"time":1302299476,"expiration":1303163476}},
-  {"location":{"id":2954,"lon":-122.29352451,"lat":37.841428230000005,"unc":94.0,"time":1302306451,"expiration":1303170451}},
-  {"location":{"id":2976,"lon":-122.29360003,"lat":37.841475870000004,"unc":127.0,"time":1302309801,"expiration":1303173801}},
-  {"location":{"id":2985,"lon":-122.29361792,"lat":37.84187722,"unc":176.0,"time":1302313450,"expiration":1303177450}},
-  {"location":{"id":2986,"lon":-122.29304866666666,"lat":37.84147203333333,"unc":160.0,"time":1302332868,"expiration":1303196868}},
-  {"location":{"id":3029,"lon":-122.29356666000001,"lat":37.84172282,"unc":84.0,"time":1302367196,"expiration":1303231196}},
-  {"location":{"id":3032,"lon":-122.2934872,"lat":37.8423684,"unc":446.0,"time":1302376341,"expiration":1303240341}},
-  {"location":{"id":3033,"lon":-122.29244781666667,"lat":37.84217885,"unc":145.0,"time":1302392559,"expiration":1303256559}},
-  {"location":{"id":3049,"lon":-122.29357968571428,"lat":37.84143125714286,"unc":121.0,"time":1302398325,"expiration":1303262325}},
-  {"location":{"id":3079,"lon":-122.29359704000001,"lat":37.841446739999995,"unc":161.0,"time":1302419092,"expiration":1303283092}},
-  {"location":{"id":3080,"lon":-122.29356182000001,"lat":37.84147779999999,"unc":165.0,"time":1302433824,"expiration":1303297824}},
-  {"location":{"id":3087,"lon":-122.294442,"lat":37.8426883,"unc":404.0,"time":1302537261,"expiration":1303401261}},
-  {"location":{"id":3089,"lon":-122.29136258333334,"lat":37.841574083333334,"unc":0.0,"time":1302537263,"expiration":1303401263}},
-  {"location":{"id":3110,"lon":-122.29282814999999,"lat":37.841758049999996,"unc":63.0,"time":1302546407,"expiration":1303410407}},
-  {"location":{"id":3243,"lon":-122.37029,"lat":37.802792,"unc":2345.0,"time":1302575254,"expiration":1303439254}},
-  {"location":{"id":3244,"lon":-122.2915467,"lat":37.84156975,"unc":0.0,"time":1302575257,"expiration":1303439257}},
-  {"location":{"id":3247,"lon":-122.2924743125,"lat":37.841843149999995,"unc":139.0,"time":1302609794,"expiration":1303473794}},
-  {"location":{"id":3327,"lon":-122.296003,"lat":37.840202,"unc":992.0,"time":1302640339,"expiration":1303504339}}
-];
-
-
+var locData;
 var travelSpans;
 var beginTime;
 var endTime;
+
 
 function Location(l) {
   this.id = l.id;
@@ -64,6 +39,36 @@ function TravelSpan(/*Location*/src, /*Location*/dest) {
 
     return new google.maps.LatLng(lat, lon);
   };
+}
+
+function loadLocData() {
+  locData = [];
+  var url = 'http://sparkledemo.locationlabs.com/finder-att-family/'
+            + 'location_feed/5105551212/playback.svc';
+
+  var xhrArgs = {
+    url: url,
+    handleAs: 'json',
+    postLoad: function() {
+      addRandomnessToLocData();
+      computeTimeline();
+      // now we have data; init the map
+      setTimeout(init,1000);
+    },
+    load: function(data) {
+      for (var b in data) {
+        locData.push(data[b]);
+      }
+      this.postLoad();
+    },
+    error: function(error) {
+      console.warn("An unexpected error occurred: " + error);
+      console.warn("using default data");
+      locData = defaultLocationData;
+      this.postLoad();
+    }
+  };
+  var deferred = dojo.xhrGet(xhrArgs);
 }
 
 function computeTimeline() {
@@ -107,6 +112,7 @@ function getTickPercentages() {
 }
 
 function addRandomnessToLocData() {
+  console.debug("locData: ", locData);
   var cnt = locData.length;
   for (var i=0; i < cnt; i++) {
     locData[i].location.lat = locData[i].location.lat + 0.1 * Math.random();
@@ -152,3 +158,31 @@ function getTravelSpan(time) {
 }
 var lastdbgmsg = undefined;
 
+
+
+// due to XSS security issues, we need this for local devel
+var defaultLocationData = [
+  {"location":{"id":2913,"lon":-122.29324161666666,"lat":37.841334333333336,"unc":150.0,"time":1302262620,"expiration":1303126620}},
+  {"location":{"id":2914,"lon":-122.29279204,"lat":37.84161864,"unc":156.0,"time":1302269594,"expiration":1303133594}},
+  {"location":{"id":2915,"lon":-122.29302671666666,"lat":37.8416964,"unc":169.0,"time":1302273059,"expiration":1303137059}},
+  {"location":{"id":2917,"lon":-122.29396273000002,"lat":37.841997889999995,"unc":119.0,"time":1302288371,"expiration":1303152371}},
+  {"location":{"id":2922,"lon":-122.29375341,"lat":37.841896659999996,"unc":150.0,"time":1302296506,"expiration":1303160506}},
+  {"location":{"id":2924,"lon":-122.29357625555556,"lat":37.841870088888896,"unc":155.0,"time":1302299476,"expiration":1303163476}},
+  {"location":{"id":2954,"lon":-122.29352451,"lat":37.841428230000005,"unc":94.0,"time":1302306451,"expiration":1303170451}},
+  {"location":{"id":2976,"lon":-122.29360003,"lat":37.841475870000004,"unc":127.0,"time":1302309801,"expiration":1303173801}},
+  {"location":{"id":2985,"lon":-122.29361792,"lat":37.84187722,"unc":176.0,"time":1302313450,"expiration":1303177450}},
+  {"location":{"id":2986,"lon":-122.29304866666666,"lat":37.84147203333333,"unc":160.0,"time":1302332868,"expiration":1303196868}},
+  {"location":{"id":3029,"lon":-122.29356666000001,"lat":37.84172282,"unc":84.0,"time":1302367196,"expiration":1303231196}},
+  {"location":{"id":3032,"lon":-122.2934872,"lat":37.8423684,"unc":446.0,"time":1302376341,"expiration":1303240341}},
+  {"location":{"id":3033,"lon":-122.29244781666667,"lat":37.84217885,"unc":145.0,"time":1302392559,"expiration":1303256559}},
+  {"location":{"id":3049,"lon":-122.29357968571428,"lat":37.84143125714286,"unc":121.0,"time":1302398325,"expiration":1303262325}},
+  {"location":{"id":3079,"lon":-122.29359704000001,"lat":37.841446739999995,"unc":161.0,"time":1302419092,"expiration":1303283092}},
+  {"location":{"id":3080,"lon":-122.29356182000001,"lat":37.84147779999999,"unc":165.0,"time":1302433824,"expiration":1303297824}},
+  {"location":{"id":3087,"lon":-122.294442,"lat":37.8426883,"unc":404.0,"time":1302537261,"expiration":1303401261}},
+  {"location":{"id":3089,"lon":-122.29136258333334,"lat":37.841574083333334,"unc":0.0,"time":1302537263,"expiration":1303401263}},
+  {"location":{"id":3110,"lon":-122.29282814999999,"lat":37.841758049999996,"unc":63.0,"time":1302546407,"expiration":1303410407}},
+  {"location":{"id":3243,"lon":-122.37029,"lat":37.802792,"unc":2345.0,"time":1302575254,"expiration":1303439254}},
+  {"location":{"id":3244,"lon":-122.2915467,"lat":37.84156975,"unc":0.0,"time":1302575257,"expiration":1303439257}},
+  {"location":{"id":3247,"lon":-122.2924743125,"lat":37.841843149999995,"unc":139.0,"time":1302609794,"expiration":1303473794}},
+  {"location":{"id":3327,"lon":-122.296003,"lat":37.840202,"unc":992.0,"time":1302640339,"expiration":1303504339}}
+];
