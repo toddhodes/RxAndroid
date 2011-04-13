@@ -33,12 +33,12 @@ a:hover {
 }
 
 #map_canvas {
-	width:855px;
-	height:400px;
+	width:865px;
+	height:405px;
 	padding:20px;
 	position:relative;
-	top:51px;
-	left:25px;
+	top:45px;
+	left:20px;
 	overflow:hidden;
 }
 
@@ -70,10 +70,10 @@ a:hover {
 		
 }
 
-#mainController {
+#mainController{
 	height:90px;
 	position:relative;
-	top:0px;
+	top:-10px;
 	left:45px;
 }
 
@@ -275,7 +275,7 @@ span.inputLabels {
 }
 
 #locationMessage {
-	padding:10px;	
+	padding:8px;	
 }
 
 
