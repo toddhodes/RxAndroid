@@ -50,7 +50,7 @@
 
     dojo.connect(logo, "onclick", function() {
       //code for logo click through
-	  window.location = "index.html";
+	  window.location = "selectDeviceToLocate.html";
     });
   });
 
