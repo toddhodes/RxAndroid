@@ -1,5 +1,5 @@
 @charset "utf-8";
 /* CSS Document */
-#announcementBar {
-background: rgb(73, 48, 90);
+#announcementBar, headerBar{
+background: rgb(93,63,99);
 }

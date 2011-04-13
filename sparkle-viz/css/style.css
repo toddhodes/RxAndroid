@@ -11,11 +11,6 @@ body {
 }
 
 
-.normalCenter {
-	text-align:center;	
-	width:100%;
-}
-
 a {
 	text-decoration:none;
 }
@@ -24,8 +19,15 @@ a:hover {
 	text-decoration:underline;
 }
 
+.mainTimeHeader {
+	font-weight:bold;	
+}
 
+span.mainMessage {
+	color:#a3edff;
+}
 
+/* Layout Containers */
 #mainContainer {
 	width:966px;
 	margin:0 auto 0;
@@ -55,12 +57,29 @@ a:hover {
 		height:315px;
 		background: url('../images/ui/backgroundGradient_signInPage.png') no-repeat 0 0;
 		position:absolute;
-		top:200px;
+		top:180px;
 		left:8px;
 		
 }
 
+#playerContainerBackground_2 {
+		width:928px;
+		height:315px;
+		background: url('../images/ui/backgroundGradient_signInPage.png') no-repeat 0 0;
+		position:absolute;
+		top:140px;
+		left:8px;
+		
+}
 
+#mainController {
+	height:90px;
+	position:relative;
+	top:20px;
+	left:45px;
+}
+
+/* Logos */
 
 #logo {
 	background: url('../images/sparkleLogo.png') no-repeat 0 0;	
@@ -81,8 +100,8 @@ a:hover {
 	width:386px;
 	height:77px;	
 	position:absolute;
-	top:-60px;	
-	left:300px;
+	top:120px;	
+	left:310px;
 }
 
 #signInForm {
@@ -99,7 +118,6 @@ a:hover {
 	width:215px;
 	color:#593a5d;
 }
-
 
 button.signInButton {
 	border:0;
@@ -121,31 +139,6 @@ button.signInButton:hover {
 	
 }
 
-
-span.inputLabels {
-	display:inline-block;
-	width:80px;	
-	color:#593a5d;
-	font-weight:bold;
-}
-
-
-
-
-
-#announcementBar {
-	background: rgba(0, 0, 0, 0.5);
-	width: 906px;
-	height: 60px;
-	position:absolute;
-	top:75px;
-	left:20px;
-	z-index:75;
-}
-
-#announcementBar span{
-	color:#fff;
-}
 #signIn {
 	float:right;
 	position:absolute;
@@ -159,12 +152,45 @@ span.inputLabels {
 	color:#593a5d;
 }
 
-#mainController {
-	height:90px;
-	position:relative;
-	top:20px;
-	left:45px;
+#header{
+	height:80px;	
 }
+
+
+
+#announcementBar {
+	background: rgba(65, 42, 69, 0.5);
+	width: 906px;
+	height: 60px;
+	position:absolute;
+	top:75px;
+	left:20px;
+	z-index:75;
+}
+
+#headerBar {
+	background: rgba(65, 42, 69, 0.9);
+	width: 906px;
+	height: 60px;
+	margin-left:20px;
+	z-index:75;
+}
+
+#announcementBar span{
+	color:#fff;
+}
+
+
+span.inputLabels {
+	display:inline-block;
+	width:80px;	
+	color:#593a5d;
+	font-weight:bold;
+}
+
+
+/*Buttons*/
+
 
 #mainButton {
 	background: url('../images/ui/playButton.png') no-repeat 0 0;
@@ -208,8 +234,22 @@ span.inputLabels {
 	cursor:pointer;
 }
 
-.paused {
-	
+.sparkleEnabled {
+	background: url('../images/ui/childSelectorButton.png') no-repeat 0 0;
+	width:451px;
+	height:81px;
+}
+
+.sparkleEnabled:hover {
+	background: url('../images/ui/childSelectorButton.png') no-repeat 0 -82px;
+	width:451px;
+	height:81px;
+}
+
+.notEnabled {
+	background: url('../images/ui/childSelectorButton.png') no-repeat 0 -162px;
+	width:451px;
+	height:81px;
 }
 
 #timelineBackground {
@@ -224,18 +264,20 @@ span.inputLabels {
 
 
 
-span.mainTimeHeader {
+.dateMsg {
 	font-weight:bold;	
 	color:#e1f9ff;
 }
 
-.mainMessage {
+.mainMsg {
 
 }
 
 #locationMessage {
 	padding:10px;	
 }
+
+
 
 .tick {
 	width:3px;
@@ -249,4 +291,36 @@ span.mainTimeHeader {
 .timeMessage {
 	float:right;
 	font-weight:bold;
+}
+
+/*Child Select Page */
+
+.locateHeader {
+	font-weight:bold;	
+	color:#fff;
+	padding:9px 0 0 10px;
+	text-shadow:0px 0px 4px #000;
+}
+
+#childToLocateFeed {
+	width:510px;	
+	margin:45px auto 0;
+
+}
+
+#childToLocateFeed a {
+	text-decoration:none;	
+	font-weight:bold;
+	
+}
+.deviceNumber {
+	display:inline-block;	
+	padding:28px 85px ;
+	color:#000;
+	font-weight:800;
+}
+
+.enabledText{
+	color:#fff;	
+	text-shadow:0px 0px 4px #000;	
 }
