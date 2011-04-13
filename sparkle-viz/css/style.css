@@ -33,12 +33,12 @@ a:hover {
 }
 
 #map_canvas {
-	width:866px;
-	height:460px;
+	width:855px;
+	height:400px;
 	padding:20px;
 	position:relative;
-	top:-5px;
-	left:20px;
+	top:51px;
+	left:25px;
 	overflow:hidden;
 }
 
@@ -73,7 +73,7 @@ a:hover {
 #mainController {
 	height:90px;
 	position:relative;
-	top:-55px;
+	top:0px;
 	left:45px;
 }
 
