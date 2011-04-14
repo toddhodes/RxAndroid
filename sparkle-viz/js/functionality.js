@@ -6,7 +6,6 @@
   dojo.addOnLoad(function(){
     var logo = dojo.byId("logo");
     var mainButton = dojo.byId("mainButton");
-    var activated = true;
     var f1 = function() {
       b = {};
       b["t"] = -5;
@@ -27,15 +26,13 @@
 
 
     var playPauseToggle = function(){
-      if (activated) {
+      if (!playing) {
         dojo.attr(mainButton, "id", "pauseButton");
         var pauseButton = dojo.byId("pauseButton");
-        activated = false;
         playing = 1;
         doMove();
       } else {
         dojo.attr(dojo.byId("pauseButton"), "id", "mainButton");
-        activated = true;
         playing = 0;
       }
     };
