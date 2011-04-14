@@ -75,7 +75,7 @@ function doMove() {
 
   var progressPercent = 100 * ((lpos-TIMELINE_LEFT_EDGE)/TIMELINE_WIDTH);
   var curTime = getTimeAt(progressPercent);
-  updateTime(curTime, progressPercent);
+  updateTime(curTime);
 
   var curSpan = getTravelSpan(curTime);
   checkForNewSpan(curSpan);
