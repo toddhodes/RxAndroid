@@ -292,6 +292,7 @@ span.inputLabels {
 .timeMessage {
 	float:right;
 	font-weight:bold;
+	font-size: 1.4em;
 }
 
 /*Child Select Page */
