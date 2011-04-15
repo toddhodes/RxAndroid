@@ -27,24 +27,29 @@ process.addListener("SIGINT",
                     });
 
 var s = http.createServer(function(req,res) {
+  console.log(req.headers);
+
   req.on('data', function (chunk) {
     console.log('\n' + chunk);
     var locStore =
       fs.createWriteStream('data/captured-data.txt', {'flags': 'a'});
-    locStore.write(new Date() + ": " + chunk);
+    locStore.write(new Date() + ": " + chunk + '\n');
 
     var jsonStore =
       fs.createWriteStream('data/captured-data.json', {'flags': 'a'});
-    jsonStore.write((""+chunk).replace("[","").replace("]",""));
+    jsonStore.write((""+chunk).replace("[","").replace("]","") + '\n');
 
     posts++;
   });
 
   reqs++;
-  console.log(req.headers);
 
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end("OK");
+  fs.readFile('data/captured-data.json', 'UTF-8', function (err, data) {
+    if (err) throw err;
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    var delimited = data.replace(/}{/, '},\n {').replace(/}\n/g, '},\n ');
+    res.end(("[\n " + delimited + "]\n").replace(",\n ]","\n]"));
+  });
 });
 //s.listen(8421, "127.0.0.1");
 s.listen(8421);
