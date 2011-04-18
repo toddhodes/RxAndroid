@@ -22,14 +22,14 @@ function createMap() {
     zoom: 14,
     center: latlng,
     panControl: false,
+    zoomControl: true,
     zoomControlOptions: {
       position: google.maps.ControlPosition.LEFT_CENTER
     },
-    mapTypeId: google.maps.MapTypeId.TERRAIN
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map_canvas"),
                             myOptions);
-
   addBasePolygons();
 }
 
