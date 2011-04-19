@@ -5,25 +5,30 @@
   dojo.require("dojo.dnd.move");
   dojo.addOnLoad(function(){
     var logo = dojo.byId("logo");
-    var mainButton = dojo.byId("mainButton");
+    var sliderNub = dojo.byId("sliderNub");
     var f1 = function() {
       b = {};
-      b["t"] = -5;
+      b["t"] = -8;
       b["l"] = TIMELINE_LEFT_EDGE;
-      b["w"] = TIMELINE_IMG_WIDTH -26;
-      b["h"] = 53;
+      b["w"] = TIMELINE_IMG_WIDTH - 82;
+      b["h"] = 68;
       return b;
     };
 
     var moveableObj =
-      new dojo.dnd.move.constrainedMoveable("mainButton",
+      new dojo.dnd.move.constrainedMoveable("sliderNub",
                                             {handle: "mainController",
                                              constraints: f1,
                                              within: true});
-	dojo.connect(moveableObj, "onDndStart", function(){
+    dojo.connect(moveableObj, "onFirstMove", function(){
+                   //console.log("onFirstMove");
+                 });
+    dojo.connect(moveableObj, "onMoveStop", function() {
+                   //console.log("oonMoveStop");
+                 });
 
-	});
 
+    var mainButton = dojo.byId("mainButton");
 
     var playPauseToggle = function(){
       if (!playing) {
@@ -36,14 +41,7 @@
         playing = 0;
       }
     };
-
     dojo.connect(mainButton, "onclick", playPauseToggle);
-    dojo.connect(moveableObj, "onFirstMove", function(){
-                   //console.log("onFirstMove");
-                 });
-    dojo.connect(moveableObj, "onMoveStop", function() {
-                   //console.log("oonMoveStop");
-                 });
 
     dojo.connect(logo, "onclick", function() {
       //code for logo click through

@@ -1,6 +1,6 @@
 
-var TIMELINE_LEFT_EDGE = 7;
-var TIMELINE_IMG_WIDTH = 906;
+var TIMELINE_LEFT_EDGE = 0;
+var TIMELINE_IMG_WIDTH = 892;
 var TIMELINE_RIGHT_EDGE = TIMELINE_IMG_WIDTH - 70;
 var TIMELINE_WIDTH = TIMELINE_RIGHT_EDGE - TIMELINE_LEFT_EDGE;
 
@@ -134,7 +134,7 @@ function checkForNewSpan(curSpan) {
 }
 
 function init() {
-  nub = document.getElementById('mainButton');
+  nub = document.getElementById('sliderNub');
   nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
 
   createMap();

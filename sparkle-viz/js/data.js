@@ -46,8 +46,9 @@ function loadLocData() {
   var mdn = urlArg("mdn");
   if (mdn == "") mdn = "5105551212";
 
-  var url = 'http://sparkledemo.locationlabs.com/finder-att-family/'
-            + 'location_feed/' + mdn + '/playback.svc';
+  //var url = 'http://sparkledemo.locationlabs.com/'
+  //    + 'finder-att-family/location_feed/' + mdn + '/playback.svc';
+  var url = 'data/' + mdn + '.json';
 
   var xhrArgs = {
     url: url,

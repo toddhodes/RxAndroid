@@ -1,5 +1,5 @@
 
-.PHONEY: zip deploy clean
+.PHONEY: zip deploy pulldata clean
 
 zip:
 	zip /tmp/sviz.zip \
@@ -12,6 +12,9 @@ deploy:
 	scp /tmp/sviz.zip root@sparkledemo:packages/
 	ssh root@sparkledemo mkdir -p /opt/wm/apache-tomcat-5.5.28/webapps/sviz
 	ssh root@sparkledemo unzip packages/sviz.zip -d /opt/wm/apache-tomcat-5.5.28/webapps/sviz/
+
+pulldata:
+	./bin/pullLatestData.sh
 
 clean:
 	rm -f /tmp/sviz.zip
