@@ -4,6 +4,8 @@ var TIMELINE_IMG_WIDTH = 892;
 var TIMELINE_RIGHT_EDGE = TIMELINE_IMG_WIDTH - 82 - 68;
 var TIMELINE_WIDTH = TIMELINE_RIGHT_EDGE - TIMELINE_LEFT_EDGE;
 
+var data;
+
 var nub = null;
 var mapdiv = null;
 var map;
@@ -74,10 +76,10 @@ function doMove() {
   nub.style.left = lpos + 'px';
 
   var progressPercent = 100 * ((lpos-TIMELINE_LEFT_EDGE)/TIMELINE_WIDTH);
-  var curTime = getTimeAt(progressPercent);
+  var curTime = data.getTimeAt(progressPercent);
   updateTime(curTime);
 
-  var curSpan = getTravelSpan(curTime);
+  var curSpan = data.getTravelSpan(curTime);
   checkForNewSpan(curSpan);
 
   var center = curSpan.getPosAtTime(curTime);
@@ -140,11 +142,14 @@ function init() {
   createMap();
 
   var msgElem = document.getElementById('mainMsg');
-  msgElem.innerHTML = locData.length + " location updates";
+  msgElem.innerHTML = data.locData.length + " location updates";
 
   doMove(); // start animating
 }
 
 
-window.onload = loadLocData;  // load location data,
-                              //   which in turn calls init
+window.onload = function() {
+  // load location data, which in turn calls init
+  data = new DataContainer();
+  data.load();
+};
