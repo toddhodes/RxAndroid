@@ -56,7 +56,6 @@ function loadLocData() {
     url: url,
     handleAs: 'json',
     postLoad: function() {
-      //addRandomnessToLocData();
       computeTimeline();
       // now we have data; init the map
       setTimeout(init,1000);
@@ -115,15 +114,6 @@ function getTickPercentages() {
     ticks.push(getPercentAt(locData[i].location.time).toFixed(2));
   }
   return ticks;
-}
-
-function addRandomnessToLocData() {
-  console.debug("locData: ", locData);
-  var cnt = locData.length;
-  for (var i=0; i < cnt; i++) {
-    locData[i].location.lat = locData[i].location.lat + 0.1 * Math.random();
-    locData[i].location.lon = locData[i].location.lon + 0.1 * Math.random();
-  }
 }
 
 function getTimeAt(percentComplete) {
