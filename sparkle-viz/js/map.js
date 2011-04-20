@@ -12,7 +12,6 @@ var map;
 var polyline;
 var accuracyCircles = [];
 var accuracyCircleMarkers = [];
-var lastSpanSrcId;
 
 var playing = 0;
 
@@ -132,30 +131,9 @@ function updatePath() {
   // center map
   var endpt = path.getAt(path.getLength()-1);
   map.setCenter(endpt);
-
-  /*
-  var curSpan = data.getTravelSpan(curTime);
-  checkForNewSpan(curSpan);
-
-  var center = curSpan.getPosAtTime(curTime);
-  //console.debug(fmtDate(curTime) + ': ' + center);
-  map.setCenter(center);
-
-  var path = polyline.getPath();
-  path.push(center);
-  */
 }
 
 
-function checkForNewSpan(curSpan) {
-  if (curSpan.src.id != lastSpanSrcId) {
-
-    createCircle(curSpan.src);
-    polyline.getPath().push(curSpan.src.latLng());
-
-    lastSpanSrcId = curSpan.src.id;
-  }
-}
 
 function createCircle(location) {
   var locCirOptions = {
