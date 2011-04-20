@@ -1,6 +1,7 @@
 
 
-function Location(l) {
+// Class
+function Location(/*location*/ l) {
   this.id = l.id;
   this.lon = l.lon;
   this.lat = l.lat;
@@ -12,10 +13,10 @@ function Location(l) {
   };
 }
 
-
-function TravelSpan(/*Location*/src, /*Location*/dest) {
-  this.src = src;
-  this.dest = dest;
+// Class
+function TravelSpan(/*location*/ src, /*location*/ dest) {
+  this.src = new Location(src);
+  this.dest = new Location(dest);
 
   this.startTime = src.time;
   this.endTime = dest.time;
@@ -34,9 +35,15 @@ function TravelSpan(/*Location*/src, /*Location*/dest) {
 
     return new google.maps.LatLng(lat, lon);
   };
+
+  this.equals = function(cmp) {
+    if (this.src.id == cmp.src.id && this.dest.id == cmp.dest.id)
+      return true;
+    return false;
+  };
 }
 
-
+// Class
 function DataContainer() {
   this.locData = [];
   this.travelSpans = [];
@@ -148,18 +155,37 @@ function DataContainer() {
       }
     }
 
-    var dbgmsg = "tofrom: " + lastLoc + " -> " + nextLoc;
+    var dbgmsg = "on path: " + lastLoc + " -> " + nextLoc;
     if (dbgmsg != this.lastdbgmsg) {
       console.debug(dbgmsg);
       this.lastdbgmsg = dbgmsg;
     }
 
-    var span = new TravelSpan(new Location(this.locData[lastLoc].location),
-                              new Location(this.locData[nextLoc].location));
+    var span = new TravelSpan(this.locData[lastLoc].location,
+                              this.locData[nextLoc].location);
 
     return span;
   };
   this.lastdbgmsg = undefined;
+
+  this.getPathAtTime = function(time) {
+    var curSpan = this.getTravelSpan(time);
+    var posNow = curSpan.getPosAtTime(time);
+
+    var path = new google.maps.MVCArray();
+
+    var cnt = this.travelSpans.length;
+    for (var i=0; i < cnt-1; i++) {
+      path.push(this.travelSpans[i].src);
+      if (this.travelSpans[i].equals(curSpan)) {
+        break;
+      }
+    }
+    path.push(new Location({ lat: posNow.lat(),
+                             lon: posNow.lng(),
+                             unc: 0 }));
+    return path;
+  };
 
 };
 

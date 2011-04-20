@@ -17,14 +17,15 @@
 
     var moveableObj =
       new dojo.dnd.move.constrainedMoveable("sliderNub",
-                                            {handle: "mainController",
-                                             constraints: f1,
-                                             within: true});
+                                            { handle: "mainController",
+                                              constraints: f1,
+                                              within: true });
     dojo.connect(moveableObj, "onFirstMove", function(){
                    //console.log("onFirstMove");
                  });
     dojo.connect(moveableObj, "onMoveStop", function() {
-                   //console.log("oonMoveStop");
+                   //console.log("onMoveStop");
+                   updatePath();
                  });
 
 
