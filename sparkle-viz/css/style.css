@@ -194,20 +194,23 @@ span.inputLabels {
 
 
 #mainButton {
-   background: url('../images/ui/all_buttons_v2.png') no-repeat 0 0;
-   width:88px;
-   height:89px;   
+   background: url('../images/ui/all_buttons.png') no-repeat 0 0;
+   width:53px;
+   height:53px;
+   left: 27px;
+   top: 20px;
    z-index:50;
    position:absolute;
-   left:5px;
    cursor:pointer;
 }
 
 
 #mainButton:hover {
-   background: url('../images/ui/all_buttons_v2.png') no-repeat 0 -88.6px;   
-   width:88px;
-   height:89px;
+   background: url('../images/ui/all_buttons.png') no-repeat -107px 0;   
+   width:53px;
+   height:53px;
+   left: 27px;
+   top: 20px;
    z-index:50;
    position:absolute;
    cursor:pointer;
@@ -215,18 +218,22 @@ span.inputLabels {
 
 
 #pauseButton {
-   background: url('../images/ui/all_buttons_v2.png') no-repeat 5px -178px;
-   width:88px;
-   height:89px;   
+   background: url('../images/ui/all_buttons.png') no-repeat -53px 0;
+   width:53px;
+   height:53px;
+   left: 27px;
+   top: 20px;
    z-index:50;
    position:absolute;
    cursor:pointer;
 }
 
 #pauseButton:hover {
-   background: url('../images/ui/all_buttons_v2.png') no-repeat 5px -265.5px;
-   width:88px;
-   height:89px;   
+   background: url('../images/ui/all_buttons.png') no-repeat -160px 0;
+   width:53px;
+   height:53px;
+   left: 27px;
+   top: 20px;
    z-index:50;
    position:absolute;
    cursor:pointer;
@@ -301,6 +308,7 @@ span.inputLabels {
    float:right;
    font-weight:bold;
    font-size: 1.3em;
+   margin-top: 0.3em;
 }
 
 /*Child Select Page */
