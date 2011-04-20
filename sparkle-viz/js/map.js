@@ -54,9 +54,6 @@ function clearPolygons() {
 }
 
 function clearCircles() {
-  console.debug("clear #circs: ",
-                accuracyCircles.length,
-                accuracyCircleMarkers.length);
   for (var c in accuracyCircles) {
     accuracyCircles[c].setMap(null);
   }
@@ -66,7 +63,6 @@ function clearCircles() {
   accuracyCircles = [];
   accuracyCircleMarkers = [];
 }
-
 
 
 function doMove() {
@@ -107,9 +103,7 @@ function updatePath() {
                });
   polyline.setPath(path);
 
-  console.debug("# locs, circs=",
-                locs.getLength(),
-                accuracyCircles.length);
+  console.debug("#locs,circs=",locs.getLength(),accuracyCircles.length);
 
   var c, llen = locs.getLength(), clen = accuracyCircles.length;
   for (c = clen; c < llen; c++) {
@@ -118,12 +112,13 @@ function updatePath() {
       createCircle(element);
     }
   }
-  if (llen < clen) {
-    for (c = llen; c < clen; c++) {
+
+  if (llen <= clen) {
+    for (c = llen; c <= clen; c++) {
       accuracyCircles.pop().setMap(null);
     }
     clen = accuracyCircleMarkers.length;
-    for (c = llen; c < clen; c++) {
+    for (c = llen; c <= clen; c++) {
       accuracyCircleMarkers.pop().setMap(null);
     }
   }
