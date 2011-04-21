@@ -4,8 +4,9 @@
   dojo.require("dojo.dnd.Moveable");
   dojo.require("dojo.dnd.move");
   dojo.addOnLoad(function(){
-    var logo = dojo.byId("logo");
-    var sliderNub = dojo.byId("sliderNub");
+    var logo = dojo.byId("logo"),
+        sliderNub = dojo.byId("sliderNub"),
+        timeline = dojo.byId("timelineBackground");
     var f1 = function() {
       b = {};
       b["t"] = -8;
@@ -20,14 +21,13 @@
                                             { handle: "mainController",
                                               constraints: f1,
                                               within: true });
-    dojo.connect(moveableObj, "onFirstMove", function(){
-                   //console.log("onFirstMove");
+    dojo.connect(moveableObj, "onFirstMove", function(event){
+                   //console.log("onFirstMove",event);
                  });
-    dojo.connect(moveableObj, "onMoveStop", function() {
-                   //console.log("onMoveStop");
+    dojo.connect(moveableObj, "onMoveStop", function(event) {
+                   //console.log("onMoveStop",event);
                    updatePath();
                  });
-
 
     var mainButton = dojo.byId("mainButton");
 
@@ -46,7 +46,7 @@
 
     dojo.connect(logo, "onclick", function() {
       //code for logo click through
-	  window.location = "selectDeviceToLocate.html";
+      window.location = "selectDeviceToLocate.html";
     });
   });
 

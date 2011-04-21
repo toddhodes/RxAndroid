@@ -242,7 +242,7 @@ span.inputLabels {
 #sliderNub {
    width:68px;
    height:68px;
-        top: -8px;
+   top: -8px;
    position:absolute;
    background: url('../images/ui/sliderNub.png') no-repeat 0 0;   
    cursor:pointer;   

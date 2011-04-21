@@ -36,7 +36,7 @@ function createMap() {
 
 function addBasePolygons() {
   var polyOptions = {
-    strokeColor: '#9C09CD',
+    strokeColor: "#9C09CD",
     strokeOpacity: 0.7,
     strokeWeight: 2
   };
@@ -90,10 +90,13 @@ function updatePath() {
   var lpos = parseInt(nub.style.left);
   var progressPercent = 100 * ((lpos-TIMELINE_LEFT_EDGE)/TIMELINE_WIDTH);
   var curTime = data.getTimeAt(progressPercent);
+  if (!curTime) return;
+
   updateTime(curTime);
 
     // get latest path
   var locs = data.getPathAtTime(curTime);
+  if (!locs) return;
 
   var path = new google.maps.MVCArray();
 
@@ -101,9 +104,12 @@ function updatePath() {
   locs.forEach(function(element) {
                  path.push(element.latLng());
                });
-  polyline.setPath(path);
+  if (path.getLength() > 1)
+    polyline.setPath(path);
 
   console.debug("#locs,circs=",locs.getLength(),accuracyCircles.length);
+
+  // XXX highlight current circle
 
   var c, llen = locs.getLength(), clen = accuracyCircles.length;
   for (c = clen; c < llen; c++) {
@@ -125,7 +131,10 @@ function updatePath() {
 
   // center map
   var endpt = path.getAt(path.getLength()-1);
-  map.setCenter(endpt);
+  //console.debug("endpt", endpt);
+  if (endpt && endpt.lng() != Math.NaN && endpt.lat() != Math.NaN) {
+    map.setCenter(endpt);
+  }
 }
 
 

@@ -23,9 +23,12 @@ function TravelSpan(/*location*/ src, /*location*/ dest) {
   this.timeSpan = dest.time - src.time;
 
   this.getPosAtTime = function(time) {
+    if (!this.timeSpan)
+      return undefined;
+
     var frac_dest = (time - this.startTime) / this.timeSpan;
     var frac_src = (this.endTime - time) / this.timeSpan;
-    //console.debug((frac_dest*100).toFixed(0) + "% along path");
+    //console.debug((frac_dest*100).toFixed(0) + "% along dest");
 
     var lat = (this.src.latLng().lat() * frac_src)
                 + (this.dest.latLng().lat() * frac_dest);
@@ -171,6 +174,9 @@ function DataContainer() {
   this.getPathAtTime = function(time) {
     var curSpan = this.getTravelSpan(time);
     var posNow = curSpan.getPosAtTime(time);
+    if (!posNow)
+      return undefined;
+    //console.debug("posNow", posNow);
 
     var path = new google.maps.MVCArray();
 
