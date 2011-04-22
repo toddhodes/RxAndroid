@@ -44,6 +44,7 @@
                   class="mainMessage">0 locate updates</span>
           </div>
         </div>
+
         <div id="mainController">
           <div id="mainButton">
           </div>
@@ -52,6 +53,18 @@
             </div>
           </div>
         </div>
+
+        <div id="calendar">
+          <form>
+            <input type="button" value="< prevDay" 
+                   onclick="decrOffset();">
+            <input type="button" value="nextDay >" 
+                   onclick="incrOffset();">
+          </form>
+          <div id="offset_div">date: now</div>
+
+        </div>
+
       </div>
     
     </div>

@@ -53,8 +53,8 @@ function DataContainer() {
   this.beginTime = 0;
   this.endTime = 0;
 
-  this.load = function() {
-    locData = [];
+  this.load = function(dayOffset) {
+    this.locData = [];
     var mdn = urlArg("mdn");
     if (mdn == "") mdn = "5105551212";
 
@@ -78,8 +78,11 @@ function DataContainer() {
         setTimeout(init,1000);
       },
       load: function(data) {
+        var du = new DateUtil();
         for (var b in data) {
-          this.container.locData.push(data[b]);
+          var l = data[b].location;
+          if(du.isOnThisDayOffset(l.time, dayOffset))
+            this.container.locData.push(data[b]);
         }
         this.postLoad();
       },
@@ -111,6 +114,8 @@ function DataContainer() {
       this.travelSpans.push(travelSpan);
     }
     //console.debug("travelspans: ", this.travelSpans);
+
+    dojo.query(".tick").orphan();
 
     var ticks = this.getTickPercentages();
     console.log("ticks: " , ticks);
@@ -196,6 +201,49 @@ function DataContainer() {
 };
 
 
+//Class
+function DateUtil() {
+
+  this.startOfDay = function(date) {
+    var day = new Date(date.getTime());
+    day.setHours(0);
+    day.setMinutes(0);
+    day.setSeconds(0);
+    day.setMilliseconds(0);
+    return day;
+  };
+
+  this.endOfDay = function(date) {
+    var day = new Date(date.getTime());
+    day.setHours(23);
+    day.setMinutes(59);
+    day.setSeconds(59);
+    day.setMilliseconds(999);
+    return day;
+  };
+
+  this.isOnThisDay = function(timeSecs, thisdate) {
+    var dayStart = this.startOfDay(thisdate);
+    var dayEnd = this.endOfDay(thisdate);
+    var timeMillis = timeSecs * 1000;
+    if (dayStart.getTime() <= timeMillis
+          && timeMillis <= dayEnd.getTime())
+      return true;
+    return false;
+  };
+
+  this.dateFromDayOffset = function(dayOffset) {
+    var time = new Date();
+    time.setDate(time.getDate() + dayOffset);
+    return time;
+  };
+
+  this.isOnThisDayOffset = function(timeSecs, offset) {
+    var thisdate = this.dateFromDayOffset(offset);
+    var is = this.isOnThisDay(timeSecs, thisdate);
+    return is;
+  };
+}
 
 
 

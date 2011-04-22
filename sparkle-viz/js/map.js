@@ -7,6 +7,7 @@ var TIMELINE_WIDTH = TIMELINE_RIGHT_EDGE - TIMELINE_LEFT_EDGE;
 
 // DataContainer
 var data;
+var dateutil = new DateUtil();
 
 // divs
 var nub;
@@ -19,6 +20,7 @@ var accuracyCircleMarkers = [];
 
 // play state
 var playing = 0;
+var dayOffset = 0;
 
 // reverse geocode + cache
 var geocoder = new google.maps.Geocoder();
@@ -225,3 +227,20 @@ window.onload = function() {
   data = new DataContainer();
   data.load();
 };
+
+
+
+// calendar controls
+
+function incrOffset() {
+  dayOffset++;
+  dojo.byId('offset_div').innerHTML =
+    'date: ' + dateutil.dateFromDayOffset(dayOffset).format("mmmm dS, yyyy");
+  data.load(dayOffset);
+}
+function decrOffset() {
+  dayOffset--;
+  dojo.byId('offset_div').innerHTML =
+    'date: ' + dateutil.dateFromDayOffset(dayOffset).format("mmmm dS, yyyy");
+  data.load(dayOffset);
+}
