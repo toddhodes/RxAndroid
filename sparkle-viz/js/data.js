@@ -73,9 +73,10 @@ function DataContainer() {
       handleAs: 'json',
       container: this,
       postLoad: function() {
-        this.container.computeTimeline();
-        // now we have data; init the map
-        setTimeout(init,1000);
+        if(this.container.computeTimeline()) {
+          // we have data
+          setTimeout(refresh,100);
+        }
       },
       load: function(data) {
         var du = new DateUtil();
@@ -98,11 +99,12 @@ function DataContainer() {
 
   this.computeTimeline = function() {
     this.travelSpans = [];
+    dojo.query(".tick").orphan();
 
     var cnt = this.locData.length;
     if (cnt < 2) {
       alert("Need at least two locations to animate anything");
-      return;
+      return false;
     }
 
     this.beginTime = this.locData[0].location.time;
@@ -115,8 +117,6 @@ function DataContainer() {
     }
     //console.debug("travelspans: ", this.travelSpans);
 
-    dojo.query(".tick").orphan();
-
     var ticks = this.getTickPercentages();
     console.log("ticks: " , ticks);
     var tickHolder = dojo.byId("timelineBackground");
@@ -127,6 +127,7 @@ function DataContainer() {
                           }, tickHolder);
     }
 
+    return true;
   };
 
   this.getTickPercentages = function() {

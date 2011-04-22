@@ -208,15 +208,13 @@ function createMarker(ll, text) {
   accuracyCircleMarkers.push(marker);
 }
 
-function init() {
-  nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
-
-  createMap();
-
+function refresh() {
   var msgElem = document.getElementById('mainMsg');
   msgElem.innerHTML = data.locData.length + " location updates";
 
-  doMove(); // start animating
+  updateTime(dateutil.dateFromDayOffset(dayOffset).getTime()/1000);
+  nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
+  clearPolygons();
 }
 
 
@@ -226,6 +224,9 @@ window.onload = function() {
   // load location data, which in turn calls init
   data = new DataContainer();
   data.load();
+
+  createMap();
+  nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
 };
 
 
@@ -234,13 +235,11 @@ window.onload = function() {
 
 function incrOffset() {
   dayOffset++;
-  dojo.byId('offset_div').innerHTML =
-    'date: ' + dateutil.dateFromDayOffset(dayOffset).format("mmmm dS, yyyy");
+  updateTime(dateutil.dateFromDayOffset(dayOffset).getTime()/1000);
   data.load(dayOffset);
 }
 function decrOffset() {
   dayOffset--;
-  dojo.byId('offset_div').innerHTML =
-    'date: ' + dateutil.dateFromDayOffset(dayOffset).format("mmmm dS, yyyy");
+  updateTime(dateutil.dateFromDayOffset(dayOffset).getTime()/1000);
   data.load(dayOffset);
 }
