@@ -51,6 +51,13 @@
   });
 
 
+  if (!Object.keys) {
+    Object.keys = function(obj) {
+        var keys = new Array();
+        for (k in obj) if (obj.hasOwnProperty(k)) keys.push(k);
+        return keys;
+    };
+  }
 
 
 function updateTime(time, progressPercent) {
@@ -79,3 +86,4 @@ function urlArg(name) {
   else
     return results[1];
 }
+

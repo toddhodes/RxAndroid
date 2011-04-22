@@ -4,16 +4,26 @@ var TIMELINE_IMG_WIDTH = 892;
 var TIMELINE_RIGHT_EDGE = TIMELINE_IMG_WIDTH - 82 - 68;
 var TIMELINE_WIDTH = TIMELINE_RIGHT_EDGE - TIMELINE_LEFT_EDGE;
 
+
+// DataContainer
 var data;
 
+// divs
 var nub;
-var mapdiv;
 var map;
+
+// map overlays
 var polyline;
 var accuracyCircles = [];
 var accuracyCircleMarkers = [];
 
+// play state
 var playing = 0;
+
+// reverse geocode + cache
+var geocoder = new google.maps.Geocoder();
+var revgeocodeCache = {};
+var geomisses =0, geohits =0;
 
 
 function createMap() {
@@ -107,7 +117,7 @@ function updatePath() {
   if (path.getLength() > 1)
     polyline.setPath(path);
 
-  console.debug("#locs,circs=",locs.getLength(),accuracyCircles.length);
+  //console.debug("#locs,circs=",locs.getLength(),accuracyCircles.length);
 
   // XXX highlight current circle
 
@@ -118,6 +128,7 @@ function updatePath() {
       createCircle(element);
     }
   }
+  console.debug("revgeo #hits,#misses=",geohits,geomisses);
 
   if (llen <= clen) {
     for (c = llen; c <= clen; c++) {
@@ -153,28 +164,46 @@ function createCircle(location) {
   var circ = new google.maps.Circle(locCirOptions);
   accuracyCircles.push(circ);
 
-    // add address info to accuracy circle
-    var geocoder = new google.maps.Geocoder();
+  function addCircleAddresses(location) {
     var ll = location.latLng();
+    if (revgeocodeCache[location.id]) {
+      var text = fmtDate(location.time) + ": "
+                   + revgeocodeCache[location.id];
+      createMarker(ll, text);
+      return;
+    }
+
+    // ll --> addr not cached; retrieve
     geocoder.geocode({'latLng': ll}, function(results, status) {
       var text = fmtDate(location.time) + ": ";
 
       if (status == google.maps.GeocoderStatus.OK && results[0]) {
         console.debug(results[0].formatted_address);
         text += results[0].formatted_address;
+        revgeocodeCache[location.id] = results[0].formatted_address;
+        geohits++;
+        //console.debug("new revgeo cache", Object.keys(revgeocodeCache));
       } else {
         text += ll;
+        geomisses++;
+        // many misses due to rate limiting. should manage this better
       }
-
-      var marker = new google.maps.Marker({
-        position: location.latLng(),
-        map: map,
-        icon: 'images/circle_transparent.png',
-        title: text
-      });
-      accuracyCircleMarkers.push(marker);
+      createMarker(ll, text);
     });
+  }
 
+  // add address info to accuracy circle via marker
+  addCircleAddresses(location);
+}
+
+function createMarker(ll, text) {
+  var marker = new google.maps.Marker({
+    position: ll,
+    map: map,
+    icon: 'images/circle_transparent.png',
+    title: text
+  });
+  accuracyCircleMarkers.push(marker);
 }
 
 function init() {
