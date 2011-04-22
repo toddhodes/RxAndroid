@@ -103,7 +103,7 @@ function DataContainer() {
 
     var cnt = this.locData.length;
     if (cnt < 2) {
-      alert("Need at least two locations to animate anything");
+      //alert("Need at least two locations to animate anything");
       return false;
     }
 
