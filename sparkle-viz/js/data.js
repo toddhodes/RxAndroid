@@ -185,7 +185,7 @@ function DataContainer() {
     var path = new google.maps.MVCArray();
 
     var cnt = this.travelSpans.length;
-    for (var i=0; i < cnt-1; i++) {
+    for (var i=0; i < cnt; i++) {
       path.push(this.travelSpans[i].src);
       if (this.travelSpans[i].equals(curSpan)) {
         break;

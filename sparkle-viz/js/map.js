@@ -70,11 +70,14 @@ function clearCircles() {
   for (var c in accuracyCircles) {
     accuracyCircles[c].setMap(null);
   }
+  accuracyCircles = [];
   for (var cm in accuracyCircleMarkers) {
     accuracyCircleMarkers[cm].setMap(null);
   }
-  accuracyCircles = [];
   accuracyCircleMarkers = [];
+  if (highlightCircle)
+    highlightCircle.setMap(null);
+  highlightCircle = undefined;
 }
 
 
@@ -117,9 +120,7 @@ function updatePath() {
   if (path.getLength() > 1)
     polyline.setPath(path);
 
-    // circles
-    //   two less than #locations: last is path endpoint,
-    //     second-to-last is the highlight circle
+    // circles (one less than #locations: last is path endpoint)
   var c, llen = locs.getLength(), clen = accuracyCircles.length;
   //console.debug("#locs,circs=",llen,clen);
   for (c = clen; c < llen-1; c++) {
@@ -128,7 +129,7 @@ function updatePath() {
       createCircle(element);
     }
   }
-  console.debug("revgeo #hits,#misses=",geohits,geomisses);
+  //console.debug("revgeo #hits,#misses=",geohits,geomisses);
 
   if (llen <= clen) {
     for (c = llen; c <= clen; c++) {
