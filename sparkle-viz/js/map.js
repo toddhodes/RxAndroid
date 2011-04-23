@@ -17,6 +17,7 @@ var map;
 var polyline;
 var accuracyCircles = [];
 var accuracyCircleMarkers = [];
+var highlightCircle;
 
 // play state
 var playing = 0;
@@ -110,21 +111,18 @@ function updatePath() {
   var locs = data.getPathAtTime(curTime);
   if (!locs) return;
 
-  var path = new google.maps.MVCArray();
-
     // line
-  locs.forEach(function(element) {
-                 path.push(element.latLng());
-               });
+  var path = new google.maps.MVCArray();
+  locs.forEach(function(element) { path.push(element.latLng()); });
   if (path.getLength() > 1)
     polyline.setPath(path);
 
-  //console.debug("#locs,circs=",locs.getLength(),accuracyCircles.length);
-
-  // XXX highlight current circle
-
+    // circles
+    //   two less than #locations: last is path endpoint,
+    //     second-to-last is the highlight circle
   var c, llen = locs.getLength(), clen = accuracyCircles.length;
-  for (c = clen; c < llen; c++) {
+  //console.debug("#locs,circs=",llen,clen);
+  for (c = clen; c < llen-1; c++) {
     var element = locs.getAt(c);
     if (element.id) {
       createCircle(element);
@@ -141,6 +139,25 @@ function updatePath() {
       accuracyCircleMarkers.pop().setMap(null);
     }
   }
+
+    // update highlight circle if lengths don't match
+  if (llen > 1 && llen-1 != clen) {
+    if (highlightCircle)
+      highlightCircle.setMap(null);
+
+    var highlCirOptions = {
+      strokeColor: '#008800',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#008800',
+      fillOpacity: 0.35,
+      map: map,
+      center: locs.getAt(llen-2).latLng(),
+      radius: locs.getAt(llen-2).unc
+    };
+    highlightCircle = new google.maps.Circle(highlCirOptions);
+  }
+
 
   // center map
   var endpt = path.getAt(path.getLength()-1);

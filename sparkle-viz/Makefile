@@ -6,6 +6,7 @@ zip:
 		images/*.png images/*.jpg images/ui/*.png \
 		css/*.css \
 		js/*.js \
+		data/??????????.json \
 		*.html
 
 deploy: zip
