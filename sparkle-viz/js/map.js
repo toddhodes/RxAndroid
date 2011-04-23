@@ -213,8 +213,8 @@ function refresh() {
   msgElem.innerHTML = data.locData.length + " location updates";
 
   updateTime(dateutil.dateFromDayOffset(dayOffset).getTime()/1000);
-  nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
   clearPolygons();
+  updatePath();
 }
 
 
