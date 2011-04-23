@@ -73,10 +73,8 @@ function DataContainer() {
       handleAs: 'json',
       container: this,
       postLoad: function() {
-        if(this.container.computeTimeline()) {
-          // we have data
-          setTimeout(refresh,100);
-        }
+        this.container.computeTimeline();
+        setTimeout(refresh,100); // update UI to new data
       },
       load: function(data) {
         var du = new DateUtil();

@@ -220,13 +220,13 @@ function refresh() {
 
 window.onload = function() {
   nub = document.getElementById('sliderNub');
+  nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // initial position
 
-  // load location data, which in turn calls init
+  // load location data
   data = new DataContainer();
   data.load();
 
   createMap();
-  nub.style.left = TIMELINE_LEFT_EDGE + 'px'; // set its initial position
 };
 
 
