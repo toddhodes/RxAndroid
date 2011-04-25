@@ -147,7 +147,7 @@ function DataContainer() {
   };
 
   this.getTravelSpan = function(time) {
-    //console.debug("getTravelLoc(" + time + ")");
+    //console.debug("getTravelLoc(" + time+ "), beginTime="+ this.beginTime);
     var lastLoc = 0;
     var nextLoc = 1;
 
@@ -160,6 +160,15 @@ function DataContainer() {
         nextLoc = i;
         break;
       }
+    }
+
+    if (time == this.beginTime) {
+      lastLoc = 0;
+      nextLoc = 1;
+    }
+    if (time == this.endTime) {
+      lastLoc = cnt-1;
+      nextLoc = 0;
     }
 
     var dbgmsg = "on path: " + lastLoc + " -> " + nextLoc;
@@ -191,6 +200,12 @@ function DataContainer() {
         break;
       }
     }
+
+    // special case last span dest, which otherwise wouldn't get added
+    if (time == this.endTime) {
+      path.push(this.travelSpans[i-1].dest);
+    }
+
     path.push(new Location({ lat: posNow.lat(),
                              lon: posNow.lng(),
                              unc: 0 }));
