@@ -163,12 +163,30 @@ function updatePath() {
   // center map
   var endpt = path.getAt(path.getLength()-1);
   //console.debug("endpt", endpt);
-  if (endpt && endpt.lng() != Math.NaN && endpt.lat() != Math.NaN) {
-    map.setCenter(endpt);
+  if (endpt && !isNaN(endpt.lng()) && !isNaN(endpt.lat())) {
+    var currBounds = map.getBounds();
+    if (!latLngIsInsideBoundsExcludeEdge(endpt, currBounds, 15)) {
+      //console.debug(currBounds);
+      //map.fitBounds(currBounds.extend(endpt));
+      map.panTo(endpt);
+    }
   }
 }
 
-
+function latLngIsInsideBoundsExcludeEdge(latLng, bounds, edgePercent) {
+  if (!bounds.contains(latLng)) return false;
+  var ne = bounds.getNorthEast();
+  var sw = bounds.getSouthWest();
+  var width = ne.lng() - sw.lng();
+  var height = ne.lat() - sw.lat();
+  var percFromLeft = (latLng.lng() - sw.lng()) / width * 100;
+  var percFromBottom = (latLng.lat() - sw.lat()) / height * 100;
+  //console.debug("percFromLeft/Bottom", percFromLeft, percFromBottom);
+  if (percFromLeft <= edgePercent || percFromLeft >= 100-edgePercent
+      || percFromBottom <= edgePercent || percFromBottom >= 100-edgePercent)
+    return false;
+  return true;
+}
 
 function createCircle(location) {
   var locCirOptions = {

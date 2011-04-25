@@ -61,8 +61,6 @@ function DataContainer() {
     // due to XSS security issues, generally can't access
     // sparkledemo; thus we need this for local devel
     var url = 'data/' + mdn + '.json';
-
-    console.debug("hostname=" + window.location.hostname);
     if (window.location.hostname == "sparkledemo.locationlabs.com") {
       url = 'http://sparkledemo.locationlabs.com/'
               + 'finder-att-family/location_feed/' + mdn + '/playback.svc';
