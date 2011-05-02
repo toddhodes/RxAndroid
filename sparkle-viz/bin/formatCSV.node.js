@@ -13,7 +13,7 @@ if (process.argv.length != 3) {
 }
 
 
-#puts('formatting data from: ' + process.argv[2]);
+//puts('formatting data from: ' + process.argv[2]);
 
 var mdn = process.argv[2].split("/")[1].split(".")[0];
 
