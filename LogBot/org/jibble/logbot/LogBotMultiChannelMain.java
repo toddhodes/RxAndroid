@@ -38,7 +38,7 @@ public class LogBotMultiChannelMain {
           writer.newLine();
           writer.write("    $channel = \"" + channel + "\";");
           writer.newLine();
-          writer.write("    $nick = \"" + nick + "\";");
+          writer.write("    $nick = \"" + nick + "_" +cname + "\";");
           writer.newLine();
           writer.write("?>");
           writer.flush();
