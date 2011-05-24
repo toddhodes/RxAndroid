@@ -4,5 +4,5 @@ all:
 	javac -cp lib/pircbot.jar org/jibble/logbot/*java
 
 run:
-	java -classpath .:./lib/pircbot.jar org.jibble.logbot.LogBotMultiChannelMain multi.ini
+	java -classpath .:./lib/pircbot.jar org.jibble.logbot.LogBotMultiChannelMain multi.ini > /dev/null 2>&1
 
