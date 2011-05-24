@@ -1,4 +1,4 @@
-.PHONY: all run
+.PHONY: all run clean
 
 all:
 	javac -cp lib/pircbot.jar org/jibble/logbot/*java
@@ -6,3 +6,5 @@ all:
 run:
 	java -classpath .:./lib/pircbot.jar org.jibble.logbot.LogBotMultiChannelMain multi.ini > /dev/null 2>&1
 
+clean:
+	rm -f ./org/jibble/logbot/*.class
