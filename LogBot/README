@@ -1,0 +1,9 @@
+
+  org/jibble/logbot/LogBotMultiChannelMain.java
+
+created based on 
+
+  org/jibble/logbot/LogBotMain.java
+
+but kept the org/jibble/logbot package name for simplicity.
+
