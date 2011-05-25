@@ -1,6 +1,8 @@
-.PHONY: all run clean
+.PHONY: all compile run clean
 
-all:
+all: compile run
+
+compile:
 	javac -cp lib/pircbot.jar org/jibble/logbot/*java
 
 run:

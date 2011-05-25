@@ -134,6 +134,7 @@ public class LogBot extends PircBot {
         append(NAVY, "* Disconnected.");
         while (!isConnected()) {
             try {
+                try { Thread.sleep(30000); } catch (Exception e) { }
                 reconnect();
             }
             catch (Exception e) {
