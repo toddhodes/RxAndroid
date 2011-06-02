@@ -13,7 +13,7 @@
 
     <h2>IRC Log for <?php echo($date); ?></h2>
     <p>
-     Timestamps are in GMT/BST.
+     Timestamps are in PST/PDT.
     </p>
     <p>
     

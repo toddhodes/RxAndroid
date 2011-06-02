@@ -4,12 +4,13 @@
 on
  <a href="irc://<?php echo($server . "/" . substr($channel, 1)); ?>"><?php echo($server); ?></a>
 </p>
-<p> source:  <b>svn://svn/wm/users/todd/LogBot</b> </p>
-<p> install:  <b>bugz:/opt/LogBot</b> </p>
+<p> source:  <b>svn://svn/wm/users/todd/LogBot</b> <br/> 
+    install:  <b>bugz:/opt/LogBot</b> 
+</p>
 
- <p>
-     <a href="../">All Channels</a>
- </p>
+<p>
+   <a href="../">All Channels</a>
+</p>
 
 
 </body>
