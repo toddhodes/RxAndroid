@@ -3,7 +3,7 @@ var options =
   { server: 'irc'
   , port: 6667
   , nick: 'nodebot'
-  , channels: [ '#test', '#engr' ]
+  , channels: [ '#test' ]
   };
 
 jerk( function( j ) {
