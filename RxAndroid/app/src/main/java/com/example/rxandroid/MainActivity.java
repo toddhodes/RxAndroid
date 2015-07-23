@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,7 @@ import static rx.android.content.ContentObservable.fromBroadcast;
 
 public class MainActivity extends ActionBarActivity {
 
+    public static final String TAG = "Rx";
     private CompositeSubscription _subscriptions;
     @InjectView(R.id.searchField) EditText searchField;
     @InjectView(R.id.resultList) RecyclerView resultList;
@@ -91,11 +93,13 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onCompleted() {
                 Timber.d("geocoder completed");
+                Log.d(TAG, "geocoder completed");
             }
 
             @Override
             public void onError(Throwable e) {
                 Timber.d("geocoder error: " + e.getMessage());
+                Log.d(TAG, "geocoder error: " + e.getMessage());
                 new AlertDialog.Builder(MainActivity.this).setTitle("Location Error").setMessage("Failed to find your current zip code").setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
