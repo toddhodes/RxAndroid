@@ -101,7 +101,10 @@ public class MainActivity extends ActionBarActivity {
                 Timber.d("geocoder error: " + e.getMessage());
                 Log.d(TAG, "geocoder error: " + e.getMessage());
                 e.printStackTrace();
-                new AlertDialog.Builder(MainActivity.this).setTitle("Location Error").setMessage("Failed to find your current zip code").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(MainActivity.this)
+                               .setTitle("Location Error")
+                               .setMessage("Failed to find your current zip code")
+                               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -159,7 +162,10 @@ public class MainActivity extends ActionBarActivity {
                 boolean noConnectivity = intent.getBooleanExtra(
                         ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
                 if (noConnectivity) {
-                    new AlertDialog.Builder(MainActivity.this).setTitle("Connectivity Error").setMessage("Network access is currently unavailable. Please reconnect.").setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                    new AlertDialog.Builder(MainActivity.this)
+                                   .setTitle("Connectivity Error")
+                                   .setMessage("Network access is currently unavailable. Please reconnect.")
+                                   .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -219,6 +225,8 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Log.d(TAG, "we're abusing the Setting button, loads a mixed district.");
+            searchField.setText("30030");
             return true;
         }
         if (id == R.id.action_quit) {
