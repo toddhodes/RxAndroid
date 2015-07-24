@@ -42,5 +42,6 @@ https://github.com/mcharmas/Android-ReactiveLocation
 
 or, feel free to go it alone.
 
+a sample solution is in the 'solution' branch.  (this is 'master')
 
 
