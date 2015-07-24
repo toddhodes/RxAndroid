@@ -32,7 +32,9 @@ public class ReverseGeocodeLocationService {
                         public void onLocationChanged(Location location) {
                             try {
                                 Log.d(TAG, "location: " + location);
-                                Observable.from(geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),1)).take(1).subscribe(new Action1<Address>() {
+                                Observable.from(geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),1))
+                                          .take(1)
+                                          .subscribe(new Action1<Address>() {
                                     @Override
                                     public void call(Address address) {
                                         subscriber.onNext(address.getPostalCode());
@@ -45,14 +47,10 @@ public class ReverseGeocodeLocationService {
                         }
 
                         @Override
-                        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                        }
+                        public void onStatusChanged(String provider, int status, Bundle extras) { }
 
                         @Override
-                        public void onProviderEnabled(String provider) {
-
-                        }
+                        public void onProviderEnabled(String provider) { }
 
                         @Override
                         public void onProviderDisabled(String provider) {

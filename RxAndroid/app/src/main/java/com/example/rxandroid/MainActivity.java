@@ -41,7 +41,6 @@ import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
-import timber.log.Timber;
 
 import static rx.android.app.AppObservable.bindActivity;
 import static rx.android.content.ContentObservable.fromBroadcast;
@@ -81,24 +80,29 @@ public class MainActivity extends ActionBarActivity {
 
         LocationManager locationManager = (android.location.LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Geocoder geocoder = new Geocoder(this);
+
+        //
+        // TODO: replace the below with your own fully-reactive version.  call it as
+        // _subscriptions.add(bindActivity(this, RxReverseGeocodeLocationService.getCurrentZip(this)
+        //
+
         _subscriptions.add(bindActivity(this, ReverseGeocodeLocationService.getCurrentZip(locationManager, geocoder)
-                //.subscribeOn(Schedulers.io())
+                //.subscribeOn(Schedulers.io())   // NOTE: we actually need to sub on the UI thread.  can you see why?
                 .subscribeOn(AndroidSchedulers.mainThread()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onZipCodeReceived()));
+
     }
 
     private Observer<String> onZipCodeReceived() {
         return new Observer<String>() {
             @Override
             public void onCompleted() {
-                Timber.d("geocoder completed");
                 Log.d(TAG, "geocoder completed");
             }
 
             @Override
             public void onError(Throwable e) {
-                Timber.d("geocoder error: " + e.getMessage());
                 Log.d(TAG, "geocoder error: " + e.getMessage());
                 e.printStackTrace();
                 new AlertDialog.Builder(MainActivity.this)
