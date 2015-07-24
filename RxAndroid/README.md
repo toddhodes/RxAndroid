@@ -31,7 +31,7 @@ the method
 
     public static Observable<String> getCurrentZip(Context context) { }
 
-using the RxAndroid combining pattern -- a series of maps.  Study ReverseGeocodeLocationService, which
+using the RxAndroid combining pattern -- a series of filters (maps).  Study ReverseGeocodeLocationService, which
 under the hood is really a series of steps -- first get a location, then, reverse geocode that 
 location to a list of addresses, then choose an address (e.g., the first one is fine), then, get 
 the postal code of the address.  Make your method do it as these four explicit steps.

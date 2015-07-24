@@ -17,10 +17,9 @@ import java.util.List;
  */
 public class RepresentativeAdapter extends RecyclerView.Adapter<RepresentativeAdapter.ViewHolder>{
 
-    private List<Representative> representatives = new ArrayList<>();
+    private List<Representative> representatives = new ArrayList<Representative>();
 
-    public RepresentativeAdapter() {
-    }
+    public RepresentativeAdapter() { }
 
     public void swap(List<Representative> reps) {
         representatives.clear();
