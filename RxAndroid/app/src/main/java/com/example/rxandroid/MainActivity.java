@@ -82,10 +82,10 @@ public class MainActivity extends ActionBarActivity {
         LocationManager locationManager = (android.location.LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Geocoder geocoder = new Geocoder(this);
         _subscriptions.add(bindActivity(this, ReverseGeocodeLocationService.getCurrentZip(locationManager, geocoder)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()))
+                //.subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread()))
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onZipCodeReceived()));
-
     }
 
     private Observer<String> onZipCodeReceived() {
@@ -100,6 +100,7 @@ public class MainActivity extends ActionBarActivity {
             public void onError(Throwable e) {
                 Timber.d("geocoder error: " + e.getMessage());
                 Log.d(TAG, "geocoder error: " + e.getMessage());
+                e.printStackTrace();
                 new AlertDialog.Builder(MainActivity.this).setTitle("Location Error").setMessage("Failed to find your current zip code").setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

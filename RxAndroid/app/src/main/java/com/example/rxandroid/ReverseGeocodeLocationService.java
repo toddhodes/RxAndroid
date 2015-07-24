@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -16,6 +17,8 @@ import rx.functions.Action1;
 /**
  */
 public class ReverseGeocodeLocationService {
+
+    public static final String TAG = "Rx";
 
     public static Observable<String> getCurrentZip(final LocationManager locationManager, final Geocoder geocoder) {
         return Observable.create(new Observable.OnSubscribe<String>() {
@@ -28,6 +31,7 @@ public class ReverseGeocodeLocationService {
                         @Override
                         public void onLocationChanged(Location location) {
                             try {
+                                Log.d(TAG, "location: " + location);
                                 Observable.from(geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),1)).take(1).subscribe(new Action1<Address>() {
                                     @Override
                                     public void call(Address address) {
