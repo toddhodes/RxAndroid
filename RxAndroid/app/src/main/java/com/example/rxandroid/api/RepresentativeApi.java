@@ -34,7 +34,8 @@ public class RepresentativeApi {
         }).flatMap(new Func1<Representative, Observable<? extends  Representative>>() {
             @Override
             public Observable<? extends  Representative> call(Representative representative) {
-                return Observable.zip(Observable.just(representative),isRepresentativeFunny(representative),
+                return Observable.zip(Observable.just(representative),
+                                      isRepresentativeFunny(representative),
                                       new Func2<Representative, Boolean, Representative>() {
                     @Override
                     public Representative call(Representative representative, Boolean aBoolean) {
