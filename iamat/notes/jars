@@ -1,2 +1,0 @@
-removed xmlParserApis.jar out of $CATALINA_HOME/common/endorsed/ , it was screwing things up
-also, removed xml-apis.jar out of ext/lib, didn't need it
